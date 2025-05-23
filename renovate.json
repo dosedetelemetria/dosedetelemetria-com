@@ -5,7 +5,14 @@
     {
       "matchManagers": ["github-actions"],
       "groupName": "github-actions",
-      "extends": ["schedule:weekly"]
+      "extends": ["schedule:weekly"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["npm"],
+      "groupName": "npm",
+      "extends": ["schedule:weekly"],
+      "automerge": true
     }
   ]
 }
