@@ -140,8 +140,8 @@ const Products = () => {
                 </tr>
                 <tr>
                   <td className="py-4 px-6 text-white">Preço</td>
-                  <td className="py-4 px-6 text-center font-semibold text-white">€997</td>
-                  <td className="py-4 px-6 text-center font-semibold text-white">€397</td>
+                  <td className="py-4 px-6 text-center font-semibold text-white">R$ 5.997,00</td>
+                  <td className="py-4 px-6 text-center font-semibold text-white">R$ 2.397,00</td>
                 </tr>
                 <tr className="bg-telemetria-dark/50">
                   <td className="py-4 px-6 text-white">Disponibilidade</td>
