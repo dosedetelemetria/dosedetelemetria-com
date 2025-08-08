@@ -151,8 +151,8 @@ const Products = () => {
                     </span>
                   </td>
                   <td className="py-4 px-6 text-center">
-                    <span className="inline-block px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
-                      Disponível
+                    <span className="inline-block px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">
+                      Em breve
                     </span>
                   </td>
                 </tr>

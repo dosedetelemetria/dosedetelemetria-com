@@ -98,9 +98,6 @@ const Index = () => {
             
             <div className="glass-morphism rounded-xl p-8 flex flex-col h-full">
               <h3 className="text-2xl font-bold mb-4">Trilha OTel</h3>
-              <div className="inline-block ml-0 mb-4 px-3 py-1 bg-telemetria-yellow/20 border border-telemetria-yellow/30 text-xs rounded-full text-telemetria-yellow">
-                Disponível agora
-              </div>
               <p className="text-white/80 mb-6">
                 Curso completo disponível no seu ritmo, com aulas gravadas, exercícios práticos e acesso vitalício. 
                 Do básico ao avançado em observabilidade e instrumentação.
