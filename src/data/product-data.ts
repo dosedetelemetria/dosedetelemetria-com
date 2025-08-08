@@ -398,9 +398,8 @@ export const productData: Product[] = [
       }
     ],
     price: "R$ 2.397,00",
-    ctaText: "Comprar agora",
-    ctaLink: "https://mn.dosedetelemetria.com/users/onboarding/choose_plan?plan_id=1764302&bundle_token=f055362f994c50af8e95a84c787cc1fb&utm_source=manual",
-    available: true,
-    popular: true
+    ctaText: "Lista de espera",
+    ctaLink: "/waiting-list",
+    available: false
   }
 ];
