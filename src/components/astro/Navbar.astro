@@ -1,0 +1,179 @@
+---
+import { cn } from "../../lib/utils";
+
+// Get current pathname for active link detection
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { name: "Início", path: "/" },
+  { name: "Produtos", path: "/products" },
+];
+
+const isActive = (path: string) => {
+  if (path === "/" && pathname === "/") return true;
+  if (path !== "/" && !path.startsWith("http") && pathname.startsWith(path)) return true;
+  return false;
+};
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-transparent py-5 transition-all duration-300" id="navbar">
+  <div class="container-custom">
+    <div class="flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 z-50">
+<img 
+          src="/logo.svg" 
+          alt="Dose de Telemetria" 
+          class="h-10 w-10"
+        />
+        <span class="font-bold text-xl tracking-tight">Dose de Telemetria</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-8">
+        {navLinks.map((link) => (
+          <a
+            href={link.path}
+            class={cn(
+"hover-link text-sm font-medium transition-colors hover:text-telemetria-yellow",
+isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
+            )}
+          >
+            {link.name}
+          </a>
+        ))}
+        <a 
+href="https://www.youtube.com/@DoseDeTelemetria"
+          target="_blank" 
+          rel="noopener noreferrer"
+class="bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 font-medium px-4 py-2 rounded-md transition-colors inline-flex items-center justify-center text-sm"
+        >
+Inscrever-se
+        </a>
+      </nav>
+
+      <!-- Mobile Toggle Button (will be enhanced with JavaScript) -->
+      <button
+        class="md:hidden z-50 text-white focus:outline-none"
+        id="mobile-menu-button"
+        aria-label="Open menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="menu-icon">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="close-icon" class="hidden">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div
+    class="fixed inset-0 bg-telemetria-darker/98 backdrop-blur-lg transition-transform duration-300 ease-in-out md:hidden translate-x-full"
+    id="mobile-menu"
+  >
+    <div class="flex flex-col h-full justify-center items-center gap-8 px-4 pt-16">
+      {navLinks.map((link) => (
+        <a
+          href={link.path}
+          class={cn(
+"text-xl font-medium transition-colors hover:text-telemetria-yellow mobile-menu-link",
+isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
+          )}
+        >
+          {link.name}
+        </a>
+      ))}
+      <a 
+href="https://www.youtube.com/@DoseDeTelemetria"
+        target="_blank" 
+        rel="noopener noreferrer"
+class="bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 mt-4 w-full max-w-[200px] px-4 py-2 rounded-md transition-colors inline-flex items-center justify-center text-sm font-medium"
+      >
+        Inscrever-se
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Navbar scroll effect
+  function handleScroll() {
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+      if (window.scrollY > 10) {
+        navbar.className = 'fixed top-0 left-0 right-0 z-50 bg-telemetria-darker/90 backdrop-blur-md py-3 shadow-md transition-all duration-300';
+      } else {
+        navbar.className = 'fixed top-0 left-0 right-0 z-50 bg-transparent py-5 transition-all duration-300';
+      }
+    }
+  }
+
+  // Mobile menu toggle
+  function setupMobileMenu() {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const menuLinks = document.querySelectorAll('.mobile-menu-link');
+
+    if (!button || !menu || !menuIcon || !closeIcon) return;
+
+    let isOpen = false;
+
+    function toggleMenu() {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        menu!.classList.remove('translate-x-full');
+        menu!.classList.add('translate-x-0');
+        menuIcon!.classList.add('hidden');
+        closeIcon!.classList.remove('hidden');
+        button!.setAttribute('aria-label', 'Close menu');
+      } else {
+        menu!.classList.add('translate-x-full');
+        menu!.classList.remove('translate-x-0');
+        menuIcon!.classList.remove('hidden');
+        closeIcon!.classList.add('hidden');
+        button!.setAttribute('aria-label', 'Open menu');
+      }
+    }
+
+    function closeMenu() {
+      if (isOpen) {
+        toggleMenu();
+      }
+    }
+
+    button.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking on links
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close menu when clicking outside
+    menu.addEventListener('click', (e) => {
+      if (e.target === menu) {
+        closeMenu();
+      }
+    });
+  }
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', () => {
+    setupMobileMenu();
+    handleScroll(); // Set initial state
+    window.addEventListener('scroll', handleScroll);
+  });
+
+  // Re-initialize on navigation (for SPA-like behavior)
+  document.addEventListener('astro:page-load', () => {
+    setupMobileMenu();
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+  });
+</script>

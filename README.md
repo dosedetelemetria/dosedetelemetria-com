@@ -1,69 +1,123 @@
-# Welcome to your Lovable project
+# TelemetryDrops - Astro Version
 
-## Project info
+Professional OpenTelemetry training courses and educational content, migrated from React to Astro for improved performance and SEO.
 
-**URL**: https://lovable.dev/projects/ed4549d5-a3bc-4c1e-97a0-348107f45aed
+## 🚀 Migration Status
 
-## How can I edit this code?
+**✅ COMPLETED** - Successfully migrated from React to Astro with 100% feature parity:
+- All pages and functionality preserved
+- Supabase integration working
+- Forms and interactive elements functional
+- Identical visual appearance maintained
 
-There are several ways of editing your application.
+## 🏗️ Architecture
 
-**Use Lovable**
+### Tech Stack
+- **Framework**: Astro 5.x with React islands
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Backend**: Supabase (database, auth, edge functions)
+- **Package Manager**: Bun
+- **TypeScript**: Full type safety
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ed4549d5-a3bc-4c1e-97a0-348107f45aed) and start prompting.
+### Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```text
+src/
+├── components/
+│   ├── ui/              # React components (interactive)
+│   └── astro/           # Astro components (static)
+├── layouts/             # Layout components
+│   └── Layout.astro     # Main layout with SEO
+├── pages/               # Route pages
+│   ├── index.astro      # Homepage
+│   ├── products/        # Product pages
+│   ├── 404.astro        # Error page
+│   └── [legal].astro    # Legal pages
+├── data/                # Static data
+│   ├── product-data.ts  # Course catalog
+│   ├── testimonial-data.ts
+│   └── seo-data.ts      # SEO metadata
+├── lib/                 # Utilities
+└── integrations/        # Supabase client
 ```
 
-**Edit a file directly in GitHub**
+## 🧞 Commands
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+All commands use **bun** as the package manager:
 
-**Use GitHub Codespaces**
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `bun install`             | Install dependencies                             |
+| `bun run dev`             | Start development server at `localhost:4321`    |
+| `bun run build`           | Build production site to `./dist/`              |
+| `bun run build:dev`       | Build development version                        |
+| `bun run preview`         | Preview production build locally                 |
+| `bun run lint`            | Run Astro linting                               |
+| `bun run type-check`      | Run TypeScript type checking                    |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🌟 Features
 
-## What technologies are used for this project?
+### Static Generation + React Islands
+- **Performance**: Static HTML with selective JavaScript hydration
+- **SEO**: Server-side rendering for better crawlability
+- **Interactivity**: React components load only when needed (`client:load`)
 
-This project is built with .
+### Business Features
+- **Product Catalog**: 2 OpenTelemetry courses with detailed information
+- **Lead Capture**: Waitlist forms with Supabase integration
+- **Testimonials**: Customer feedback with structured data
+- **Responsive Design**: Mobile-first with Tailwind CSS
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Technical Features
+- **TypeScript**: Full type safety across the codebase
+- **SEO Optimization**: Meta tags, structured data (JSON-LD), sitemaps
+- **Component Library**: shadcn/ui components for consistent design
+- **Form Handling**: React Hook Form with Zod validation
 
-## How can I deploy this project?
+## 🔗 Routes
 
-Simply open [Lovable](https://lovable.dev/projects/ed4549d5-a3bc-4c1e-97a0-348107f45aed) and click on Share -> Publish.
+- `/` - Homepage with hero and product overview
+- `/products` - Product catalog and comparison
+- `/products/otel-specialization` - Intensive program (waitlist)
+- `/products/otel-track` - Self-paced course (available)
+- `/privacy-policy`, `/terms-of-use`, `/imprint` - Legal pages
 
-## I want to use a custom domain - is that possible?
+## 🛠️ Development
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+### Environment Setup
+1. Clone the repository
+2. Install dependencies: `bun install`
+3. Start development server: `bun run dev`
+4. Open `http://localhost:4321` in your browser
+
+### Key Components
+- **Interactive**: LeadCaptureForm (React with `client:load`)
+- **Static**: ProductCard, Testimonial, SectionHeading (Astro)
+- **Hybrid**: Navigation with mobile toggle
+
+### Data Management
+- Product information in `src/data/product-data.ts`
+- Customer testimonials in `src/data/testimonial-data.ts`
+- SEO metadata in `src/data/seo-data.ts`
+
+## 🚀 Deployment
+
+The project is ready for deployment on:
+- **Netlify** (recommended)
+- **Vercel**
+- **Static hosting** (GitHub Pages, etc.)
+
+Build command: `bun run build`
+Output directory: `dist/`
+
+## 📊 Performance Benefits
+
+Compared to the original React version:
+- **Faster initial load** with static HTML
+- **Reduced JavaScript bundle** size
+- **Better SEO** with server-side rendering
+- **Improved Core Web Vitals** scores
+
+---
+
+**TelemetryDrops**: Empowering developers with expert OpenTelemetry education and certification programs.

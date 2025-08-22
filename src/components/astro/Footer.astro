@@ -1,0 +1,113 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-telemetria-darker border-t border-white/5 pt-16 pb-8">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+      <div class="space-y-4">
+        <div class="flex items-center gap-2 mb-4">
+<img 
+            src="/logo.svg" 
+            alt="Dose de Telemetria" 
+            class="h-10 w-10"
+          />
+          <span class="font-bold text-xl tracking-tight">Dose de Telemetria</span>
+        </div>
+        <p class="text-sm text-muted-foreground max-w-xs">
+          Oferecemos produtos digitais relacionados ao OpenTelemetry (OTel) 
+          para profissionais que buscam aprimorar seus conhecimentos em 
+          monitoramento e observabilidade.
+        </p>
+        <div class="flex space-x-4 pt-2">
+          <a 
+href="https://www.youtube.com/@DoseDeTelemetria"
+            target="_blank" 
+            rel="noopener noreferrer"
+class="text-white/70 hover:text-telemetria-yellow transition-colors"
+            aria-label="YouTube"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+              <path d="m10 15 5-3-5-3z"/>
+            </svg>
+          </a>
+          <a 
+href="https://www.linkedin.com/company/dosetelemetria"
+            target="_blank" 
+            rel="noopener noreferrer"
+class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm"
+            aria-label="LinkedIn"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect width="4" height="12" x="2" y="9"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a 
+            href="mailto:contato@dosedetelemetria.com"
+            class="text-white/70 hover:text-telemetria-yellow transition-colors"
+            aria-label="Email"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-10 5L2 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div>
+<h3 class="font-semibold text-white mb-4">Links Rápidos</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/" class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm">
+              Início
+            </a>
+          </li>
+          <li>
+            <a href="/products" class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm">
+              Produtos
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+<h3 class="font-semibold text-white mb-4">Produtos</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/products/especializacao-otel" class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm">
+              Especialização em OTel
+            </a>
+          </li>
+          <li>
+            <a href="/products/trilha-otel" class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm">
+              Trilha OTel
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-white/5 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-sm text-muted-foreground">
+          &copy; {currentYear} Dose de Telemetria GmbH. Todos os direitos reservados.
+        </p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="/privacy-policy" class="text-sm text-white/70 hover:text-telemetria-yellow transition-colors">
+            Política de Privacidade
+          </a>
+          <a href="/terms-of-use" class="text-sm text-white/70 hover:text-telemetria-yellow transition-colors">
+            Termos de Uso
+          </a>
+          <a href="/imprint" class="text-sm text-white/70 hover:text-telemetria-yellow transition-colors">
+            Imprint
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,82 @@
+---
+import { cn } from "../../lib/utils";
+
+export interface Props {
+  quote: string;
+  author: string;
+  role?: string;
+  company?: string;
+  avatarUrl?: string;
+  className?: string;
+}
+
+const { 
+  quote, 
+  author, 
+  role, 
+  company, 
+  avatarUrl,
+  className 
+} = Astro.props;
+
+const initials = author
+  .split(" ")
+  .map((n) => n[0])
+  .join("")
+  .toUpperCase();
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "reviewBody": quote,
+  "author": {
+    "@type": "Person",
+    "name": author,
+    ...(role && { "jobTitle": role }),
+    ...(company && {
+      "worksFor": {
+        "@type": "Organization",
+        "name": company
+      }
+    })
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": 5,
+    "bestRating": 5
+  }
+};
+---
+
+<!-- JSON-LD Structured Data -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+
+<div class={cn(
+  "flex flex-col h-full rounded-lg border bg-card p-6 shadow",
+  className
+)}>
+  <div class="text-lg italic text-muted-foreground flex-grow mb-6">
+    "{quote}"
+  </div>
+
+  <div class="flex items-center space-x-4 mt-auto">
+    <div class="h-12 w-12 border-2 border-telemetria-yellow/30 rounded-full overflow-hidden flex items-center justify-center bg-telemetria-yellow/20 text-telemetria-yellow flex-shrink-0">
+      {avatarUrl ? (
+        <img src={avatarUrl} alt={author} class="w-full h-full object-cover" />
+      ) : (
+        <span class="font-semibold text-sm">{initials}</span>
+      )}
+    </div>
+    
+    <div>
+      <div class="font-semibold">{author}</div>
+      {(role || company) && (
+        <div class="text-sm text-muted-foreground">
+          {role}
+          {role && company && ", "}
+          {company}
+        </div>
+      )}
+    </div>
+  </div>
+</div>
