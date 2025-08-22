@@ -30,8 +30,8 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`Received waitlist entry for ${name} (${email}) for product: ${productName}`);
 
     const emailResponse = await resend.emails.send({
-      from: "Telemetry Drops <contact@telemetrydrops.com>",
-      to: ["contact@telemetrydrops.com"],
+      from: "Dose de Telemetria <contact@dosedetelemetria.com>",
+      to: ["contact@dosedetelemetria.com"],
       subject: `New waitlist signup - ${productName}`,
       html: `
         <h1>New waitlist signup</h1>

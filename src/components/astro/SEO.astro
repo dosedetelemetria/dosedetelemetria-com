@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 
 const fullTitle = title.includes('TelemetryDrops') ? title : `${title} | TelemetryDrops`;
-const url = canonical ? `https://telemetrydrops.com${canonical}` : 'https://telemetrydrops.com';
+const url = canonical ? `https://dosedetelemetria.com${canonical}` : 'https://dosedetelemetria.com';
 ---
 
 <!-- Primary Meta Tags -->
@@ -38,7 +38,7 @@ const url = canonical ? `https://telemetrydrops.com${canonical}` : 'https://tele
 <meta property="og:description" content={description} />
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={url} />
-<meta property="og:image" content={`https://telemetrydrops.com${ogImage}`} />
+<meta property="og:image" content={`https://dosedetelemetria.com${ogImage}`} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 
@@ -46,7 +46,7 @@ const url = canonical ? `https://telemetrydrops.com${canonical}` : 'https://tele
 <meta name="twitter:card" content={twitterCard} />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={`https://telemetrydrops.com${ogImage}`} />
+<meta name="twitter:image" content={`https://dosedetelemetria.com${ogImage}`} />
 
 <!-- JSON-LD Structured Data -->
 {jsonLd && (

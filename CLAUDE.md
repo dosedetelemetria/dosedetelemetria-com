@@ -102,7 +102,7 @@ bun add -D <package-name>
 **Content Management**:
 - All product content, pricing, and curriculum managed in TypeScript data files
 - Testimonials include avatar URLs pointing to `/testimonials/` directory
-- Company contact: `contact@telemetrydrops.com`
+- Company contact: `contact@dosedetelemetria.com`
 
 ### Development Notes
 

@@ -22,6 +22,12 @@ export interface Product {
   detailedFeatures: DetailedFeature[];
   curriculum: CurriculumModule[];
   price: string;
+  originalPrice?: string;
+  discount?: {
+    percentage: number;
+    label: string;
+    couponCode?: string;
+  };
   ctaText: string;
   ctaLink: string;
   available: boolean;
@@ -402,3 +408,20 @@ export const productData: Product[] = [
     available: false
   }
 ];
+
+// For linking testimonials to specific products
+export const productTestimonialMapping = {
+  "especializacao": ["claudio", "willian", "rafael"],
+  "trilha": ["mateus", "willian", "claudio"]
+};
+
+// Helper functions to get testimonials
+export function getTestimonialsForProduct(productId: string): string[] {
+  return productTestimonialMapping[productId as keyof typeof productTestimonialMapping] || [];
+}
+
+export function getRandomTestimonialIds(count: number): string[] {
+  const allTestimonials = Object.values(productTestimonialMapping).flat();
+  const uniqueTestimonials = Array.from(new Set(allTestimonials));
+  return uniqueTestimonials.sort(() => Math.random() - 0.5).slice(0, count);
+}
