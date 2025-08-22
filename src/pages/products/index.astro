@@ -66,9 +66,11 @@ const testimonials = getRandomTestimonials(2);
 							description={product.description}
 							features={product.features}
 							price={product.price}
-ctaText={product.available ? "Ver detalhes" : "Lista de espera"}
+							originalPrice={product.originalPrice}
+							discount={product.discount}
+							ctaText={product.available ? "Ver detalhes" : "Lista de espera"}
 							ctaLink={`/products/${product.slug}`}
-							available={true}
+							available={product.available}
 							popular={product.popular}
 						/>
 					))}

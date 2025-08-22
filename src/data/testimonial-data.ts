@@ -44,6 +44,40 @@ export const testimonialData: Testimonial[] = [
     company: "PicPay",
     avatarUrl: "/testimonials/rafael.webp",
     productIds: ["trilha"]
+  },
+  {
+    id: "ezequiel",
+    quote: "O curso vai muito além da teoria. Desde os fundamentos de observabilidade até tópicos avançados como instrumentação manual, OpenTelemetry Operator e entendimento da API do OTel - cada módulo tem aplicação direta no meu trabalho diário. Todo dia uso algo que aprendi, seja implementando o Collector em escala, ajustando pipelines de telemetria ou ajudando outras equipes com instrumentação. Este curso está transformando minha mentalidade sobre observabilidade e como aplicá-la na prática para resultados reais.",
+    author: "Ezequiel de Souza Barros",
+    role: "Especialista em Observabilidade",
+    company: "PagBank",
+    avatarUrl: "/testimonials/ezequiel.webp",
+    productIds: ["trilha"]
+  },
+  {
+    id: "kaio",
+    quote: "Trabalhando em AIOps, eu precisava de conhecimento profundo em OpenTelemetry para nossa implementação. Depois de fazer vários cursos que apenas arranhavam a superfície, descobri o Dose de Telemetria no YouTube. Apenas um vídeo me mostrou que o conteúdo era muito mais rico que qualquer curso que eu tinha feito. Quando descobri sobre o curso de vocês, soube imediatamente que tinha encontrado exatamente o que procurava. O conteúdo é incrível!",
+    author: "Kaio Fonseca",
+    role: "Especialista em AIOps",
+    company: "Bradesco",
+    avatarUrl: "/testimonials/kaio.webp",
+    productIds: ["trilha"]
+  },
+  {
+    id: "diogo",
+    quote: "O curso de especialização fez total diferença para avançar minha carreira para uma empresa internacional com OpenTelemetry em seu núcleo. O conteúdo técnico profundo vai além do superficial - agora sou a Referência Técnica para OpenTelemetry na minha empresa. Ter acesso direto ao conhecimento de alguém conectado à fonte do OpenTelemetry transformou minha capacidade de resolver problemas complexos e ser referência para outros. Este curso possibilitou diretamente minha mudança de carreira internacional.",
+    author: "Diogo Amaral",
+    role: "Site Reliability Engineer",
+    company: "dLocal",
+    avatarUrl: "/testimonials/diogo.webp",
+    productIds: ["trilha", "especializacao"]
+  },
+  {
+    id: "marcos",
+    quote: "Procurando conteúdo profundo e prático sobre OpenTelemetry em português me levou a este curso. O currículo bem estruturado progride dos fundamentos através de API, SDK, Collector e Operator com exemplos claros e aplicações reais. Estou implementando OpenTelemetry no trabalho, e poder fazer perguntas específicas na plataforma - que frequentemente geram conteúdo adicional - é um verdadeiro diferencial. Estou aplicando o novo conhecimento imediatamente e evoluindo significativamente.",
+    author: "Marcos Muniz",
+    role: "Engenheiro de Software",
+    productIds: ["trilha"]
   }
 ];
 
