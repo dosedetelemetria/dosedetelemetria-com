@@ -109,7 +109,7 @@ const seoInfo = getSEOData();
 				/>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{product.detailedFeatures?.map((feature: DetailedFeature, index: number) => (
+					{product.detailedFeatures?.map((feature: DetailedFeature) => (
 						<div class="bg-telemetria-dark/50 p-6 rounded-lg border border-white/10">
 							<h3 class="text-xl font-bold mb-3">{feature.title}</h3>
 							<p class="text-white/70">{feature.description}</p>
