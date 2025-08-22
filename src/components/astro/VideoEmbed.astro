@@ -1,0 +1,100 @@
+---
+export interface Props {
+  videoId: string;
+  title: string;
+  thumbnail?: string;
+}
+
+const { videoId, title, thumbnail } = Astro.props;
+
+const defaultThumbnail = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+const usedThumbnail = thumbnail || defaultThumbnail;
+---
+
+<div class="relative overflow-hidden rounded-xl bg-telemetria-dark shadow-lg aspect-video w-full video-embed">
+  <button
+    class="group absolute inset-0 flex items-center justify-center w-full h-full cursor-pointer video-thumbnail"
+    aria-label="Play video"
+    data-video-id={videoId}
+  >
+    <img
+      src={usedThumbnail}
+      alt={title}
+      loading="lazy"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-telemetria-darker/40 group-hover:bg-telemetria-darker/50 transition-all duration-300"></div>
+    <div class="relative flex flex-col items-center gap-4 z-10 p-4">
+      <div class="flex items-center justify-center w-16 h-16 rounded-full bg-telemetria-yellow/90 text-telemetria-dark transition-transform duration-300 group-hover:scale-110 group-hover:bg-telemetria-yellow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="ml-1">
+          <polygon points="5,3 19,12 5,21"></polygon>
+        </svg>
+      </div>
+      <div class="text-center">
+        <h3 class="text-white text-lg font-medium group-hover:text-telemetria-yellow transition-colors">
+          {title}
+        </h3>
+        <p class="text-white/80 text-sm mt-1">Click to watch</p>
+      </div>
+    </div>
+  </button>
+  
+  <!-- Loading indicator (hidden initially) -->
+  <div class="absolute inset-0 flex items-center justify-center bg-telemetria-dark video-loading hidden">
+    <div class="w-10 h-10 border-4 border-telemetria-yellow/20 border-t-telemetria-yellow rounded-full animate-spin"></div>
+  </div>
+
+  <!-- Video iframe container (hidden initially) -->
+  <div class="video-iframe-container hidden">
+  </div>
+</div>
+
+<script>
+  function setupVideoEmbeds() {
+    const videoEmbeds = document.querySelectorAll('.video-embed');
+    
+    videoEmbeds.forEach(embed => {
+      const thumbnail = embed.querySelector('.video-thumbnail');
+      const loading = embed.querySelector('.video-loading');
+      const iframeContainer = embed.querySelector('.video-iframe-container');
+      
+      if (!thumbnail || !loading || !iframeContainer) return;
+      
+      thumbnail.addEventListener('click', function(this: HTMLElement) {
+        const videoId = this.getAttribute('data-video-id');
+        if (!videoId) return;
+        
+        // Hide thumbnail and show loading
+        thumbnail.classList.add('hidden');
+        loading.classList.remove('hidden');
+        
+        // Create iframe
+        const iframe = document.createElement('iframe');
+        iframe.width = '100%';
+        iframe.height = '100%';
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0`;
+        iframe.title = this.querySelector('h3')?.textContent || 'Video';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.className = 'absolute inset-0 opacity-0 transition-opacity duration-500';
+        
+        // Add iframe to container
+        iframeContainer.appendChild(iframe);
+        iframeContainer.classList.remove('hidden');
+        
+        // Handle iframe load
+        iframe.onload = function() {
+          loading.classList.add('hidden');
+          iframe.classList.remove('opacity-0');
+          iframe.classList.add('opacity-100');
+        };
+      });
+    });
+  }
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', setupVideoEmbeds);
+  
+  // Re-initialize on navigation (for SPA-like behavior)
+  document.addEventListener('astro:page-load', setupVideoEmbeds);
+</script>

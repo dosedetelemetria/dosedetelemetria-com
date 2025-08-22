@@ -1,0 +1,238 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectionHeading from '../../components/astro/SectionHeading.astro';
+import Testimonial from '../../components/astro/Testimonial.astro';
+import LeadCaptureForm from '../../components/ui/LeadCaptureForm';
+import { productData, type Product, type DetailedFeature, type CurriculumModule } from '../../data/product-data';
+import { getProductTestimonials } from '../../data/testimonial-data';
+import { seoData } from '../../data/seo-data';
+
+export async function getStaticPaths() {
+  return productData.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const { slug } = Astro.params;
+
+// Get three specific testimonials for this product
+const testimonials = getProductTestimonials(product.id, 3);
+
+// Get SEO data based on product
+const getSEOData = () => {
+  switch (slug) {
+    case 'otel-track':
+      return seoData.otelTrack;
+    case 'otel-specialization':
+      return seoData.otelSpecialization;
+    default:
+      return seoData.products;
+  }
+};
+
+const seoInfo = getSEOData();
+---
+
+<Layout 
+	title={seoInfo.title}
+	description={seoInfo.description}
+	keywords={seoInfo.keywords}
+	canonical={`/products/${slug}`}
+	jsonLd={seoInfo.jsonLd}
+>
+	<div class="flex flex-col w-full">
+		<!-- Hero Section -->
+		<section class="relative w-full min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-telemetria-darker">
+			<div class="absolute inset-0 z-0">
+				<div class="absolute inset-0 bg-telemetria-dark">
+					<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.1),transparent_70%)]"></div>
+				</div>
+				<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
+			</div>
+
+			<div class="container-custom relative z-10 py-16 md:py-20">
+				<a 
+					href="/products" 
+					class="inline-flex items-center text-white/70 hover:text-telemetria-yellow transition-colors mb-8"
+				>
+					<svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+					</svg>
+					Back to products
+				</a>
+
+				<div class="max-w-4xl">
+					<div class="animate-fade-in">
+						<h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+							{product.title}
+						</h1>
+						<p class="text-lg md:text-xl text-white/80 mb-6 max-w-3xl">
+							{product.fullDescription}
+						</p>
+						<div class="flex flex-col sm:flex-row gap-4 mt-8">
+							<div class="text-3xl font-bold">{product.price}</div>
+							{product.available ? (
+								<a 
+									href={product.ctaLink} 
+									target="_blank" 
+									rel="noopener noreferrer"
+									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
+								>
+									{product.ctaText}
+								</a>
+							) : (
+								<button 
+									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-white/20 text-white hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
+									onclick="document.querySelector('.waitlist-section')?.scrollIntoView({ behavior: 'smooth' })"
+								>
+									{product.ctaText}
+								</button>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Features -->
+		<section class="section-padding bg-background">
+			<div class="container-custom">
+				<SectionHeading
+					title="What you'll learn"
+					subtitle="Discover the complete course content and skills you'll develop"
+				/>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{product.detailedFeatures?.map((feature: DetailedFeature, index: number) => (
+						<div class="bg-telemetria-dark/50 p-6 rounded-lg border border-white/10">
+							<h3 class="text-xl font-bold mb-3">{feature.title}</h3>
+							<p class="text-white/70">{feature.description}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- Lead Capture Form (only for unavailable products) -->
+		{!product.available && (
+			<section class="section-padding bg-telemetria-darker waitlist-section">
+				<div class="container-custom">
+					<div class="max-w-lg mx-auto text-center">
+						<h2 class="text-2xl font-bold mb-4">Join the Waitlist</h2>
+						<p class="text-white/80 mb-6">
+							Be the first to know when {product.title} becomes available.
+						</p>
+						<LeadCaptureForm 
+							productId={product.id} 
+							productName={product.title}
+							client:load
+						/>
+					</div>
+				</div>
+			</section>
+		)}
+
+		<!-- Testimonials -->
+		<section class="section-padding bg-background">
+			<div class="container-custom">
+				<SectionHeading
+					title="What our students say"
+					subtitle="Real experiences from those who have already learned with us"
+					centered={true}
+				/>
+
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+					{testimonials.map((testimonial) => (
+						<Testimonial
+							quote={testimonial.quote}
+							author={testimonial.author}
+							role={testimonial.role}
+							company={testimonial.company}
+							avatarUrl={testimonial.avatarUrl}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- Curriculum -->
+		<section class="section-padding bg-telemetria-dark">
+			<div class="container-custom">
+				<SectionHeading
+					title="Course modules"
+					subtitle="Content organized progressively to facilitate your learning"
+					centered={true}
+				/>
+
+				<div class="max-w-3xl mx-auto space-y-6">
+					{product.curriculum?.map((module: CurriculumModule, index: number) => (
+						<div class="bg-telemetria-darker/70 rounded-lg border border-white/10 overflow-hidden">
+							<div class="p-5 border-b border-white/10">
+								<h3 class="text-xl font-bold flex items-center">
+									<span class="flex items-center justify-center w-8 h-8 rounded-full bg-telemetria-yellow/20 text-telemetria-yellow mr-3 text-sm">
+										{index + 1}
+									</span>
+									{module.title}
+								</h3>
+							</div>
+							<div class="p-5 space-y-3">
+								{module.lessons.map((lesson: string, idx: number) => (
+									<div class="flex items-start">
+										<span class="mr-3 w-6 h-6 flex-shrink-0 bg-secondary/50 rounded-full flex items-center justify-center text-xs">
+											{idx + 1}
+										</span>
+										<span class="text-white/80">{lesson}</span>
+									</div>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="section-padding bg-background">
+			<div class="container-custom">
+				<div class="max-w-4xl mx-auto text-center">
+					<h2 class="text-3xl md:text-4xl font-bold mb-6">
+						Ready to start your <span class="bg-gradient-to-r from-telemetria-yellow via-yellow-300 to-yellow-100 bg-clip-text text-transparent">OpenTelemetry</span> journey?
+					</h2>
+					<p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+						Master observability and OpenTelemetry and stand out in the market with skills that are in high demand.
+					</p>
+					{product.available ? (
+						<a 
+							href={product.ctaLink} 
+							target="_blank" 
+							rel="noopener noreferrer"
+							class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
+						>
+							{product.ctaText}
+						</a>
+					) : (
+						<div class="space-y-4">
+							<button 
+								class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-white/20 text-white hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
+								onclick="document.querySelector('.waitlist-section')?.scrollIntoView({ behavior: 'smooth' })"
+							>
+								{product.ctaText}
+							</button>
+							<div class="pt-2">
+								<p class="text-sm text-white/70">
+									This course is not yet available for purchase. Sign up for the waitlist above to be notified when we open new spots.
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+		</section>
+	</div>
+</Layout>

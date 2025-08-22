@@ -1,0 +1,180 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/astro/SectionHeading.astro';
+import VideoEmbed from '../components/astro/VideoEmbed.astro';
+import { seoData } from '../data/seo-data';
+---
+
+<Layout 
+	title={seoData.home.title}
+	description={seoData.home.description}
+	keywords={seoData.home.keywords}
+	canonical="/"
+	jsonLd={seoData.home.jsonLd}
+>
+	<div class="flex flex-col w-full">
+		<!-- Hero Section -->
+		<section class="relative w-full min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-telemetria-darker">
+			<div class="absolute inset-0 z-0">
+				<div class="absolute inset-0 bg-telemetria-dark">
+					<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.1),transparent_70%)]"></div>
+				</div>
+<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
+			</div>
+
+			<div class="container-custom relative z-10 pt-16 md:pt-20">
+				<div class="max-w-4xl mx-auto text-center">
+					<div class="animate-fade-in">
+						<div class="inline-block mb-4">
+<img 
+								src="/logo.svg" 
+								alt="Dose de Telemetria Logo" 
+								class="h-24 w-24 animate-pulse-subtle"
+							/>
+						</div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+Torne-se especialista em <span class="bg-gradient-to-r from-telemetria-yellow via-yellow-300 to-yellow-100 bg-clip-text text-transparent">OpenTelemetry</span> na sua empresa.
+						</h1>
+						<p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+							Aprenda todos os aspectos do OpenTelemetry, incluindo as principais convenções semânticas, a API, SDK, Collector, Operator, e muito mais.
+						</p>
+						<div class="flex flex-col sm:flex-row gap-4 justify-center">
+							<a 
+								href="/products"
+class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
+							>
+								Conheça nossos produtos
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+				<a href="#products" class="text-white/50 hover:text-white transition-colors">
+					<svg class="h-6 w-6 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+					</svg>
+				</a>
+			</div>
+		</section>
+
+		<!-- Featured Products -->
+		<section id="products" class="section-padding bg-background">
+			<div class="container-custom">
+				<SectionHeading
+					title="Nossos Produtos"
+					centered={true}
+				/>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+					<div class="glass-morphism rounded-xl p-8 flex flex-col h-full">
+						<h3 class="text-2xl font-bold mb-4">Especialização em OTel</h3>
+<div class="inline-block ml-0 mb-4 px-3 py-1 bg-telemetria-yellow/10 border border-telemetria-yellow/20 text-xs rounded-full text-telemetria-yellow">
+							Em breve
+						</div>
+						<p class="text-white/80 mb-6">
+							Formação intensiva com turmas fechadas, mentorias ao vivo e projetos práticos. Desenvolva 
+							habilidades avançadas em OpenTelemetry com acompanhamento especializado.
+						</p>
+						<div class="mt-auto">
+							<a 
+								href="/products#especializacao"
+class="inline-flex items-center justify-center w-full px-4 py-2 border border-telemetria-yellow/30 text-telemetria-yellow hover:bg-telemetria-yellow hover:text-telemetria-dark hover:border-telemetria-yellow rounded-md transition-colors"
+							>
+								Saiba mais 
+								<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+								</svg>
+							</a>
+						</div>
+					</div>
+					
+					<div class="glass-morphism rounded-xl p-8 flex flex-col h-full">
+						<h3 class="text-2xl font-bold mb-4">Trilha OTel</h3>
+<div class="inline-block ml-0 mb-4 px-3 py-1 bg-telemetria-yellow/20 border border-telemetria-yellow/30 text-xs rounded-full text-telemetria-yellow">
+							Em breve
+						</div>
+						<p class="text-white/80 mb-6">
+							Curso completo disponível no seu ritmo, com aulas gravadas, exercícios práticos e acesso vitalício. 
+							Do básico ao avançado em observabilidade e instrumentação.
+						</p>
+						<div class="mt-auto">
+							<a 
+								href="/products#trilha"
+class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 rounded-md transition-colors"
+							>
+								Conhecer curso 
+								<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- YouTube Channel -->
+		<section class="section-padding bg-telemetria-dark">
+			<div class="container-custom">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+					<div class="order-2 md:order-1">
+						<div class="animate-fade-in-right">
+<SectionHeading
+							title="Nosso Canal no YouTube"
+							subtitle="Live toda sexta-feira, 10:00 de Brasília."
+						/>
+							<div class="space-y-6">
+								<p class="text-white/80">
+									Inscreva-se em nosso canal e receba notificações de novos vídeos, com conteúdo aprofundado, atualizado e em português sobre Monitoramento, Observabilidade, Telemetria e OpenTelemetry.
+								</p>
+								<div class="flex space-x-4">
+									<a 
+href="https://www.youtube.com/@DoseDeTelemetria"
+										target="_blank" 
+										rel="noopener noreferrer"
+										class="inline-flex items-center px-4 py-2 bg-[#FF0000] hover:bg-[#FF0000]/90 text-white rounded-md transition-colors"
+									>
+										<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+										</svg>
+										Inscrever-se
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="order-1 md:order-2">
+						<VideoEmbed 
+							videoId="spdwPokz01w" 
+							title="" 
+						/>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- LinkedIn -->
+		<section class="section-padding bg-telemetria-darker border-t border-white/5">
+			<div class="container-custom text-center">
+<SectionHeading
+					title="Conecte-se Conosco"
+					subtitle="Siga-nos no LinkedIn para atualizações, dicas e oportunidades"
+					centered={true}
+				/>
+				<a 
+href="https://www.linkedin.com/company/dosetelemetria"
+					target="_blank" 
+					rel="noopener noreferrer" 
+					class="inline-flex items-center px-6 py-3 bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white rounded-md transition-colors"
+				>
+					<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+					</svg>
+					Seguir no LinkedIn
+				</a>
+			</div>
+		</section>
+	</div>
+</Layout>

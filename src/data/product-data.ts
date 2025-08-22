@@ -1,4 +1,3 @@
-
 export interface ProductFeature {
   text: string;
 }

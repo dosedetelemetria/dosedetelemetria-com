@@ -1,4 +1,3 @@
-
 export interface Testimonial {
   id: string;
   quote: string;
@@ -11,7 +10,7 @@ export interface Testimonial {
 
 export const testimonialData: Testimonial[] = [
   {
-    id: "t1",
+    id: "willian",
     quote: "Sou SRE a 6 anos, a imersão foi fenomenal. O Juraci é uma das mentes por trás do OpenTelemetry, é muito detalhado, ele vai destrinchando ponto a ponto. Sendo um dos criadores, ele consegue aprofundar bem. Expectativas superadas com sucesso!",
     author: "Willian Saavedra",
     role: "Site Reliability Engineer",
@@ -20,7 +19,7 @@ export const testimonialData: Testimonial[] = [
     productIds: ["trilha", "especializacao"]
   },
   {
-    id: "t2",
+    id: "claudio",
     quote: "Muito instrutivo, bem alinhado com minhas perspectivas de futuro, tanto na parte técnica quanto gerencial. O futuro da observabilidade amadureceu em um padrão, e este padrão é o OpenTelemetry.",
     author: "Cláudio Bastos",
     role: "CTO",
@@ -29,7 +28,7 @@ export const testimonialData: Testimonial[] = [
     productIds: ["especializacao"]
   },
   {
-    id: "t3",
+    id: "mateus",
     quote: "Eu pude aprofundar e tirar dúvidas, superou minhas expectativas, tive vários insights a partir do que o Juraci trouxe.",
     author: "Mateus Santos",
     role: "CTO",
@@ -38,7 +37,7 @@ export const testimonialData: Testimonial[] = [
     productIds: ["trilha", "especializacao"]
   },
   {
-    id: "t4",
+    id: "rafael",
     quote: "Eu já tinha experiência com OpenTelemetry, mais específico no Collector, mas foi interessante pra poder aprofundar os conhecimentos na parte de instrumentação. Estou saindo com um conhecimento muito maior do que esperava.",
     author: "Rafael Gumiero",
     role: "Principal Engineer",
