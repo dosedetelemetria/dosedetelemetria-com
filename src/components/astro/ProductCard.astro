@@ -46,12 +46,12 @@ const isExternalLink = ctaLink.startsWith('http');
   class={cn(
     "relative rounded-2xl border bg-card p-6 shadow-sm transition-all duration-200",
     popular
-      ? "border-telemetria-orange/50 scale-[1.02] shadow-xl shadow-telemetria-orange/10"
-      : "border-border hover:border-telemetria-orange/30 hover:shadow-lg"
+      ? "border-telemetria-yellow/50 scale-[1.02] shadow-xl shadow-telemetria-yellow/10"
+      : "border-border hover:border-telemetria-yellow/30 hover:shadow-lg"
   )}
 >
   {popular && (
-    <div class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-telemetria-orange px-3 py-1 text-xs font-semibold text-telemetria-dark">
+    <div class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-telemetria-yellow px-3 py-1 text-xs font-semibold text-telemetria-dark">
       Available
     </div>
   )}
@@ -67,15 +67,15 @@ const isExternalLink = ctaLink.startsWith('http');
         {discount && (
           <div class="space-y-1.5">
             <div class="inline-flex items-center gap-2">
-              <span class="text-xs px-2 py-0.5 bg-telemetria-orange/10 text-telemetria-orange border border-telemetria-orange/20 rounded-full font-medium">
+              <span class="text-xs px-2 py-0.5 bg-telemetria-yellow/10 text-telemetria-yellow border border-telemetria-yellow/20 rounded-full font-medium">
                 -{discount.percentage}% {discount.label}
               </span>
             </div>
             {discount.couponCode && (
               <div class="inline-flex items-center gap-1.5 px-2 py-1 bg-slate-800/20 border border-slate-700/20 rounded text-xs font-mono text-white cursor-pointer group hover:bg-slate-700/30 transition-colors" onclick={`navigator.clipboard.writeText('${discount.couponCode}').then(() => { const el = this.querySelector('.copy-feedback'); el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 2000); }).catch(console.error)`}>
                 <span class="text-gray-500">Code:</span>
-                <span class="font-medium text-telemetria-orange">{discount.couponCode}</span>
-                <svg class="w-2.5 h-2.5 text-gray-500 group-hover:text-telemetria-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span class="font-medium text-telemetria-yellow">{discount.couponCode}</span>
+                <svg class="w-2.5 h-2.5 text-gray-500 group-hover:text-telemetria-yellow transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                 </svg>
                 <span class="copy-feedback text-xs text-green-400" style="display: none;">Copied!</span>
@@ -93,7 +93,7 @@ const isExternalLink = ctaLink.startsWith('http');
       <ul class="space-y-2">
         {features.map((feature) => (
           <li class="flex items-start">
-            <svg class="mr-2 h-5 w-5 flex-shrink-0 text-telemetria-orange" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="mr-2 h-5 w-5 flex-shrink-0 text-telemetria-yellow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 11l3 3l8-8"/>
               <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9s4.03-9 9-9c1.59 0 3.08.41 4.37 1.13"/>
             </svg>
@@ -112,12 +112,12 @@ const isExternalLink = ctaLink.startsWith('http');
           class={cn(
             "w-full font-medium text-sm transition-all duration-300 px-4 py-2.5 rounded-md inline-flex items-center justify-center text-center",
             popular
-              ? "bg-telemetria-orange text-telemetria-dark hover:bg-telemetria-orange/90"
+              ? "bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
               : available
               ? ctaText === "Join waitlist" 
-                ? "bg-white/20 text-white hover:bg-telemetria-orange hover:text-telemetria-dark"
-                : "bg-secondary hover:bg-telemetria-orange hover:text-telemetria-dark"
-              : "bg-secondary/40 text-muted-foreground cursor-not-allowed"
+                ? "bg-white/20 text-white hover:bg-telemetria-yellow hover:text-telemetria-dark"
+                : "bg-secondary hover:bg-telemetria-yellow hover:text-telemetria-dark"
+              : "bg-secondary/40 text-muted-foreground hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
           )}
         >
           {ctaText}
@@ -128,12 +128,12 @@ const isExternalLink = ctaLink.startsWith('http');
           class={cn(
             "w-full font-medium text-sm transition-all duration-300 px-4 py-2.5 rounded-md inline-flex items-center justify-center text-center",
             popular
-              ? "bg-telemetria-orange text-telemetria-dark hover:bg-telemetria-orange/90"
+              ? "bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
               : available
               ? ctaText === "Join waitlist" 
-                ? "bg-white/20 text-white hover:bg-telemetria-orange hover:text-telemetria-dark"
-                : "bg-secondary hover:bg-telemetria-orange hover:text-telemetria-dark"
-              : "bg-secondary/40 text-muted-foreground cursor-not-allowed"
+                ? "bg-white/20 text-white hover:bg-telemetria-yellow hover:text-telemetria-dark"
+                : "bg-secondary hover:bg-telemetria-yellow hover:text-telemetria-dark"
+              : "bg-secondary/40 text-muted-foreground hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
           )}
         >
           {ctaText}

@@ -53,7 +53,6 @@ export default {
 				},
 				telemetria: {
 					yellow: '#FFC107',
-					orange: '#EA580C',
 					dark: '#121212',
 					darker: '#0A0A0A',
 					gray: '#242424',

@@ -30,6 +30,9 @@ bun add <package-name>
 
 # Install dev dependencies
 bun add -D <package-name>
+
+# Run both lint and type-check (common before committing)
+bun run lint && bun run type-check
 ```
 
 ## Testing Standards
@@ -72,14 +75,16 @@ bun add -D <package-name>
 ### Key Business Logic
 
 **Product System**:
-- Two main products: "OTel Specialization" (€1,297) and "OTel Track" (€597)
-- Products have slugs (`otel-specialization`, `otel-track`), features, detailed curriculum, and availability status
+- Two main products: "Especialização em OTel" and "Trilha OTel" (prices in R$)
+- Products have slugs (`especializacao-otel`, `trilha-otel`), features, detailed curriculum, and availability status
 - Product routing: `/products/[slug]` with dynamic product detail pages
+- Both products currently marked as unavailable with waitlist functionality
 
 **Lead Capture**:
 - Waitlist system for unavailable products via `LeadCaptureForm`
 - Data stored in Supabase `waitlist` table
 - Email notifications sent via Supabase Edge Functions
+- Waitlist buttons should appear clickable (no `cursor-not-allowed`)
 
 **Testimonial System**:
 - Customer testimonials linked to specific products via `productIds` array
@@ -101,13 +106,20 @@ bun add -D <package-name>
 
 **Content Management**:
 - All product content, pricing, and curriculum managed in TypeScript data files
+- Curriculum source of truth: `local/content.json` (exported from course platform)
 - Testimonials include avatar URLs pointing to `/testimonials/` directory
 - Company contact: `contact@dosedetelemetria.com`
 
 ### Development Notes
 
+**Language & Localization**:
+- All user-facing content should be in Portuguese (pt-BR)
+- Keep technical terms like "OpenTelemetry", "OTel" unchanged
+- Legal pages (Imprint) may remain in English due to international legal requirements
+
 **Styling System**:
-- Uses Tailwind with custom color palette (`telemetria-orange`, `telemetria-dark`, etc.)
+- Uses Tailwind with custom color palette (`telemetria-yellow`, `telemetria-dark`, etc.)
+- **Important**: Never use orange colors - always use yellow (`telemetria-yellow`) as the accent color
 - Component variants managed via `class-variance-authority`
 - Responsive design with mobile-first approach
 - Custom animations: `pulse-subtle`, `fade-in`, `fade-in-right`, `line-expand`
