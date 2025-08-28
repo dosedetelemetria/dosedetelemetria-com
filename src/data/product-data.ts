@@ -113,12 +113,13 @@ export const productData: Product[] = [
         lessons: [
           "O que vamos observar?",
           "Quais as nossas dores?",
-          "Adicionando o OTel SDK",
+          "Adicionando OTel SDK",
           "Instrumentando nossa inicialização",
-          "Observando chamadas HTTP",
+          "Observando as chamadas HTTP",
+          "Propagando contexto manualmente",
           "Novos trechos, ou eventos?",
           "Entendendo a latência normal entre serviços",
-          "Propagando contexto manualmente"
+          "Repositório GitHub"
         ]
       },
       {
@@ -140,16 +141,23 @@ export const productData: Product[] = [
       {
         title: "OpenTelemetry API",
         lessons: [
+          "Eventos",
           "Audiência",
           "Rastreamento",
-          "Métricas"
+          "Métricas",
+          "Perfis",
+          "Log Bridge"
         ]
       },
       {
         title: "OpenTelemetry SDK",
         lessons: [
-          "O básico pra sobreviver",
           "SDKs em detalhes",
+          "O básico para sobreviver",
+          "Recursos",
+          "Rastreamento distribuído",
+          "Métricas",
+          "Logs",
           "Usando um arquivo de configuração"
         ]
       },
@@ -161,12 +169,15 @@ export const productData: Product[] = [
           "Obtendo o Collector",
           "Configuração",
           "Agentes vs. Gateways vs. Coletores",
-          "Escalando o Collector",
           "Monitorando Collectors",
           "OTTL",
-          "Técnicas de resiliência",
-          "Segurança",
-          "Construindo seu Collector"
+          "Técnicas de resiliência - Filas",
+          "Técnicas de resiliência - WAL",
+          "Técnicas de resiliência - Mensageria",
+          "Segurança - TLS",
+          "Segurança - Autenticação",
+          "Construindo seu Collector",
+          "Connectors: Span Metrics"
         ]
       },
       {
@@ -183,37 +194,44 @@ export const productData: Product[] = [
       {
         title: "OpenTelemetry Operator",
         lessons: [
-          "Em breve",
+          "Introdução",
+          "Operadores para Kubernetes",
+          "CRD - Collector",
+          "Modos de operação dos Collectors",
+          "Instalação",
+          "CRD - Auto-Instrumentação",
+          "Target Allocator"
         ]
       },
       {
         title: "OpAMP",
         lessons: [
-          "Em breve",
+          "OpAMP"
         ]
       },
       {
         title: "Arquitetura",
         lessons: [
-          "Em breve",
+          "Arquitetura - Instrumentação",
+          "Arquitetura - Pipeline"
         ]
       },
       {
         title: "Interoperabilidade",
         lessons: [
-          "Em breve",
+          "Em breve"
         ]
       },
       {
         title: "Migração",
         lessons: [
-          "Em breve",
+          "Em breve"
         ]
       },
       {
         title: "Cultura de observabilidade",
         lessons: [
-          "Em breve",
+          "Cultura de observabilidade"
         ]
       }
     ],
@@ -298,12 +316,13 @@ export const productData: Product[] = [
         lessons: [
           "O que vamos observar?",
           "Quais as nossas dores?",
-          "Adicionando o OTel SDK",
+          "Adicionando OTel SDK",
           "Instrumentando nossa inicialização",
-          "Observando chamadas HTTP",
+          "Observando as chamadas HTTP",
+          "Propagando contexto manualmente",
           "Novos trechos, ou eventos?",
           "Entendendo a latência normal entre serviços",
-          "Propagando contexto manualmente"
+          "Repositório GitHub"
         ]
       },
       {
@@ -325,16 +344,23 @@ export const productData: Product[] = [
       {
         title: "OpenTelemetry API",
         lessons: [
+          "Eventos",
           "Audiência",
           "Rastreamento",
-          "Métricas"
+          "Métricas",
+          "Perfis",
+          "Log Bridge"
         ]
       },
       {
         title: "OpenTelemetry SDK",
         lessons: [
-          "O básico pra sobreviver",
           "SDKs em detalhes",
+          "O básico para sobreviver",
+          "Recursos",
+          "Rastreamento distribuído",
+          "Métricas",
+          "Logs",
           "Usando um arquivo de configuração"
         ]
       },
@@ -346,12 +372,15 @@ export const productData: Product[] = [
           "Obtendo o Collector",
           "Configuração",
           "Agentes vs. Gateways vs. Coletores",
-          "Escalando o Collector",
           "Monitorando Collectors",
           "OTTL",
-          "Técnicas de resiliência",
-          "Segurança",
-          "Construindo seu Collector"
+          "Técnicas de resiliência - Filas",
+          "Técnicas de resiliência - WAL",
+          "Técnicas de resiliência - Mensageria",
+          "Segurança - TLS",
+          "Segurança - Autenticação",
+          "Construindo seu Collector",
+          "Connectors: Span Metrics"
         ]
       },
       {
@@ -368,37 +397,44 @@ export const productData: Product[] = [
       {
         title: "OpenTelemetry Operator",
         lessons: [
-          "Em breve",
+          "Introdução",
+          "Operadores para Kubernetes",
+          "CRD - Collector",
+          "Modos de operação dos Collectors",
+          "Instalação",
+          "CRD - Auto-Instrumentação",
+          "Target Allocator"
         ]
       },
       {
         title: "OpAMP",
         lessons: [
-          "Em breve",
+          "OpAMP"
         ]
       },
       {
         title: "Arquitetura",
         lessons: [
-          "Em breve",
+          "Arquitetura - Instrumentação",
+          "Arquitetura - Pipeline"
         ]
       },
       {
         title: "Interoperabilidade",
         lessons: [
-          "Em breve",
+          "Em breve"
         ]
       },
       {
         title: "Migração",
         lessons: [
-          "Em breve",
+          "Em breve"
         ]
       },
       {
         title: "Cultura de observabilidade",
         lessons: [
-          "Em breve",
+          "Cultura de observabilidade"
         ]
       }
     ],
