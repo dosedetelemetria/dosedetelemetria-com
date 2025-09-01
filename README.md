@@ -54,6 +54,7 @@ All commands use **bun** as the package manager:
 | `bun run preview`         | Preview production build locally                 |
 | `bun run lint`            | Run Astro linting                               |
 | `bun run type-check`      | Run TypeScript type checking                    |
+| `bun run deploy`          | Deploy to Cloudflare Workers                    |
 
 ## 🌟 Features
 
@@ -102,13 +103,20 @@ All commands use **bun** as the package manager:
 
 ## 🚀 Deployment
 
-The project is ready for deployment on:
-- **Netlify** (recommended)
-- **Vercel**
-- **Static hosting** (GitHub Pages, etc.)
+The project is deployed on **Cloudflare Workers** with automated CI/CD:
 
-Build command: `bun run build`
-Output directory: `dist/`
+### Production Deployment
+- **Platform**: Cloudflare Workers
+- **CI/CD**: GitHub Actions automatically deploys on push to main
+- **Manual Deploy**: `bun run deploy`
+- **Build Command**: `bun run build`
+- **Output Directory**: `dist/`
+
+### Alternative Platforms
+The project is also compatible with:
+- **Vercel**
+- **Netlify**
+- **Static hosting** (GitHub Pages, etc.)
 
 ## 📊 Performance Benefits
 

@@ -1,5 +1,5 @@
 {
-"name": "dosedetelemetria-com",
+  "name": "dosedetelemetria-com",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -7,11 +7,13 @@
     "build": "astro build",
     "build:dev": "astro build --mode development",
     "preview": "astro preview",
+    "deploy": "wrangler deploy",
     "astro": "astro",
     "lint": "astro check",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.7",
     "@astrojs/react": "^4.3.0",
     "@astrojs/tailwind": "^6.0.2",
     "@hookform/resolvers": "^5.2.1",
@@ -37,6 +39,7 @@
     "autoprefixer": "^10.4.21",
     "tailwindcss": "^3.4.15",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "^4.33.1"
   }
 }
