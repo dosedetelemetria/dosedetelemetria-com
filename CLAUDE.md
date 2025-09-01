@@ -33,6 +33,9 @@ bun add -D <package-name>
 
 # Run both lint and type-check (common before committing)
 bun run lint && bun run type-check
+
+# Deploy to Cloudflare Workers (CI/CD via GitHub Actions)
+bun run deploy
 ```
 
 ## Testing Standards
@@ -53,7 +56,7 @@ bun run lint && bun run type-check
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **Backend**: Supabase (database, auth, edge functions)
 - **State Management**: TanStack Query for server state (when using React islands)
-- **Deployment**: Netlify with static site generation
+- **Deployment**: Cloudflare Workers with static site generation
 
 ### Project Structure
 
@@ -144,5 +147,14 @@ bun run lint && bun run type-check
 **GitHub Actions** (`.github/workflows/ci.yml`):
 - **Main Job**: Lint, type-check, and build on every push/PR to main
 - **SEO Validation Job**: Validates SEO files (robots.txt, sitemap.xml) and runs SEO-specific tests
+- **Deployment Job**: Automated deployment to Cloudflare Workers via `bun run deploy`
 - **Uses Bun**: All package management and script execution uses Bun
 - **Automated Checks**: Ensures code quality and SEO implementation integrity
+
+### Deployment
+
+**Cloudflare Workers**:
+- Static site deployment via Cloudflare Workers
+- Automated deployment through GitHub Actions CI/CD pipeline
+- Manual deployment available via `bun run deploy` command
+- Global CDN distribution with excellent performance
