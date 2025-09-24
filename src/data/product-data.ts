@@ -220,9 +220,9 @@ export const productData: Product[] = [
         ]
       },
       {
-        title: "AI",
+        title: "Inteligência Artificial",
         lessons: [
-          "Um Vislumbre do Futuro",
+          "Uma Prévia do Futuro",
           "IA para Observabilidade",
           "Observabilidade para IA"
         ]
