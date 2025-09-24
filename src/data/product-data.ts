@@ -170,14 +170,17 @@ export const productData: Product[] = [
           "Configuração",
           "Agentes vs. Gateways vs. Coletores",
           "Monitorando Collectors",
-          "OTTL",
+          "OTTL - Introdução",
+          "OTTL - Contexto",
+          "OTTL - Casos Avançados",
           "Técnicas de resiliência - Filas",
           "Técnicas de resiliência - WAL",
           "Técnicas de resiliência - Mensageria",
           "Segurança - TLS",
           "Segurança - Autenticação",
           "Construindo seu Collector",
-          "Connectors: Span Metrics"
+          "Connectors: Span Metrics",
+          "Escalando o Collector"
         ]
       },
       {
@@ -217,15 +220,17 @@ export const productData: Product[] = [
         ]
       },
       {
-        title: "Interoperabilidade",
+        title: "AI",
         lessons: [
-          "Em breve"
+          "Um Vislumbre do Futuro",
+          "IA para Observabilidade",
+          "Observabilidade para IA"
         ]
       },
       {
         title: "Migração",
         lessons: [
-          "Em breve"
+          "Migração"
         ]
       },
       {
@@ -373,14 +378,17 @@ export const productData: Product[] = [
           "Configuração",
           "Agentes vs. Gateways vs. Coletores",
           "Monitorando Collectors",
-          "OTTL",
+          "OTTL - Introdução",
+          "OTTL - Contexto",
+          "OTTL - Casos Avançados",
           "Técnicas de resiliência - Filas",
           "Técnicas de resiliência - WAL",
           "Técnicas de resiliência - Mensageria",
           "Segurança - TLS",
           "Segurança - Autenticação",
           "Construindo seu Collector",
-          "Connectors: Span Metrics"
+          "Connectors: Span Metrics",
+          "Escalando o Collector"
         ]
       },
       {
@@ -420,15 +428,17 @@ export const productData: Product[] = [
         ]
       },
       {
-        title: "Interoperabilidade",
+        title: "Inteligência Artificial",
         lessons: [
-          "Em breve"
+          "Uma Prévia do Futuro",
+          "IA para Observabilidade",
+          "Observabilidade para IA"
         ]
       },
       {
         title: "Migração",
         lessons: [
-          "Em breve"
+          "Migração"
         ]
       },
       {
