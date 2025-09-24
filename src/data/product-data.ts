@@ -118,8 +118,7 @@ export const productData: Product[] = [
           "Observando as chamadas HTTP",
           "Propagando contexto manualmente",
           "Novos trechos, ou eventos?",
-          "Entendendo a latência normal entre serviços",
-          "Repositório GitHub"
+          "Entendendo a latência normal entre serviços"
         ]
       },
       {
@@ -326,8 +325,7 @@ export const productData: Product[] = [
           "Observando as chamadas HTTP",
           "Propagando contexto manualmente",
           "Novos trechos, ou eventos?",
-          "Entendendo a latência normal entre serviços",
-          "Repositório GitHub"
+          "Entendendo a latência normal entre serviços"
         ]
       },
       {
@@ -395,10 +393,10 @@ export const productData: Product[] = [
         title: "Extendendo o Collector",
         lessons: [
           "Introdução",
+          "Extensions",
           "Receivers",
           "Processors",
           "Exporters",
-          "Extensions",
           "Connectors"
         ]
       },
