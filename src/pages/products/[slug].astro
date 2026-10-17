@@ -27,9 +27,9 @@ const testimonials = getProductTestimonials(product.id, 3);
 // Get SEO data based on product
 const getSEOData = () => {
   switch (slug) {
-    case 'otel-track':
+    case 'trilha-otel':
       return seoData.otelTrack;
-    case 'otel-specialization':
+    case 'especializacao-otel':
       return seoData.otelSpecialization;
     default:
       return seoData.products;
@@ -88,8 +88,8 @@ const seoInfo = getSEOData();
 								</a>
 							) : (
 								<button 
-									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-white/20 text-white hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
-									onclick="document.querySelector('.waitlist-section')?.scrollIntoView({ behavior: 'smooth' })"
+									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md bg-white/20 text-white/70 cursor-not-allowed"
+									disabled
 								>
 									{product.ctaText}
 								</button>
@@ -219,8 +219,8 @@ const seoInfo = getSEOData();
 					) : (
 						<div class="space-y-4">
 							<button 
-								class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-white/20 text-white hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
-								onclick="document.querySelector('.waitlist-section')?.scrollIntoView({ behavior: 'smooth' })"
+								class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md bg-white/20 text-white/70 cursor-not-allowed"
+								disabled
 							>
 								{product.ctaText}
 							</button>

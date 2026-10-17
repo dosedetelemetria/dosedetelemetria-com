@@ -49,7 +49,7 @@ export const seoData = {
         "@type": "Offer",
         "price": "2397",
         "priceCurrency": "BRL",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/OutOfStock"
       }
     }
   },
@@ -75,7 +75,7 @@ export const seoData = {
         "@type": "Offer",
         "price": "5997",
         "priceCurrency": "BRL",
-        "availability": "https://schema.org/PreOrder"
+        "availability": "https://schema.org/OutOfStock"
       }
     }
   }

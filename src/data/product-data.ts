@@ -240,7 +240,7 @@ export const productData: Product[] = [
       }
     ],
     price: "R$ 5.997,00",
-    ctaText: "Lista de espera",
+    ctaText: "Em breve",
     ctaLink: "/waiting-list",
     available: false
   },
@@ -447,9 +447,9 @@ export const productData: Product[] = [
       }
     ],
     price: "R$ 2.397,00",
-    ctaText: "Inscreva-se",
+    ctaText: "Em breve",
     ctaLink: "https://mn.dosedetelemetria.com/share/u1ERnGs2fyDlmmdq",
-    available: true
+    available: false
   }
 ];
 
