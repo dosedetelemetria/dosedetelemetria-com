@@ -68,7 +68,7 @@ const testimonials = getRandomTestimonials(2);
 							price={product.price}
 							originalPrice={product.originalPrice}
 							discount={product.discount}
-							ctaText={product.available ? "Ver detalhes" : "Lista de espera"}
+							ctaText="Ver detalhes"
 							ctaLink={`/products/${product.slug}`}
 							available={product.available}
 							popular={product.popular}
@@ -158,8 +158,8 @@ const testimonials = getRandomTestimonials(2);
 								</span>
 							</td>
 							<td class="py-4 px-6 text-center">
-								<span class="inline-block px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
-									Disponível
+								<span class="inline-block px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">
+									Em breve
 								</span>
 							</td>
 							</tr>

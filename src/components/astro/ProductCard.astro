@@ -52,7 +52,7 @@ const isExternalLink = ctaLink.startsWith('http');
 >
   {popular && (
     <div class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-telemetria-yellow px-3 py-1 text-xs font-semibold text-telemetria-dark">
-      Available
+      {available ? "Disponível" : "Em breve"}
     </div>
   )}
 
@@ -104,41 +104,19 @@ const isExternalLink = ctaLink.startsWith('http');
     </div>
 
     <div class="mt-auto pt-6">
-      {isExternalLink ? (
-        <a 
-          href={ctaLink} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class={cn(
-            "w-full font-medium text-sm transition-all duration-300 px-4 py-2.5 rounded-md inline-flex items-center justify-center text-center",
-            popular
-              ? "bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
-              : available
-              ? ctaText === "Join waitlist" 
-                ? "bg-white/20 text-white hover:bg-telemetria-yellow hover:text-telemetria-dark"
-                : "bg-secondary hover:bg-telemetria-yellow hover:text-telemetria-dark"
-              : "bg-secondary/40 text-muted-foreground hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
-          )}
-        >
-          {ctaText}
-        </a>
-      ) : (
-        <a 
-          href={ctaLink}
-          class={cn(
-            "w-full font-medium text-sm transition-all duration-300 px-4 py-2.5 rounded-md inline-flex items-center justify-center text-center",
-            popular
-              ? "bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
-              : available
-              ? ctaText === "Join waitlist" 
-                ? "bg-white/20 text-white hover:bg-telemetria-yellow hover:text-telemetria-dark"
-                : "bg-secondary hover:bg-telemetria-yellow hover:text-telemetria-dark"
-              : "bg-secondary/40 text-muted-foreground hover:bg-telemetria-yellow/90 hover:text-telemetria-dark"
-          )}
-        >
-          {ctaText}
-        </a>
-      )}
+      <a
+        href={ctaLink}
+        target={isExternalLink ? "_blank" : undefined}
+        rel={isExternalLink ? "noopener noreferrer" : undefined}
+        class={cn(
+          "w-full font-medium text-sm transition-all duration-300 px-4 py-2.5 rounded-md inline-flex items-center justify-center text-center",
+          popular
+            ? "bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
+            : "bg-secondary hover:bg-telemetria-yellow hover:text-telemetria-dark"
+        )}
+      >
+        {ctaText}
+      </a>
     </div>
   </div>
 </div>

@@ -80,7 +80,7 @@ All commands use **bun** as the package manager:
 - `/` - Homepage with hero and product overview
 - `/products` - Product catalog and comparison
 - `/products/otel-specialization` - Intensive program (waitlist)
-- `/products/otel-track` - Self-paced course (available)
+- `/products/otel-track` - Self-paced course (coming soon)
 - `/privacy-policy`, `/terms-of-use`, `/imprint` - Legal pages
 
 ## 🛠️ Development
