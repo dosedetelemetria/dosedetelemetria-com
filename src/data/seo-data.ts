@@ -37,7 +37,7 @@ export const seoData = {
   },
   products: {
     title: "Cursos e especialização em OpenTelemetry",
-    description: "Compare a Trilha OTel e a Especialização em OTel: cursos em português com projetos práticos. Em breve.",
+    description: "Compare os cursos de OpenTelemetry em português: conteúdo, preços e situação das matrículas.",
     keywords: "curso OpenTelemetry, especialização OTel, certificação observabilidade, programa treinamento OpenTelemetry",
     jsonLd: {
       "@context": "https://schema.org",
@@ -54,7 +54,7 @@ export const seoData = {
   },
   otelSpecialization: {
     title: "Especialização em OpenTelemetry",
-    description: "Programa intensivo de 8 semanas com conversas semanais, projetos práticos e feedback personalizado. Em breve.",
+    description: "Programa de 8 semanas com mentoria e projetos práticos de OpenTelemetry. Matrículas encerradas.",
     keywords: "especialização OpenTelemetry, treinamento intensivo OTel, mentoria observabilidade, treinamento especialista OpenTelemetry"
   }
 };

@@ -25,6 +25,8 @@ at build time. A package or repository consolidation remains a separate decision
 | Analytics | Common layout with explicit head/body integration boundaries | Drops retains its analytics; Dose does not acquire Drops tracking configuration |
 | Legal and resources | Common shell and controls | Legal texts, available resource pages, images, social accounts, backend settings and enrollment destinations remain local |
 
+Course cards and comparisons use explicit catalog availability labels. Closed cohort enrollment is distinct from a forthcoming self-paced course. Waitlists precede course features, and author portraits use fixed square dimensions with the local brand-accent border.
+
 Course availability is independent of visual emphasis. A highlighted card opens
 course details; it must not enable enrollment. A completion certificate is not
 CNCF OTCA certification. Existing English resources remain labelled as English

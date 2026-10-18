@@ -55,8 +55,8 @@ export const waitlistCopy = {
 };
 
 export const catalogCopy = {
-  "title": "Nossos produtos",
-  "intro": "Cursos e especializações em OpenTelemetry para desenvolver suas habilidades em observabilidade.",
+  "title": "Escolha seu curso de OpenTelemetry",
+  "intro": "Compare o estudo no seu ritmo com um programa com mentoria. Confira a situação das matrículas de cada curso.",
   "courses": "Conheça nossos produtos",
   "coursesIntro": "Escolha o formato de aprendizado que combina com seus objetivos.",
   "compare": "Qual é o curso ideal para você?",
@@ -68,7 +68,7 @@ export const catalogCopy = {
   "testimonials": "O que nossos alunos dizem",
   "testimonialsIntro": "Experiências de quem já aprendeu conosco.",
   "contactTitle": "Ainda com dúvidas?",
-  "contactText": "Entre em contato para escolher um curso para você ou sua equipe.",
+  "contactText": "Entre em contato para tirar dúvidas e escolher um curso.",
   "contact": "Fale conosco",
   "comparisonLabels": {
     "format": "Formato",

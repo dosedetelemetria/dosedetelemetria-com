@@ -48,19 +48,6 @@ const testimonials = getProductTestimonials(product.id, 3);
       <CourseOffer product={product} />
     </div>
   </header>
-  <section class="section-padding bg-bg-surface">
-    <div class="container-custom">
-      <SectionHeading title={copy.features} subtitle={copy.featuresIntro} />
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {product.detailedFeatures.map((feature) => (
-          <div class="p-6 rounded-xl border border-border bg-bg-elevated">
-            <h3 class="text-xl font-semibold mb-3">{feature.title}</h3>
-            <p class="text-text-secondary">{feature.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
   {!product.available && (
     <section id="waitlist" class="section-padding">
       <div class="container-custom max-w-xl">
@@ -76,6 +63,19 @@ const testimonials = getProductTestimonials(product.id, 3);
       </div>
     </section>
   )}
+  <section class="section-padding bg-bg-surface">
+    <div class="container-custom">
+      <SectionHeading title={copy.features} subtitle={copy.featuresIntro} />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {product.detailedFeatures.map((feature) => (
+          <div class="p-6 rounded-xl border border-border bg-bg-elevated">
+            <h3 class="text-xl font-semibold mb-3">{feature.title}</h3>
+            <p class="text-text-secondary">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
   <section class="section-padding bg-bg-surface">
     <div class="container-custom">
       <SectionHeading

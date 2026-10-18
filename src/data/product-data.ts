@@ -32,6 +32,7 @@ export interface Product {
   ctaText: string;
   ctaLink: string;
   available: boolean;
+  availabilityLabel: string;
   popular?: boolean;
 }
 
@@ -248,9 +249,10 @@ export const productData: Product[] = [
       }
     ],
     price: "R$ 5.997,00",
-    ctaText: "Em breve",
+    ctaText: "Matrículas encerradas",
     ctaLink: "/waiting-list",
-    available: false
+    available: false,
+    availabilityLabel: "Matrículas encerradas"
   },
   {
     id: "trilha",
@@ -465,6 +467,7 @@ export const productData: Product[] = [
     ctaText: "Em breve",
     ctaLink: "https://mn.dosedetelemetria.com/share/u1ERnGs2fyDlmmdq",
     available: false,
+    availabilityLabel: "Em breve",
     popular: true
   }
 ];

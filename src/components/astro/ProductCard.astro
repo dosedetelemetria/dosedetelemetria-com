@@ -1,5 +1,4 @@
 ---
-import { ui } from "../../data/site-copy";
 import CouponCode from "./CouponCode.astro";
 import { cn } from "../../lib/utils";
 
@@ -22,6 +21,7 @@ export interface Props {
   ctaText: string;
   ctaLink: string;
   available: boolean;
+  availabilityLabel: string;
   popular?: boolean;
 }
 
@@ -35,7 +35,7 @@ const {
   discount,
   ctaText,
   ctaLink,
-  available,
+  availabilityLabel,
   popular,
 } = Astro.props;
 
@@ -52,11 +52,9 @@ const isExternalLink = ctaLink.startsWith('http');
       : "border-border hover:border-border-strong"
   )}
 >
-  {popular && (
-    <div class="absolute -top-4 left-1/2 -translate-x-1/2 max-w-[calc(100%-2rem)] text-center rounded-lg bg-telemetria-accent px-3 py-1 text-xs font-semibold text-telemetria-dark">
-      {title}: {available ? ui.available : ui.comingSoon}
-    </div>
-  )}
+  <div class="absolute -top-4 left-1/2 -translate-x-1/2 max-w-[calc(100%-2rem)] text-center rounded-lg bg-telemetria-accent px-3 py-1 text-xs font-semibold text-telemetria-dark">
+      {availabilityLabel}
+  </div>
 
   <div class="flex flex-col h-full">
     <div class="space-y-2 mb-6">
