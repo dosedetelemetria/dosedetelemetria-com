@@ -6,8 +6,8 @@ import { VALID_TAGS } from './data/tag-data';
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: ({ image }) => z.object({
-    title: z.string(),
-    seoTitle: z.string().max(60).optional(),
+    title: z.string().trim().min(1),
+    seoTitle: z.string().trim().min(1).max(60).optional(),
     slug: z.string(),
     description: z.string().max(125),
     publishedAt: z.coerce.date(),
@@ -15,7 +15,7 @@ const blog = defineCollection({
     author: z.literal('juraci'),
     tags: z.array(z.enum(VALID_TAGS)).min(1),
     heroImage: image(),
-    heroImageAlt: z.string(),
+    heroImageAlt: z.string().trim().min(1),
     historicalNote: z.string().optional(),
   }),
 });

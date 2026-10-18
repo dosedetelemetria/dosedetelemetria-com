@@ -36,5 +36,9 @@ O servidor local atende em `http://localhost:4321`.
 - `worker/index.js`: negociação de HTML/Markdown e redirecionamento de www.
 - `wrangler.jsonc`: configuração do Cloudflare Worker e seus arquivos estáticos.
 
+Para pautas e artigos, consulte [seleção](docs/blog-candidates.md),
+[autoria](docs/blog-authoring.md), [imagens](docs/blog-images.md) e
+[validação](docs/blog-validation.md).
+
 Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para mudanças públicas e
 [docs/deployment.md](docs/deployment.md) para publicação, prévias e rollback.

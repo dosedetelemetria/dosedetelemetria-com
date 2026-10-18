@@ -1,7 +1,8 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import TagPill from "./TagPill.astro";
-import { tagInfo } from "../../data/tag-data";
-import type { ValidTag } from "../../data/tag-data";
+import { tagInfo, type ValidTag } from "../../data/tag-data";
 
 interface Props {
   title: string;
@@ -10,35 +11,69 @@ interface Props {
   tags: string[];
   publishedAt: Date;
   readingTime: number;
+  heroImage: ImageMetadata;
+  heroImageAlt: string;
+  variant?: "card" | "featured" | "row";
+  heading?: "h2" | "h3";
+  sizes?: string;
 }
 
-const { title, description, slug, tags, publishedAt, readingTime } = Astro.props;
-
+const {
+  title, description, slug, tags, publishedAt, readingTime,
+  heroImage, heroImageAlt, variant = "card", heading: Heading = "h2", sizes,
+} = Astro.props;
 const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-  timeZone: "UTC",
+  year: "numeric", month: "short", day: "numeric", timeZone: "UTC",
 });
 ---
 
-<a
-  href={`/blog/${slug}/`}
-  class="group block rounded-xl border border-border bg-bg-surface p-6 transition-colors hover:border-telemetria-yellow/30 hover:bg-bg-elevated"
-  data-tags={tags.join(",")}
->
-  <div class="flex flex-wrap gap-2 mb-3">
-    {tags.map((tag: string) => (
-      <TagPill tag={tagInfo[tag as ValidTag]?.displayName ?? tag} />
-    ))}
-  </div>
-  <h2 class="text-lg font-semibold text-white leading-snug mb-2 group-hover:text-telemetria-yellow transition-colors">
-    {title}
-  </h2>
-  <p class="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-2">
-    {description}
-  </p>
-  <div class="text-xs text-text-secondary">
-    {dateFormatted} · {readingTime} min de leitura
+<a href={`/blog/${slug}/`} class:list={["blog-card", variant]} data-tags={tags.join(",")}>
+  <Image
+    src={heroImage}
+    widths={[240, 480, 768, 1200]}
+    format="webp"
+    fit="cover"
+    sizes={sizes ?? (variant === "featured" ? "(min-width: 768px) 55vw, 100vw" : variant === "row" ? "(min-width: 768px) 240px, 112px" : "(min-width: 768px) 50vw, 100vw")}
+    alt={heroImageAlt}
+    width={1200}
+    height={800}
+    loading={variant === "featured" ? "eager" : "lazy"}
+    fetchpriority={variant === "featured" ? "high" : "auto"}
+    decoding="async"
+  />
+  <div class="card-copy">
+    <div class="flex flex-wrap gap-2 mb-3">
+      {tags.map((tag) => <TagPill tag={tagInfo[tag as ValidTag]?.displayName ?? tag} />)}
+    </div>
+    <Heading class="card-title">{title}</Heading>
+    <p class="card-description">{description}</p>
+    <div class="text-sm text-text-secondary">
+      <time datetime={publishedAt.toISOString()}>{dateFormatted}</time> · {readingTime} min de leitura
+    </div>
+    {variant === "featured" && <span class="mt-6 inline-block text-sm font-semibold text-telemetria-yellow">Ler artigo <span aria-hidden="true">→</span></span>}
   </div>
 </a>
+
+<style>
+  .blog-card { display: block; min-width: 0; color: #fafafa; }
+  .blog-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 12px; background: #121212; }
+  .card-copy { padding-block: 1.5rem; }
+  .card-title { margin-bottom: .75rem; font-size: 1.25rem; line-height: 1.35; font-weight: 650; text-wrap: balance; transition: color .15s; }
+  .blog-card:hover .card-title { color: var(--color-telemetria-yellow); }
+  .card-description { margin-bottom: 1rem; color: #a1a1aa; font-size: .9375rem; line-height: 1.7; max-width: 65ch; }
+  .featured { overflow: hidden; border: 1px solid rgb(255 255 255 / .08); border-radius: 12px; background: #121212; }
+  .featured img { height: 100%; border-radius: 0; }
+  .featured .card-copy { padding: 1.5rem; }
+  .featured .card-title { font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1.15; letter-spacing: -.025em; }
+  .row { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 1.25rem; padding-block: 1.5rem; border-top: 1px solid rgb(255 255 255 / .08); }
+  .row .card-copy { padding: 0; }
+  .row .card-description { display: none; }
+  .row .card-title { font-size: 1.125rem; }
+  @media (min-width: 768px) {
+    .featured { display: grid; grid-template-columns: 1.2fr 1fr; }
+    .featured .card-copy { padding: 2.5rem; align-self: center; }
+    .row { grid-template-columns: 15rem minmax(0, 1fr); gap: 2rem; align-items: center; }
+    .row .card-title { font-size: 1.5rem; }
+    .row .card-description { display: block; }
+  }
+</style>

@@ -1,26 +1,94 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import BlogPostCard from '../../components/astro/BlogPostCard.astro';
-import { tagInfo, type ValidTag } from '../../data/tag-data';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BlogPostCard from "../../components/astro/BlogPostCard.astro";
+import { tagInfo, type ValidTag } from "../../data/tag-data";
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-const tags = [...new Set(posts.flatMap(post => post.data.tags))] as ValidTag[];
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+const readingTime = (post: (typeof posts)[number]) => Math.max(1, Math.ceil((post.body ?? "").split(/\s+/).length / 200));
+const [latest, ...olderPosts] = posts;
+const recentPosts = olderPosts.slice(0, 3);
+const usedTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort() as ValidTag[];
 ---
 
 <Layout title="Blog de OpenTelemetry e observabilidade" description="Artigos em português sobre OpenTelemetry, telemetria, monitoramento e engenharia de observabilidade." canonical="/blog/">
-  <div class="container-custom py-16">
-    <header class="mb-10">
-      <h1 class="text-4xl font-bold mb-3">Blog</h1>
-      <p class="text-lg text-white/80">OpenTelemetry e engenharia de observabilidade na prática.</p>
+  <div class="container-custom py-12 md:py-16">
+    <header class="mb-10 md:mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Blog</h1>
+      <p class="text-lg text-text-secondary">OpenTelemetry e engenharia de observabilidade na prática.</p>
       <a href="/blog/rss.xml" class="inline-block mt-4 text-telemetria-yellow hover:underline">Acompanhe pelo RSS</a>
     </header>
-    <nav aria-label="Temas do blog" class="flex flex-wrap gap-2 mb-10">
-      {tags.map(tag => <a href={`/blog/tags/${tag}/`} class="rounded-full border border-white/20 px-3 py-2 text-sm text-telemetria-yellow hover:bg-white/10">{tagInfo[tag].displayName}</a>)}
-      <a href="/blog/tags/" class="px-3 py-2 text-sm text-white/80 hover:underline">Todos os temas</a>
-    </nav>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {posts.map(post => <BlogPostCard title={post.data.title} description={post.data.description} slug={post.data.slug} tags={post.data.tags} publishedAt={post.data.publishedAt} readingTime={Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 200))} />)}
-    </div>
+
+    {latest && <BlogPostCard {...latest.data} readingTime={readingTime(latest)} variant="featured" />}
+
+    {recentPosts.length > 0 && (
+      <section class="mt-16" aria-labelledby="recent-heading">
+        <h2 id="recent-heading" class="text-2xl font-semibold text-white mb-8">Mais artigos recentes</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {recentPosts.map((post) => <BlogPostCard {...post.data} readingTime={readingTime(post)} heading="h3" sizes="(min-width: 768px) 33vw, 100vw" />)}
+        </div>
+      </section>
+    )}
+
+    <section class="mt-16" aria-labelledby="archive-heading">
+      <div class="flex flex-wrap items-baseline justify-between gap-3 mb-6">
+        <h2 id="archive-heading" class="text-2xl font-semibold text-white">Todos os artigos</h2>
+        <p class="text-sm text-text-secondary" id="post-count" role="status">{posts.length} artigos</p>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-8" id="tag-filter" hidden role="group" aria-label="Filtrar artigos por tema">
+        <button class="tag-filter-btn" data-tag="all" aria-pressed="true" aria-controls="posts-grid">Todos os temas</button>
+        {usedTags.map((tag) => (
+          <button class="tag-filter-btn" data-tag={tag} aria-pressed="false" aria-controls="posts-grid">
+            {tagInfo[tag]?.displayName ?? tag}
+          </button>
+        ))}
+      </div>
+      <noscript>
+        <nav aria-label="Temas do blog" class="flex flex-wrap gap-3 mb-8">
+          {usedTags.map(tag => <a href={`/blog/tags/${tag}/`} class="text-telemetria-yellow hover:underline">{tagInfo[tag].displayName}</a>)}
+        </nav>
+      </noscript>
+      <a href="/blog/tags/" class="inline-block mb-6 text-sm text-text-secondary hover:underline">Explorar todos os temas →</a>
+      <div id="posts-grid">
+        {posts.map((post) => <BlogPostCard {...post.data} readingTime={readingTime(post)} variant="row" heading="h3" />)}
+      </div>
+      <p class="hidden py-12 text-text-secondary" id="no-posts">Nenhum artigo encontrado para este tema.</p>
+    </section>
   </div>
 </Layout>
+
+<style>
+  .tag-filter-btn { border: 1px solid rgb(255 255 255 / .16); border-radius: 999px; padding: .5rem .875rem; font-size: .8125rem; color: #a1a1aa; cursor: pointer; }
+  .tag-filter-btn:hover { color: #fafafa; background: #242424; }
+  .tag-filter-btn[aria-pressed="true"] { background: #fef3c7; color: #121212; border-color: #fef3c7; }
+</style>
+
+<script>
+  function setupTagFilter() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.tag-filter-btn');
+    const grid = document.getElementById('posts-grid');
+    const count = document.getElementById('post-count');
+    const empty = document.getElementById('no-posts');
+    if (!grid || !count || !empty) return;
+    document.getElementById("tag-filter")?.removeAttribute("hidden");
+    const cards = grid.querySelectorAll<HTMLElement>('[data-tags]');
+    buttons.forEach((button) => {
+      button.onclick = () => {
+        const tag = button.dataset.tag;
+        buttons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+        let visibleCount = 0;
+        cards.forEach((card) => {
+          const show = tag === 'all' || (card.dataset.tags?.split(',') ?? []).includes(tag ?? '');
+          card.style.display = show ? '' : 'none';
+          if (show) visibleCount++;
+        });
+        count.textContent = `${visibleCount} ${visibleCount === 1 ? 'artigo' : 'artigos'}`;
+        empty.classList.toggle('hidden', visibleCount > 0);
+      };
+    });
+  }
+  setupTagFilter();
+  document.addEventListener('astro:page-load', setupTagFilter);
+</script>

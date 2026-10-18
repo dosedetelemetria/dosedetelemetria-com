@@ -6,7 +6,7 @@ O catálogo e os artigos mantêm seus dados e conteúdo próprios.
 
 ## Referências
 
-A adaptação usa Telemetry Drops `e383798` e o app
+A adaptação usa Telemetry Drops `933e357` e o app
 `telemetrydrops/dropzone-app` na revisão
 `316340cc2da136e3d8b25dffc5e72f5619885667`. As fontes são
 `src/styles/globals.css`, `src/styles/brands.css` e o Storybook do app com
@@ -61,3 +61,19 @@ anunciado e orientação para cópia manual em caso de falha. Sem JavaScript, o
 código continua legível e selecionável. As exportações Markdown preservam
 linguagem, recuos e quebras de linha, com cercas que não colidem com o conteúdo.
 O sumário de navegação é omitido dessas exportações.
+
+
+## Descoberta de artigos
+
+O blog destaca o post mais novo, seguido por três artigos recentes e um arquivo
+completo por data. O filtro por tema atua somente no arquivo, anuncia a contagem
+e mantém links para páginas de tema quando JavaScript está desabilitado.
+`BlogPostCard.astro` compartilha imagem e conteúdo entre destaque, cartões e
+linhas; as seções usam H2 e os artigos dentro delas usam H3.
+
+As imagens históricas permanecem locais e preservadas. O pipeline `Image` do
+Astro produz WebP responsivo em vez de exigir os pares de arquivos públicos do
+website inglês. Novas ilustrações seguem [o guia de imagens](docs/blog-images.md).
+O amarelo da Dose substitui os acentos laranja do blog inglês; o favicon usa a
+mesma cor da marca. As diferenças intencionais incluem tipografia maior para
+leitura e foco com contorno, em vez de depender do halo do app.
