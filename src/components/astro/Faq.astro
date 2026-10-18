@@ -1,0 +1,44 @@
+---
+import { site } from "../../data/site.mjs";
+import { ui } from "../../data/site-copy";
+import type { FaqEntry } from '../../data/faq-data';
+
+interface Props {
+  items: FaqEntry[];
+  title?: string;
+}
+
+const { items, title = ui.faq } = Astro.props;
+const url = new URL(Astro.url.pathname.replace(/\/?$/, '/'), site.url).href;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${url}#faq`,
+  url,
+  mainEntity: items.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  })),
+};
+---
+
+<section id="faq" class="py-12 md:py-16">
+  <div class="container-custom max-w-4xl">
+    <h2 class="text-2xl font-semibold mb-6">{title}</h2>
+    <div class="divide-y divide-white/10 border-y border-white/10">
+      {items.map((item) => (
+        <details class="py-1">
+          <summary class="cursor-pointer py-4 marker:text-brand-link focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-telemetria-accent">
+            <h3 class="inline text-base font-medium">{item.question}</h3>
+          </summary>
+          <div class="pb-5 text-sm leading-relaxed text-white/75 max-w-prose">
+            <p>{item.answer}</p>
+            {item.link && <p class="mt-2"><a class="text-brand-link underline underline-offset-4 hover:text-white" href={item.link.href}>{item.link.label}</a></p>}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />

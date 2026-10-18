@@ -18,8 +18,12 @@ const { author } = Astro.props;
     loading="lazy"
   />
   <div>
-    <a href={author.profilePath} class="font-semibold text-white hover:text-telemetria-yellow">{author.name}</a>
-    <div class="text-sm text-white/70 mb-2">{author.role}</div>
+    {author.profilePath ? (
+      <a href={author.profilePath} class="font-semibold text-white hover:text-brand-link">{author.name}</a>
+    ) : (
+      <span class="font-semibold text-white">{author.name}</span>
+    )}
+    <div class="text-sm text-text-secondary mb-2">{author.role}</div>
     <p class="text-sm text-white/70 mb-3">{author.bio}</p>
     <div class="flex gap-3">
       {author.social.linkedin && (
@@ -27,7 +31,7 @@ const { author } = Astro.props;
           href={author.social.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm"
+          class="text-text-secondary hover:text-brand-link transition-colors text-sm"
         >
           LinkedIn
         </a>
@@ -37,9 +41,19 @@ const { author } = Astro.props;
           href={author.social.github}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm"
+          class="text-text-secondary hover:text-brand-link transition-colors text-sm"
         >
           GitHub
+        </a>
+      )}
+      {author.social.bluesky && (
+        <a
+          href={author.social.bluesky}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-text-secondary hover:text-brand-link transition-colors text-sm"
+        >
+          Bluesky
         </a>
       )}
     </div>

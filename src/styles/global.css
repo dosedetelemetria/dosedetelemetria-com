@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './brand.css';
 
 @plugin 'tailwindcss-animate';
 @plugin '@tailwindcss/typography';
@@ -35,7 +36,6 @@
   --color-bg-input: #1e1e1e;
   --color-text-secondary: #a1a1aa;
   --color-cream: #fef3c7;
-  --color-primary-hover: color-mix(in srgb, var(--color-telemetria-yellow), white 10%);
   --color-border-strong: rgb(255 255 255 / 0.16);
 
   --color-border: hsl(var(--border));
@@ -65,7 +65,6 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
-  --color-telemetria-yellow: #ffc107;
   --color-telemetria-dark: #121212;
   --color-telemetria-darker: #0a0a0a;
   --color-telemetria-gray: #242424;
@@ -161,7 +160,7 @@
 }
 
 @utility hover-link {
-  @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-telemetria-yellow after:transition-all after:duration-300 hover:after:w-full;
+  @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-telemetria-accent after:transition-all after:duration-300 hover:after:w-full;
 }
 
 @utility section-padding {
@@ -183,8 +182,6 @@
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 45 100% 51%;
-    --primary-foreground: 240 6% 10%;
 
     --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 98%;
@@ -192,15 +189,12 @@
     --muted: 240 5% 13%;
     --muted-foreground: 240 5% 65%;
 
-    --accent: 45 100% 51%;
-    --accent-foreground: 240 6% 10%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 100% / 0.08;
     --input: 0 0% 100% / 0.16;
-    --ring: 45 100% 51%;
 
     --radius: 0.75rem;
   }
@@ -208,7 +202,7 @@
 
 @layer base {
   * {
-    @apply border-border selection:bg-telemetria-yellow/30 selection:text-white;
+    @apply border-border selection:bg-telemetria-accent/30 selection:text-white;
   }
 
   body {
@@ -225,9 +219,9 @@
 @layer base {
   html { color-scheme: dark; scrollbar-color: #52525b #121212; }
   h1, h2, h3 { text-wrap: balance; }
-  :focus-visible { outline: 2px solid #ffc107; outline-offset: 4px; }
+  :focus-visible { outline: 2px solid var(--color-brand-link); outline-offset: 4px; }
   [id] { scroll-margin-top: 6rem; }
-  input, textarea { caret-color: #ffc107; }
+  input, textarea { caret-color: var(--color-brand-link); }
 }
 
 @utility site-button {
@@ -242,7 +236,12 @@
   @apply border border-border-strong bg-bg-elevated text-foreground hover:bg-bg-hover;
 }
 
+@utility technical-figure {
+  @apply my-8 rounded-xl border border-border bg-bg-surface p-4 sm:p-6;
+}
+
 @layer components {
+  .technical-figure figcaption { margin-top: 1rem; color: var(--color-text-secondary); font-size: .875rem; line-height: 1.6; }
   .prose pre { max-width: 100%; overflow-x: auto; }
 }
 

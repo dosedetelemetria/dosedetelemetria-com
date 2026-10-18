@@ -42,3 +42,5 @@ Para pautas e artigos, consulte [seleção](docs/blog-candidates.md),
 
 Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para mudanças públicas e
 [docs/deployment.md](docs/deployment.md) para publicação, prévias e rollback.
+
+Consulte [o alinhamento dos websites](docs/site-alignment.md) para fontes comuns, limites locais e o comando de comparação.

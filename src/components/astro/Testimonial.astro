@@ -27,7 +27,6 @@ const initials = author
 
 ---
 
-
 <div class={cn(
   "flex flex-col h-full rounded-lg border bg-card p-6 shadow-sm",
   className
@@ -37,9 +36,10 @@ const initials = author
   </div>
 
   <div class="flex items-center space-x-4 mt-auto">
-    <div class="h-12 w-12 border-2 border-telemetria-yellow/30 rounded-full overflow-hidden flex items-center justify-center bg-telemetria-yellow/20 text-telemetria-yellow shrink-0">
+    <div class="h-12 w-12 border-2 border-telemetria-accent/30 rounded-full overflow-hidden flex items-center justify-center bg-telemetria-accent/20 text-brand-link shrink-0">
       {avatarUrl ? (
-        <img width="48" height="48" loading="lazy" src={avatarUrl} alt={author} class="w-full h-full object-cover" />
+        <img src={avatarUrl}
+        width="48" height="48" alt={author} class="w-full h-full object-cover" />
       ) : (
         <span class="font-semibold text-sm">{initials}</span>
       )}

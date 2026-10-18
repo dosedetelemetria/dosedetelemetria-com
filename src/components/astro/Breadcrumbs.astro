@@ -1,4 +1,5 @@
 ---
+import { ui } from "../../data/site-copy";
 interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -11,11 +12,11 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="Caminho de navegação" class="text-sm text-white/70">
-  <ol class="flex flex-wrap items-center gap-2" itemscope itemtype="https://schema.org/BreadcrumbList">
+<nav aria-label={ui.breadcrumb} class="text-sm text-text-secondary">
+  <ol class="flex items-center gap-2" itemscope itemtype="https://schema.org/BreadcrumbList">
     {items.map((item, index) => (
       <li
-        class="flex min-w-0 items-center gap-2"
+        class="flex items-center gap-2"
         itemprop="itemListElement"
         itemscope
         itemtype="https://schema.org/ListItem"
@@ -24,7 +25,7 @@ const { items } = Astro.props;
         {item.href ? (
           <a
             href={item.href}
-            class="hover:text-telemetria-yellow transition-colors"
+            class="hover:text-brand-link transition-colors"
             itemprop="item"
           >
             <span itemprop="name">{item.label}</span>

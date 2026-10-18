@@ -1,4 +1,6 @@
 ---
+import { site } from "../../data/site.mjs";
+import { ui } from "../../data/site-copy";
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import TagPill from "./TagPill.astro";
@@ -11,7 +13,7 @@ interface Props {
   tags: string[];
   publishedAt: Date;
   readingTime: number;
-  heroImage: ImageMetadata;
+  heroImage: ImageMetadata | string;
   heroImageAlt: string;
   variant?: "card" | "featured" | "row";
   heading?: "h2" | "h3";
@@ -22,18 +24,24 @@ const {
   title, description, slug, tags, publishedAt, readingTime,
   heroImage, heroImageAlt, variant = "card", heading: Heading = "h2", sizes,
 } = Astro.props;
-const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
+const imageSizes = sizes ?? (variant === "featured" ? "(min-width: 768px) 55vw, 100vw" : variant === "row" ? "(min-width: 768px) 240px, 112px" : "(min-width: 768px) 50vw, 100vw");
+const dateFormatted = publishedAt.toLocaleDateString(site.dateLocale, {
   year: "numeric", month: "short", day: "numeric", timeZone: "UTC",
 });
 ---
 
 <a href={`/blog/${slug}/`} class:list={["blog-card", variant]} data-tags={tags.join(",")}>
+  {typeof heroImage === 'string' ? (
+    <img src={heroImage} srcset={`${heroImage.replace('.webp', '-600.webp')} 600w, ${heroImage} 1200w`}
+      sizes={imageSizes} alt={heroImageAlt} width={1200} height={800}
+      loading={variant === 'featured' ? 'eager' : 'lazy'} fetchpriority={variant === 'featured' ? 'high' : 'auto'} decoding="async" />
+  ) : (
   <Image
     src={heroImage}
     widths={[240, 480, 768, 1200]}
     format="webp"
     fit="cover"
-    sizes={sizes ?? (variant === "featured" ? "(min-width: 768px) 55vw, 100vw" : variant === "row" ? "(min-width: 768px) 240px, 112px" : "(min-width: 768px) 50vw, 100vw")}
+    sizes={imageSizes}
     alt={heroImageAlt}
     width={1200}
     height={800}
@@ -41,6 +49,7 @@ const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
     fetchpriority={variant === "featured" ? "high" : "auto"}
     decoding="async"
   />
+  )}
   <div class="card-copy">
     <div class="flex flex-wrap gap-2 mb-3">
       {tags.map((tag) => <TagPill tag={tagInfo[tag as ValidTag]?.displayName ?? tag} />)}
@@ -48,9 +57,9 @@ const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
     <Heading class="card-title">{title}</Heading>
     <p class="card-description">{description}</p>
     <div class="text-sm text-text-secondary">
-      <time datetime={publishedAt.toISOString()}>{dateFormatted}</time> · {readingTime} min de leitura
+      <time datetime={publishedAt.toISOString()}>{dateFormatted}</time> · {readingTime} {ui.minutesRead}
     </div>
-    {variant === "featured" && <span class="mt-6 inline-block text-sm font-semibold text-telemetria-yellow">Ler artigo <span aria-hidden="true">→</span></span>}
+    {variant === "featured" && <span class="mt-6 inline-block text-sm font-semibold text-brand-link">{ui.readArticle} <span aria-hidden="true">→</span></span>}
   </div>
 </a>
 
@@ -59,7 +68,7 @@ const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
   .blog-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 12px; background: #121212; }
   .card-copy { padding-block: 1.5rem; }
   .card-title { margin-bottom: .75rem; font-size: 1.25rem; line-height: 1.35; font-weight: 650; text-wrap: balance; transition: color .15s; }
-  .blog-card:hover .card-title { color: var(--color-telemetria-yellow); }
+  .blog-card:hover .card-title { color: var(--color-brand-link); }
   .card-description { margin-bottom: 1rem; color: #a1a1aa; font-size: .9375rem; line-height: 1.7; max-width: 65ch; }
   .featured { overflow: hidden; border: 1px solid rgb(255 255 255 / .08); border-radius: 12px; background: #121212; }
   .featured img { height: 100%; border-radius: 0; }

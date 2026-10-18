@@ -10,8 +10,9 @@
     "astro": "astro",
     "lint": "astro check",
     "type-check": "tsc --noEmit",
-    "test:seo": "node --test scripts/seo.test.mjs scripts/markdown.test.mjs scripts/cloudflare.test.mjs",
-    "deploy": "bun run build && wrangler deploy"
+    "test:seo": "node --test scripts/seo.test.mjs scripts/markdown.test.mjs scripts/cloudflare.test.mjs scripts/alignment.test.mjs",
+    "deploy": "bun run build && wrangler deploy",
+    "compare:site": "node scripts/compare-sites.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",

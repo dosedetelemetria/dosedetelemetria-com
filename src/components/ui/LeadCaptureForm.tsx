@@ -1,21 +1,25 @@
-import { useEffect, useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, User, Check, MessageSquare } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useId, useState, type SyntheticEvent } from "react";
+import { toast } from "sonner";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Label } from "./label";
+import { Textarea } from "./textarea";
+import { Check } from "lucide-react";
+import { supabase } from "../../integrations/supabase/client";
+import { waitlistCopy as copy } from "../../data/site-copy";
+import { site } from "../../data/site.mjs";
+import {
+  reportWaitlistSuccess,
+  reportWaitlistError,
+} from "../../lib/waitlist-analytics";
 
-interface LeadCaptureFormProps {
+interface Props {
   productId: string;
   productName: string;
 }
-
-const LeadCaptureForm = ({ productId, productName }: LeadCaptureFormProps) => {
-  const { toast } = useToast();
+export default function LeadCaptureForm({ productId, productName }: Props) {
+  const id = useId();
   const [isHydrated, setIsHydrated] = useState(false);
-  useEffect(() => setIsHydrated(true), []);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,169 +28,137 @@ const LeadCaptureForm = ({ productId, productName }: LeadCaptureFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => setIsHydrated(true), []);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!isHydrated || isSubmitting) return;
     setIsSubmitting(true);
     setError(null);
-    
     try {
-      // 1. Store in Supabase
-      const { error: dbError } = await supabase
-        .from("waitlist")
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message || null,
-          product_id: productId,
-          product_name: productName,
-        });
-
+      const { error: dbError } = await supabase.from("waitlist").insert({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message || null,
+        product_id: productId,
+        product_name: productName,
+      });
       if (dbError) throw dbError;
-
-      // 2. Send email notification
-      const response = await supabase.functions.invoke('send-waitlist-notification', {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          productId,
-          productName,
+      const { error: notificationError } = await supabase.functions.invoke(
+        "send-waitlist-notification",
+        {
+          body: { ...formData, productId, productName },
         },
-      });
-
-      if (response.error) throw new Error(response.error.message);
-
+      );
+      if (notificationError) throw notificationError;
       setIsSubmitted(true);
-      
-      toast({
-        title: "Inscrição realizada com sucesso!",
-        description: "Obrigado pelo seu interesse. Entraremos em contato em breve.",
-      });
-      
-    } catch (err: any) {
-      console.error("Error submitting form:", err);
-      setError(err.message || "Ocorreu um erro ao processar sua inscrição. Tente novamente.");
-      toast({
-        title: "Erro ao processar inscrição",
-        description: "Ocorreu um erro ao processar sua inscrição. Tente novamente.",
-        variant: "destructive",
-      });
+      reportWaitlistSuccess(productId, productName, formData);
+      toast.success(copy.successTitle, { description: copy.successToast });
+    } catch (cause: unknown) {
+      setError(copy.errorMessage);
+      reportWaitlistError(productId, productName, cause);
+      toast.error(copy.errorTitle, { description: copy.errorMessage });
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }
 
-  if (isSubmitted) {
+  if (isSubmitted)
     return (
-      <div className="rounded-lg bg-telemetria-dark/50 p-8 border border-white/10 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 mb-4">
-          <Check className="h-6 w-6 text-green-600" />
-        </div>
-        <h3 className="text-xl font-semibold mb-2">Inscrição realizada!</h3>
-        <p className="text-white/80 mb-4">
-          Obrigado por demonstrar interesse em {productName}. Entraremos em contato assim que novas vagas ficarem disponíveis.
+      <div
+        className="rounded-lg bg-bg-surface p-8 border border-border text-center"
+        role="status"
+      >
+        <Check
+          className="mx-auto h-8 w-8 text-green-400 mb-4"
+          aria-hidden="true"
+        />
+        <h3 className="text-xl font-semibold mb-2">{copy.successTitle}</h3>
+        <p className="text-white/80">
+          {copy.successMessage.replace("{product}", productName)}
         </p>
       </div>
     );
-  }
 
   return (
-    <div className="rounded-lg bg-telemetria-dark/50 p-8 border border-white/10">
-      <h3 className="text-xl font-semibold mb-2">Entrar na lista de espera</h3>
-      <p className="text-white/80 mb-6">
-        Preencha seus dados abaixo para ser notificado quando abrirmos novas vagas para este curso.
-      </p>
-      
+    <div className="rounded-lg bg-bg-surface p-6 sm:p-8 border border-border text-left">
+      <h3 className="text-xl font-semibold mb-2">{copy.title}</h3>
+      <p className="text-white/80 mb-6">{copy.intro}</p>
       {error && (
-        <div className="bg-red-900/30 border border-red-500/50 text-white rounded-md p-3 mb-4">
-          {error}
-        </div>
-      )}
-      
-      <noscript>Ative JavaScript para entrar na lista de interesse ou escreva para <a href="mailto:contato@dosedetelemetria.com">contato@dosedetelemetria.com</a>.</noscript>
-      <form method="post" onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <Label htmlFor="name" className="text-white/80 mb-1.5">
-            Nome completo
-          </Label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <User className="h-4 w-4 text-gray-400" />
-            </div>
-            <Input
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Seu nome completo"
-              required
-              className="pl-10"
-            />
-          </div>
-        </div>
-        
-        <div>
-          <Label htmlFor="email" className="text-white/80 mb-1.5">
-            Email
-          </Label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <Mail className="h-4 w-4 text-gray-400" />
-            </div>
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Seu melhor email"
-              required
-              className="pl-10"
-            />
-          </div>
-        </div>
-        
-        <div>
-          <Label htmlFor="message" className="text-white/80 mb-1.5">
-            Mensagem (opcional)
-          </Label>
-          <div className="relative">
-            <div className="absolute top-3 left-3 pointer-events-none">
-              <MessageSquare className="h-4 w-4 text-gray-400" />
-            </div>
-            <Textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Conte-nos por que está interessado neste curso"
-              className="pl-10 min-h-[100px]"
-            />
-          </div>
-        </div>
-        
-        <Button 
-          type="submit" 
-          className="w-full"
-          disabled={isSubmitting || !isHydrated}
+        <p
+          id={`${id}-error`}
+          role="alert"
+          className="bg-red-900/30 border border-red-500/50 rounded-md p-3 mb-4"
         >
-          {isSubmitting ? "Enviando..." : "Entrar na lista"}
+          {error}
+        </p>
+      )}
+      <noscript>
+        {copy.noScript} <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </noscript>
+      <form
+        method="post"
+        onSubmit={handleSubmit}
+        aria-busy={isSubmitting}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className="space-y-4"
+      >
+        <div>
+          <Label htmlFor={`${id}-name`} className="mb-1.5">
+            {copy.name}
+          </Label>
+          <Input
+            id={`${id}-name`}
+            name="name"
+            autoComplete="name"
+            required
+            placeholder={copy.namePlaceholder}
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+        </div>
+        <div>
+          <Label htmlFor={`${id}-email`} className="mb-1.5">
+            {copy.email}
+          </Label>
+          <Input
+            id={`${id}-email`}
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            placeholder={copy.emailPlaceholder}
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+          />
+        </div>
+        <div>
+          <Label htmlFor={`${id}-message`} className="mb-1.5">
+            {copy.message}
+          </Label>
+          <Textarea
+            id={`${id}-message`}
+            name="message"
+            placeholder={copy.messagePlaceholder}
+            value={formData.message}
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
+          />
+        </div>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={!isHydrated || isSubmitting}
+        >
+          {isSubmitting ? copy.submitting : copy.submit}
         </Button>
-        
-        <p className="text-xs text-white/60 text-center mt-4">
-          Ao se inscrever, você concorda em receber emails sobre este curso e outras ofertas relacionadas. Você pode cancelar a inscrição a qualquer momento.
+        <p className="text-xs text-text-secondary text-center">
+          {copy.consent}
         </p>
       </form>
     </div>
   );
-};
-
-export default LeadCaptureForm;
+}

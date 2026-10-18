@@ -28,7 +28,7 @@ UI/Forms e Course/CourseCard, incluindo conteúdo longo e estados desabilitados.
 | Ação principal | Amarelo com texto escuro; hover com mistura de 10% de branco |
 | Foco | Contorno amarelo com separação do controle |
 | Tipografia | Inter variável local; fonte do sistema como fallback |
-| Cantos | Controles de 10px e cartões de 12px |
+| Cantos | Controles de 8px e cartões de 12px |
 
 O token `primary` do website significa ação; no app, `--color-primary` significa
 texto principal. A semântica dos componentes shadcn do website é preservada.
@@ -47,7 +47,8 @@ restrita e código com rolagem horizontal. Metadados mantêm contraste de leitur
 
 ## Navegação e leitura
 
-A navegação principal contém Início, Produtos e Blog. O menu compacto atende
+A navegação principal contém Início, Produtos, Blog e links identificados para o
+simulado OTCA e o podcast em inglês. O menu compacto atende
 larguras abaixo de 1024px, mantém o foco dentro dos controles abertos e fecha
 com Escape ou ao entrar no layout desktop. Os links sociais permanecem nas
 seções de contato e no rodapé.
@@ -77,3 +78,5 @@ website inglês. Novas ilustrações seguem [o guia de imagens](docs/blog-images
 O amarelo da Dose substitui os acentos laranja do blog inglês; o favicon usa a
 mesma cor da marca. As diferenças intencionais incluem tipografia maior para
 leitura e foco com contorno, em vez de depender do halo do app.
+
+As fontes comuns, os limites de localização e o contrato de validação estão em [alinhamento dos websites](docs/site-alignment.md). Os tokens de marca ficam em `src/styles/brand.css`; `src/styles/global.css` é idêntico nos dois sites.
