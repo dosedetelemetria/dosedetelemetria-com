@@ -1,27 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
-import path from 'path';
+import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build/config
 export default defineConfig({
-  integrations: [
-    react(),
-    tailwind({
-      // Enable default base styles for easier setup
-      applyBaseStyles: true,
-    })
-  ],
-  // Configure Vite for better React support
+  site: 'https://dosedetelemetria.com',
+  integrations: [react()],
   vite: {
-    optimizeDeps: {
-      include: ['react', 'react-dom']
-    },
-    resolve: {
-      alias: {
-        '@': path.resolve('./src')
-      }
-    }
-  }
+    plugins: [tailwindcss()],
+    optimizeDeps: { include: ['react', 'react-dom'] },
+    resolve: { alias: { '@': new URL('./src', import.meta.url).pathname } },
+  },
 });

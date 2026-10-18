@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,8 @@ interface LeadCaptureFormProps {
 
 const LeadCaptureForm = ({ productId, productName }: LeadCaptureFormProps) => {
   const { toast } = useToast();
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => setIsHydrated(true), []);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -109,7 +111,8 @@ const LeadCaptureForm = ({ productId, productName }: LeadCaptureFormProps) => {
         </div>
       )}
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <noscript>Ative JavaScript para entrar na lista de interesse ou escreva para <a href="mailto:contato@dosedetelemetria.com">contato@dosedetelemetria.com</a>.</noscript>
+      <form method="post" onSubmit={handleSubmit} className="space-y-4">
         <div>
           <Label htmlFor="name" className="text-white/80 mb-1.5">
             Nome completo
@@ -173,7 +176,7 @@ const LeadCaptureForm = ({ productId, productName }: LeadCaptureFormProps) => {
         <Button 
           type="submit" 
           className="w-full bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isHydrated}
         >
           {isSubmitting ? "Enviando..." : "Entrar na lista"}
         </Button>

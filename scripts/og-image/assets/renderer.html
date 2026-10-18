@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Dose de Telemetria OG renderer</title>
+<canvas id="card" width="1200" height="630"></canvas>
+<script>
+async function renderCard(card, scale, fontData, logoData) {
+  const font = new FontFace('Inter', `url(data:font/ttf;base64,${fontData})`, {weight: '100 900'});
+  await font.load();
+  document.fonts.add(font);
+  const logo = new Image();
+  logo.src = `data:image/svg+xml;base64,${logoData}`;
+  await logo.decode();
+  const canvas = document.getElementById('card');
+  canvas.width = 1200 * scale; canvas.height = 630 * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, 1200, 630);
+  const glow = ctx.createRadialGradient(1100, 280, 0, 1100, 280, 580);
+  glow.addColorStop(0, '#45370f'); glow.addColorStop(0.55, '#17110d'); glow.addColorStop(1, '#0a0a0a');
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, 1200, 630);
+  ctx.fillStyle = '#FFC107'; ctx.fillRect(0, 0, 1200, 6);
+  ctx.drawImage(logo, 56, 40, 64, 64);
+  ctx.font = '700 28px Inter'; ctx.fillStyle = '#ffffff'; ctx.fillText('Dose de Telemetria', 132, 80);
+  ctx.font = '600 15px Inter'; ctx.fillStyle = '#fef3c7'; ctx.fillText(card.label, 64, 157);
+  const textWidth = 760;
+  function wrap(text, size, weight, accentMarkup = false) {
+    ctx.font = `${weight} ${size}px Inter`;
+    let accent = false;
+    const lines = [];
+    for (const paragraph of text.split('\n')) {
+      let line = [], width = 0;
+      for (const word of paragraph.split(/\s+/).filter(Boolean)) {
+        const parts = accentMarkup ? word.split('*') : [word], chunks = [];
+        for (let i = 0; i < parts.length; i++) {
+          if (parts[i]) chunks.push({text: parts[i], accent: accentMarkup && accent});
+          if (i < parts.length - 1) accent = !accent;
+        }
+        const wordWidth = chunks.reduce((sum, part) => sum + ctx.measureText(part.text).width, 0);
+        const space = line.length ? ctx.measureText(' ').width : 0;
+        if (line.length && width + space + wordWidth > textWidth) { lines.push({chunks: line, width}); line = []; width = 0; }
+        if (line.length) {line.push({text: ' ', accent: false}); width += ctx.measureText(' ').width;}
+        line.push(...chunks); width += wordWidth;
+      }
+      lines.push({chunks: line, width});
+    }
+    return lines;
+  }
+  let headlinePx = 80, lines;
+  for (; headlinePx >= 40; headlinePx -= 2) {
+    lines = wrap(card.headline, headlinePx, 750, true);
+    if (lines.length <= 3 && lines.every(line => line.width <= textWidth) && 194 + lines.length * headlinePx * 1.12 <= 445) break;
+  }
+  headlinePx = Math.max(40, headlinePx);
+  lines = wrap(card.headline, headlinePx, 750, true);
+  const accent = ctx.createLinearGradient(64, 0, 780, 0);
+  accent.addColorStop(0, '#FFC107'); accent.addColorStop(1, '#fbbf24');
+  ctx.font = `750 ${headlinePx}px Inter`; ctx.textBaseline = 'top';
+  lines.forEach((line, i) => {
+    let x = 64;
+    for (const part of line.chunks) {
+      ctx.fillStyle = part.accent ? accent : '#ffffff';
+      ctx.fillText(part.text, x, 194 + i * headlinePx * 1.12);
+      x += ctx.measureText(part.text).width;
+    }
+  });
+  const body = wrap(card.body, 25, 400);
+  ctx.font = '400 25px Inter'; ctx.fillStyle = '#d0c9c3';
+  body.forEach((line, i) => ctx.fillText(line.chunks.map(part => part.text).join(''), 64, 456 + i * 35));
+  ctx.strokeStyle = '#FFC107'; ctx.lineWidth = 2;
+  const nodes = [[940,220], [1080,150], [1100,310], [940,390], [1060,460]];
+  ctx.globalAlpha = 0.35;
+  for (const [a,b] of [[0,1],[1,2],[0,2],[0,3],[2,3],[3,4],[2,4]]) {
+    ctx.beginPath(); ctx.moveTo(...nodes[a]); ctx.lineTo(...nodes[b]); ctx.stroke();
+  }
+  for (const [x,y] of nodes) {
+    ctx.beginPath(); ctx.arc(x,y,23,0,Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fillStyle='#FFC107';ctx.fill();
+  }
+  ctx.globalAlpha=1; ctx.drawImage(logo, 960, 250, 140, 140);
+  ctx.fillStyle='#fef3c7';ctx.font='500 12px Inter';ctx.fillText('TRACES / METRICS / LOGS',920,510);
+  ctx.fillStyle='#242424';ctx.fillRect(64,558,1072,1);
+  ctx.fillStyle='#a8a29e';ctx.font='500 16px Inter';ctx.fillText('dosedetelemetria.com',64,582);
+  ctx.fillStyle='#FFC107';ctx.fillText('OPENTELEMETRY EDUCATION',864,582);
+  ctx.font = '600 15px Inter';
+  const overflow = !card.headline.trim() || lines.length > 3 || lines.some(line => line.width > textWidth) ||
+    194 + lines.length * headlinePx * 1.12 > 445 || body.length > 2 || body.some(line => line.width > textWidth) ||
+    ctx.measureText(card.label).width > textWidth;
+  const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  const colors = new Set();
+  for (let i = 0; i < pixels.length; i += 400) colors.add(`${pixels[i]},${pixels[i+1]},${pixels[i+2]}`);
+  if (colors.size < 16) throw new Error('Canvas is blank; refusing to export');
+  return {png:canvas.toDataURL('image/png'),metrics:{headline_px:headlinePx,headline_lines:lines.length,body_lines:body.length,overflow}};
+}
+</script></html>

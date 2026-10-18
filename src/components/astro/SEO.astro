@@ -1,10 +1,14 @@
 ---
+import { ogCardForPath } from '../../lib/og-cards';
+import { seoData } from '../../data/seo-data';
+
 export interface Props {
   title: string;
   description: string;
   canonical?: string;
   keywords?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   ogType?: 'website' | 'article';
   twitterCard?: 'summary' | 'summary_large_image';
   jsonLd?: object;
@@ -15,14 +19,42 @@ const {
   description,
   canonical,
   keywords,
-  ogImage = "/og-image.webp",
+  ogImage,
+  ogImageAlt,
   ogType = "website",
   twitterCard = "summary_large_image",
   jsonLd
 } = Astro.props;
 
-const fullTitle = title.includes('TelemetryDrops') ? title : `${title} | TelemetryDrops`;
-const url = canonical ? `https://dosedetelemetria.com${canonical}` : 'https://dosedetelemetria.com';
+const suffix = ' | Dose de Telemetria';
+const fullTitle = /Dose de Telemetria/i.test(title) || title.length + suffix.length > 60 ? title : `${title}${suffix}`;
+const site = Astro.site ?? new URL('https://dosedetelemetria.com');
+const pageUrl = new URL(canonical ?? Astro.url.pathname, site);
+pageUrl.search = '';
+pageUrl.hash = '';
+pageUrl.pathname = `${pageUrl.pathname.replace(/\/$/, '')}/`;
+const url = pageUrl.href;
+const card = ogImage ? { image: ogImage, alt: title } : ogCardForPath(pageUrl.pathname);
+const imageUrl = new URL(card.image, site).href;
+const imageAlt = ogImageAlt ?? card.alt;
+const imageType = ({ '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg' } as Record<string, string>)[new URL(imageUrl).pathname.toLowerCase().match(/\.[^.]+$/)?.[0] ?? ''];
+const organization = seoData.home.jsonLd;
+const siteGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    ...(jsonLd === organization ? [] : [organization]),
+    {
+      '@type': 'WebSite', '@id': `${site}#website`, url: site.href,
+      name: 'Dose de Telemetria', inLanguage: 'pt-BR', publisher: { '@id': organization['@id'] },
+    },
+    {
+      '@type': 'WebPage', '@id': `${url}#webpage`, url, name: fullTitle, description,
+      inLanguage: 'pt-BR', isPartOf: { '@id': `${site}#website` },
+      about: { '@id': organization['@id'] },
+      primaryImageOfPage: { '@type': 'ImageObject', url: imageUrl, caption: imageAlt },
+    },
+  ],
+};
 ---
 
 <!-- Primary Meta Tags -->
@@ -33,22 +65,33 @@ const url = canonical ? `https://dosedetelemetria.com${canonical}` : 'https://do
 <!-- Canonical URL -->
 <link rel="canonical" href={url} />
 
+<link rel="alternate" type="text/markdown" href={pageUrl.pathname === "/404/" ? "/404.md" : `${pageUrl.pathname}index.md`} />
+<link rel="alternate" type="text/plain" title="Agent guide" href="/llms.txt" />
+<meta name="is-agentic-site-type" content="business" />
+
 <!-- Open Graph / Facebook -->
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
+<meta property="og:site_name" content="Dose de Telemetria" />
+<meta property="og:locale" content="pt_BR" />
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={url} />
-<meta property="og:image" content={`https://dosedetelemetria.com${ogImage}`} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={imageAlt} />
+{imageType && <meta property="og:image:type" content={imageType} />}
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content={twitterCard} />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={`https://dosedetelemetria.com${ogImage}`} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
 <!-- JSON-LD Structured Data -->
 {jsonLd && (
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}></script>
 )}
+<script is:inline type="application/ld+json" set:html={JSON.stringify(siteGraph).replace(/</g, "\\u003c")} />

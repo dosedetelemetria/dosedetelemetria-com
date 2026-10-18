@@ -20,9 +20,9 @@ const isActive = (path: string) => {
   <div class="container-custom">
     <div class="flex items-center justify-between">
       <a href="/" class="flex items-center gap-2 z-50">
-<img 
-          src="/logo.svg" 
-          alt="Dose de Telemetria" 
+<img width="80" height="80"
+          src="/logo.svg"
+          alt="Dose de Telemetria"
           class="h-10 w-10"
         />
         <span class="font-bold text-xl tracking-tight">Dose de Telemetria</span>
@@ -41,9 +41,9 @@ isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
             {link.name}
           </a>
         ))}
-        <a 
+        <a
 href="https://www.youtube.com/@DoseDeTelemetria"
-          target="_blank" 
+          target="_blank"
           rel="noopener noreferrer"
 class="bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 font-medium px-4 py-2 rounded-md transition-colors inline-flex items-center justify-center text-sm"
         >
@@ -53,9 +53,11 @@ Inscrever-se
 
       <!-- Mobile Toggle Button (will be enhanced with JavaScript) -->
       <button
-        class="md:hidden z-50 text-white focus:outline-none"
+        class="md:hidden z-50 text-white focus:outline-hidden"
         id="mobile-menu-button"
-        aria-label="Open menu"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="menu-icon">
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -70,9 +72,11 @@ Inscrever-se
     </div>
   </div>
 
-  <!-- Mobile Navigation -->
+</header>
+
+  <!-- Keep the menu outside the blurred header for viewport sizing in Safari. -->
   <div
-    class="fixed inset-0 bg-telemetria-darker/98 backdrop-blur-lg transition-transform duration-300 ease-in-out md:hidden translate-x-full"
+    class="fixed inset-0 z-40 bg-telemetria-darker/98 backdrop-blur-lg transition-transform duration-300 ease-in-out md:hidden translate-x-full"
     id="mobile-menu"
   >
     <div class="flex flex-col h-full justify-center items-center gap-8 px-4 pt-16">
@@ -87,9 +91,9 @@ isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
           {link.name}
         </a>
       ))}
-      <a 
+      <a
 href="https://www.youtube.com/@DoseDeTelemetria"
-        target="_blank" 
+        target="_blank"
         rel="noopener noreferrer"
 class="bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 mt-4 w-full max-w-[200px] px-4 py-2 rounded-md transition-colors inline-flex items-center justify-center text-sm font-medium"
       >
@@ -97,7 +101,6 @@ class="bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 m
       </a>
     </div>
   </div>
-</header>
 
 <script>
   // Navbar scroll effect
@@ -122,23 +125,27 @@ class="bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 m
 
     if (!button || !menu || !menuIcon || !closeIcon) return;
 
+    menu.inert = true;
     let isOpen = false;
 
     function toggleMenu() {
       isOpen = !isOpen;
-      
+      button!.setAttribute('aria-expanded', String(isOpen));
+      menu!.inert = !isOpen;
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+
       if (isOpen) {
         menu!.classList.remove('translate-x-full');
         menu!.classList.add('translate-x-0');
         menuIcon!.classList.add('hidden');
         closeIcon!.classList.remove('hidden');
-        button!.setAttribute('aria-label', 'Close menu');
+        button!.setAttribute('aria-label', 'Fechar menu');
       } else {
         menu!.classList.add('translate-x-full');
         menu!.classList.remove('translate-x-0');
         menuIcon!.classList.remove('hidden');
         closeIcon!.classList.add('hidden');
-        button!.setAttribute('aria-label', 'Open menu');
+        button!.setAttribute('aria-label', 'Abrir menu');
       }
     }
 
@@ -148,8 +155,20 @@ class="bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 m
       }
     }
 
+    window.matchMedia('(min-width: 48rem)').addEventListener('change', (event) => {
+      if (event.matches) closeMenu();
+    });
     button.addEventListener('click', toggleMenu);
-    
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isOpen) { closeMenu(); button.focus(); }
+      if (event.key === 'Tab' && isOpen) {
+        const links = menu.querySelectorAll<HTMLAnchorElement>('a[href]');
+        const last = links[links.length - 1];
+        if (event.shiftKey && document.activeElement === button) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); button.focus(); }
+      }
+    });
+
     // Close menu when clicking on links
     menuLinks.forEach(link => {
       link.addEventListener('click', closeMenu);

@@ -14,13 +14,16 @@ const usedThumbnail = thumbnail || defaultThumbnail;
 <div class="relative overflow-hidden rounded-xl bg-telemetria-dark shadow-lg aspect-video w-full video-embed">
   <button
     class="group absolute inset-0 flex items-center justify-center w-full h-full cursor-pointer video-thumbnail"
-    aria-label="Play video"
+    aria-label={`${title}. Clique para assistir`}
     data-video-id={videoId}
   >
     <img
       src={usedThumbnail}
       alt={title}
-      loading="lazy"
+      width="1280"
+      height="720"
+      loading="eager"
+      fetchpriority="high"
       class="absolute inset-0 w-full h-full object-cover"
     />
     <div class="absolute inset-0 bg-telemetria-darker/40 group-hover:bg-telemetria-darker/50 transition-all duration-300"></div>
@@ -31,14 +34,14 @@ const usedThumbnail = thumbnail || defaultThumbnail;
         </svg>
       </div>
       <div class="text-center">
-        <h3 class="text-white text-lg font-medium group-hover:text-telemetria-yellow transition-colors">
+        <p class="text-white text-lg font-medium group-hover:text-telemetria-yellow transition-colors">
           {title}
-        </h3>
-        <p class="text-white/80 text-sm mt-1">Click to watch</p>
+        </p>
+        <p class="text-white/80 text-sm mt-1">Clique para assistir</p>
       </div>
     </div>
   </button>
-  
+
   <!-- Loading indicator (hidden initially) -->
   <div class="absolute inset-0 flex items-center justify-center bg-telemetria-dark video-loading hidden">
     <div class="w-10 h-10 border-4 border-telemetria-yellow/20 border-t-telemetria-yellow rounded-full animate-spin"></div>
@@ -52,36 +55,36 @@ const usedThumbnail = thumbnail || defaultThumbnail;
 <script>
   function setupVideoEmbeds() {
     const videoEmbeds = document.querySelectorAll('.video-embed');
-    
+
     videoEmbeds.forEach(embed => {
       const thumbnail = embed.querySelector('.video-thumbnail');
       const loading = embed.querySelector('.video-loading');
       const iframeContainer = embed.querySelector('.video-iframe-container');
-      
+
       if (!thumbnail || !loading || !iframeContainer) return;
-      
+
       thumbnail.addEventListener('click', function(this: HTMLElement) {
         const videoId = this.getAttribute('data-video-id');
         if (!videoId) return;
-        
+
         // Hide thumbnail and show loading
         thumbnail.classList.add('hidden');
         loading.classList.remove('hidden');
-        
+
         // Create iframe
         const iframe = document.createElement('iframe');
         iframe.width = '100%';
         iframe.height = '100%';
         iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0`;
-        iframe.title = this.querySelector('h3')?.textContent || 'Video';
+        iframe.title = this.getAttribute('aria-label') || 'Vídeo';
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
         iframe.allowFullscreen = true;
         iframe.className = 'absolute inset-0 opacity-0 transition-opacity duration-500';
-        
+
         // Add iframe to container
         iframeContainer.appendChild(iframe);
         iframeContainer.classList.remove('hidden');
-        
+
         // Handle iframe load
         iframe.onload = function() {
           loading.classList.add('hidden');
@@ -94,7 +97,7 @@ const usedThumbnail = thumbnail || defaultThumbnail;
 
   // Initialize on load
   document.addEventListener('DOMContentLoaded', setupVideoEmbeds);
-  
+
   // Re-initialize on navigation (for SPA-like behavior)
   document.addEventListener('astro:page-load', setupVideoEmbeds);
 </script>

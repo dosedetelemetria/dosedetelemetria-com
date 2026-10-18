@@ -39,7 +39,7 @@ const getSEOData = () => {
 const seoInfo = getSEOData();
 ---
 
-<Layout 
+<Layout
 	title={seoInfo.title}
 	description={seoInfo.description}
 	keywords={seoInfo.keywords}
@@ -53,12 +53,12 @@ const seoInfo = getSEOData();
 				<div class="absolute inset-0 bg-telemetria-dark">
 					<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.1),transparent_70%)]"></div>
 				</div>
-				<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
+				<div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
 			</div>
 
 			<div class="container-custom relative z-10 py-16 md:py-20">
-				<a 
-					href="/products" 
+				<a
+					href="/products"
 					class="inline-flex items-center text-white/70 hover:text-telemetria-yellow transition-colors mb-8"
 				>
 					<svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,16 +78,16 @@ const seoInfo = getSEOData();
 						<div class="flex flex-col sm:flex-row gap-4 mt-8">
 							<div class="text-3xl font-bold">{product.price}</div>
 							{product.available ? (
-								<a 
-									href={product.ctaLink} 
-									target="_blank" 
+								<a
+									href={product.ctaLink}
+									target="_blank"
 									rel="noopener noreferrer"
 									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
 								>
 									{product.ctaText}
 								</a>
 							) : (
-								<button 
+								<button
 									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md bg-white/20 text-white/70 cursor-not-allowed"
 									disabled
 								>
@@ -128,10 +128,10 @@ const seoInfo = getSEOData();
 						<p class="text-white/80 mb-6">
 							Seja o primeiro a saber quando {product.title} estiver disponível.
 						</p>
-						<LeadCaptureForm 
-							productId={product.id} 
+						<LeadCaptureForm
+							productId={product.id}
 							productName={product.title}
-							client:only="react"
+							client:load
 						/>
 					</div>
 				</div>
@@ -184,7 +184,7 @@ const seoInfo = getSEOData();
 							<div class="p-5 space-y-3">
 								{module.lessons.map((lesson: string, idx: number) => (
 									<div class="flex items-start">
-										<span class="mr-3 w-6 h-6 flex-shrink-0 bg-secondary/50 rounded-full flex items-center justify-center text-xs">
+										<span class="mr-3 w-6 h-6 shrink-0 bg-secondary/50 rounded-full flex items-center justify-center text-xs">
 											{idx + 1}
 										</span>
 										<span class="text-white/80">{lesson}</span>
@@ -202,15 +202,15 @@ const seoInfo = getSEOData();
 			<div class="container-custom">
 				<div class="max-w-4xl mx-auto text-center">
 					<h2 class="text-3xl md:text-4xl font-bold mb-6">
-						Pronto para começar sua jornada com <span class="bg-gradient-to-r from-telemetria-yellow via-yellow-300 to-yellow-100 bg-clip-text text-transparent">OpenTelemetry</span>?
+						Pronto para começar sua jornada com <span class="bg-linear-to-r from-telemetria-yellow via-yellow-300 to-yellow-100 bg-clip-text text-transparent">OpenTelemetry</span>?
 					</h2>
 					<p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
 						Domine observabilidade e OpenTelemetry e destaque-se no mercado com habilidades em alta demanda.
 					</p>
 					{product.available ? (
-						<a 
-							href={product.ctaLink} 
-							target="_blank" 
+						<a
+							href={product.ctaLink}
+							target="_blank"
 							rel="noopener noreferrer"
 							class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
 						>
@@ -218,7 +218,7 @@ const seoInfo = getSEOData();
 						</a>
 					) : (
 						<div class="space-y-4">
-							<button 
+							<button
 								class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md bg-white/20 text-white/70 cursor-not-allowed"
 								disabled
 							>
