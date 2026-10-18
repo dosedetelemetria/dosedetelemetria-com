@@ -6,7 +6,7 @@ publishedAt: "2026-10-19"
 author: "carla"
 tags: ["opentelemetry-collector", "metricas", "telemetria", "opentelemetry"]
 heroImage: "../../assets/blog/otel-drops-2026-10-19.webp"
-heroImageAlt: "Dois mostradores de carvão e cobre ao lado de blocos ligados por um cordão de cobre."
+heroImageAlt: "Dois mostradores de carvão e latão ao lado de blocos ligados por um cordão amarelo."
 sourceUrl: "https://telemetrydrops.com/blog/otel-drops-2026-10-19/"
 tldr: "Nesta edição: métricas de processo em RC no hostmetrics, exportação de rastros do Claude em beta, eleições e atualizações do ecossistema."
 keyTakeaways: ["Definições versionadas permitem migrar métricas de processo e tratar conflitos com a saída legada.", "O beta do Claude conecta spans da plataforma e do SDK; a entrega é feita por melhor esforço.", "A votação do Comitê de Governança acontece de 26 a 28 de outubro; indicações aos prêmios encerram em 30 de outubro."]
