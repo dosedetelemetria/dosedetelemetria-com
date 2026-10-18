@@ -1,4 +1,22 @@
+import { productData, type Product } from './product-data';
+
+export function courseSchema(product: Product) {
+  const url = `https://dosedetelemetria.com/products/${product.slug}/`;
+  return {
+    '@context': 'https://schema.org', '@type': 'Course',
+    name: product.title, description: product.fullDescription, inLanguage: 'pt-BR', url,
+    provider: { '@type': 'Organization', '@id': 'https://dosedetelemetria.com/#organization', name: 'Dose de Telemetria', url: 'https://dosedetelemetria.com/' },
+    hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', duration: product.id === 'trilha' ? 'P365D' : 'P8W' },
+    offers: { '@type': 'Offer', url, price: String(Number(product.price.replace(/[^\d,]/g, '').replace(',', '.'))), priceCurrency: 'BRL', availability: product.available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' },
+  };
+}
+
 export const seoData = {
+  blog: {
+    title: 'Blog de OpenTelemetry e observabilidade',
+    description: 'Artigos em português sobre OpenTelemetry, telemetria, monitoramento e engenharia de observabilidade.',
+    keywords: 'OpenTelemetry, observabilidade, Collector, instrumentação',
+  },
   home: {
     title: "Cursos de OpenTelemetry em português",
     description: "Aprenda OpenTelemetry com cursos em português, projetos práticos e orientação de contribuidores do projeto.",
@@ -25,59 +43,18 @@ export const seoData = {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": "Cursos de Treinamento OpenTelemetry",
-      "description": "Programas abrangentes de treinamento em OpenTelemetry"
+      "description": "Programas abrangentes de treinamento em OpenTelemetry",
+      itemListElement: productData.map((product, index) => ({ "@type": "ListItem", position: index + 1, url: `https://dosedetelemetria.com/products/${product.slug}/`, item: courseSchema(product) }))
     }
   },
   otelTrack: {
     title: "Trilha OTel: curso de OpenTelemetry",
     description: "Aprenda OpenTelemetry no seu ritmo: API, SDK, Collector e projetos práticos. Curso em português. Em breve.",
-    keywords: "curso OpenTelemetry, trilha OTel, aprendizado próprio ritmo, curso observabilidade, treinamento telemetria, certificação OpenTelemetry",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "Trilha OTel",
-      "description": "Curso completo para aprender OpenTelemetry no seu próprio ritmo",
-      "provider": {
-        "@type": "Organization",
-"name": "Dose de Telemetria"
-      },
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "online",
-        "duration": "P365D"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "2397",
-        "priceCurrency": "BRL",
-        "availability": "https://schema.org/OutOfStock"
-      }
-    }
+    keywords: "curso OpenTelemetry, trilha OTel, aprendizado próprio ritmo, curso observabilidade, treinamento telemetria, certificação OpenTelemetry"
   },
   otelSpecialization: {
     title: "Especialização em OpenTelemetry",
     description: "Programa intensivo de 8 semanas com conversas semanais, projetos práticos e feedback personalizado. Em breve.",
-    keywords: "especialização OpenTelemetry, treinamento intensivo OTel, mentoria observabilidade, treinamento especialista OpenTelemetry",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "Especialização OTel",
-      "description": "Treinamento intensivo com conversas semanais e projetos práticos",
-      "provider": {
-        "@type": "Organization",
-        "name": "Dose de Telemetria"
-      },
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "online",
-        "duration": "P8W"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "5997",
-        "priceCurrency": "BRL",
-        "availability": "https://schema.org/OutOfStock"
-      }
-    }
+    keywords: "especialização OpenTelemetry, treinamento intensivo OTel, mentoria observabilidade, treinamento especialista OpenTelemetry"
   }
 };

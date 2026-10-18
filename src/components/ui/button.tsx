@@ -13,11 +13,11 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-transparent text-telemetria-yellow hover:bg-telemetria-yellow/10",
+          "border border-input bg-transparent text-brand-link hover:bg-telemetria-accent/10",
         secondary:
           "border border-border bg-secondary text-secondary-foreground hover:bg-bg-hover",
         ghost: "hover:bg-bg-hover hover:text-foreground",
-        link: "text-telemetria-yellow underline-offset-4 hover:underline",
+        link: "text-brand-link underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",

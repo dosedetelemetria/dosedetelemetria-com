@@ -10,4 +10,11 @@ export const author = {
   },
 };
 
-export type Author = typeof author;
+export interface Author {
+  name: string;
+  role: string;
+  avatar: string;
+  profilePath?: string;
+  bio: string;
+  social: { linkedin?: string; github?: string; bluesky?: string };
+}

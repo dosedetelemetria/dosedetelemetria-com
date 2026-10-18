@@ -1,238 +1,138 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import SectionHeading from '../../components/astro/SectionHeading.astro';
-import Testimonial from '../../components/astro/Testimonial.astro';
-import LeadCaptureForm from '../../components/ui/LeadCaptureForm';
-import { productData, type Product, type DetailedFeature, type CurriculumModule } from '../../data/product-data';
-import { getProductTestimonials } from '../../data/testimonial-data';
-import { seoData } from '../../data/seo-data';
-
+import Layout from "../../layouts/Layout.astro";
+import SectionHeading from "../../components/astro/SectionHeading.astro";
+import Testimonial from "../../components/astro/Testimonial.astro";
+import CourseOffer from "../../components/astro/CourseOffer.astro";
+import Faq from "../../components/astro/Faq.astro";
+import LeadCaptureForm from "../../components/ui/LeadCaptureForm";
+import { productData, type Product } from "../../data/product-data";
+import { getProductTestimonials } from "../../data/testimonial-data";
+import { courseFaq } from "../../data/faq-data";
+import { seoData, courseSchema } from "../../data/seo-data";
+import { site } from "../../data/site.mjs";
+import { courseCopy as copy } from "../../data/site-copy";
 export async function getStaticPaths() {
   return productData.map((product) => ({
     params: { slug: product.slug },
     props: { product },
   }));
 }
-
 interface Props {
   product: Product;
 }
-
 const { product } = Astro.props;
-const { slug } = Astro.params;
-
-// Get three specific testimonials for this product
+const seoInfo =
+  product.id === site.trackId ? seoData.otelTrack : seoData.otelSpecialization;
 const testimonials = getProductTestimonials(product.id, 3);
-
-// Get SEO data based on product
-const getSEOData = () => {
-  switch (slug) {
-    case 'trilha-otel':
-      return seoData.otelTrack;
-    case 'especializacao-otel':
-      return seoData.otelSpecialization;
-    default:
-      return seoData.products;
-  }
-};
-
-const seoInfo = getSEOData();
 ---
 
 <Layout
-	title={seoInfo.title}
-	description={seoInfo.description}
-	keywords={seoInfo.keywords}
-	canonical={`/products/${slug}`}
-	jsonLd={seoInfo.jsonLd}
+  title={seoInfo.title}
+  description={seoInfo.description}
+  keywords={seoInfo.keywords}
+  canonical={`/products/${product.slug}/`}
+  jsonLd={courseSchema(product)}
 >
-	<div class="flex flex-col w-full">
-		<!-- Hero Section -->
-		<section class="relative w-full min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-telemetria-darker">
-			<div class="absolute inset-0 z-0">
-				<div class="absolute inset-0 bg-telemetria-dark">
-					<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.1),transparent_70%)]"></div>
-				</div>
-				<div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
-			</div>
-
-			<div class="container-custom relative z-10 py-16 md:py-20">
-				<a
-					href="/products"
-					class="inline-flex items-center text-white/70 hover:text-telemetria-yellow transition-colors mb-8"
-				>
-					<svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-					</svg>
-					Voltar aos produtos
-				</a>
-
-				<div class="max-w-4xl">
-					<div>
-						<h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-							{product.title}
-						</h1>
-						<p class="text-lg md:text-xl text-white/80 mb-6 max-w-3xl">
-							{product.fullDescription}
-						</p>
-						<div class="flex flex-col sm:flex-row gap-4 mt-8">
-							<div class="text-3xl font-bold">{product.price}</div>
-							{product.available ? (
-								<a
-									href={product.ctaLink}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
-								>
-									{product.ctaText}
-								</a>
-							) : (
-								<button
-									class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md bg-white/20 text-white/70 cursor-not-allowed"
-									disabled
-								>
-									{product.ctaText}
-								</button>
-							)}
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Features -->
-		<section class="section-padding bg-background">
-			<div class="container-custom">
-				<SectionHeading
-					title="O que você vai aprender"
-					subtitle="Descubra o conteúdo completo do curso e as habilidades que você desenvolverá"
-				/>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{product.detailedFeatures?.map((feature: DetailedFeature) => (
-						<div class="bg-telemetria-dark/50 p-6 rounded-lg border border-white/10">
-							<h3 class="text-xl font-bold mb-3">{feature.title}</h3>
-							<p class="text-white/70">{feature.description}</p>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<!-- Lead Capture Form (only for unavailable products) -->
-		{!product.available && (
-			<section id="waitlist" class="section-padding bg-telemetria-darker waitlist-section">
-				<div class="container-custom">
-					<div class="max-w-lg mx-auto text-center">
-						<h2 class="text-2xl font-bold mb-4">Entre na lista de espera</h2>
-						<p class="text-white/80 mb-6">
-							Seja o primeiro a saber quando {product.title} estiver disponível.
-						</p>
-						<LeadCaptureForm
-							productId={product.id}
-							productName={product.title}
-							client:visible
-						/>
-					</div>
-				</div>
-			</section>
-		)}
-
-		<!-- Testimonials -->
-		<section class="section-padding bg-background">
-			<div class="container-custom">
-				<SectionHeading
-					title="O que nossos alunos dizem"
-					subtitle="Experiências reais de quem já aprendeu conosco"
-					centered={true}
-				/>
-
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-					{testimonials.map((testimonial) => (
-						<Testimonial
-							quote={testimonial.quote}
-							author={testimonial.author}
-							role={testimonial.role}
-							company={testimonial.company}
-							avatarUrl={testimonial.avatarUrl}
-						/>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<!-- Curriculum -->
-		<section class="section-padding bg-telemetria-dark">
-			<div class="container-custom">
-				<SectionHeading
-					title="Módulos do curso"
-					subtitle="Conteúdo organizado progressivamente para facilitar seu aprendizado"
-					centered={true}
-				/>
-
-				<div class="max-w-3xl mx-auto space-y-6">
-					{product.curriculum?.map((module: CurriculumModule, index: number) => (
-						<div class="bg-telemetria-darker/70 rounded-lg border border-white/10 overflow-hidden">
-							<div class="p-5 border-b border-white/10">
-								<h3 class="text-xl font-bold flex items-center">
-									<span class="flex items-center justify-center w-8 h-8 rounded-full bg-cream/5 text-cream mr-3 text-sm">
-										{index + 1}
-									</span>
-									{module.title}
-								</h3>
-							</div>
-							<div class="p-5 space-y-3">
-								{module.lessons.map((lesson: string, idx: number) => (
-									<div class="flex items-start">
-										<span class="mr-3 w-6 h-6 shrink-0 bg-secondary/50 rounded-full flex items-center justify-center text-xs">
-											{idx + 1}
-										</span>
-										<span class="text-white/80">{lesson}</span>
-									</div>
-								))}
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<!-- CTA -->
-		<section class="section-padding bg-background">
-			<div class="container-custom">
-				<div class="max-w-4xl mx-auto text-center">
-					<h2 class="text-3xl md:text-4xl font-bold mb-6">
-						Pronto para começar sua jornada com <span class="bg-linear-to-r from-telemetria-yellow via-yellow-300 to-yellow-100 bg-clip-text text-transparent">OpenTelemetry</span>?
-					</h2>
-					<p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-						Domine observabilidade e OpenTelemetry e destaque-se no mercado com habilidades em alta demanda.
-					</p>
-					{product.available ? (
-						<a
-							href={product.ctaLink}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
-						>
-							{product.ctaText}
-						</a>
-					) : (
-						<div class="space-y-4">
-							<button
-								class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md bg-white/20 text-white/70 cursor-not-allowed"
-								disabled
-							>
-								{product.ctaText}
-							</button>
-							<div class="pt-2">
-								<p class="text-sm text-white/70">
-									Este curso ainda não está disponível para compra. Inscreva-se na lista de espera acima para ser notificado quando abrirmos novas vagas.
-								</p>
-							</div>
-						</div>
-					)}
-				</div>
-			</div>
-		</section>
-	</div>
+  <header class="container-custom pt-10 md:pt-16 pb-12">
+    <a
+      href="/products/"
+      class="inline-block mb-8 text-brand-link hover:underline"
+    >
+      ← {copy.back}
+    </a>
+    <div class="max-w-4xl">
+      <h1 class="text-3xl md:text-5xl font-bold mb-6">{product.title}</h1>
+      <p class="text-lg md:text-xl text-white/80 mb-8 max-w-3xl">
+        {product.fullDescription}
+      </p>
+      <CourseOffer product={product} />
+    </div>
+  </header>
+  <section class="section-padding bg-bg-surface">
+    <div class="container-custom">
+      <SectionHeading title={copy.features} subtitle={copy.featuresIntro} />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {product.detailedFeatures.map((feature) => (
+          <div class="p-6 rounded-xl border border-border bg-bg-elevated">
+            <h3 class="text-xl font-semibold mb-3">{feature.title}</h3>
+            <p class="text-text-secondary">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  {!product.available && (
+    <section id="waitlist" class="section-padding">
+      <div class="container-custom max-w-xl">
+        <h2 class="text-2xl font-bold mb-4">{copy.waitlist}</h2>
+        <p class="text-white/80 mb-6">
+          {copy.waitlistIntro.replace("{product}", product.title)}
+        </p>
+        <LeadCaptureForm
+          productId={product.id}
+          productName={product.title}
+          client:visible
+        />
+      </div>
+    </section>
+  )}
+  <section class="section-padding bg-bg-surface">
+    <div class="container-custom">
+      <SectionHeading
+        title={copy.testimonials}
+        subtitle={copy.testimonialsIntro}
+        centered
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {testimonials.map((testimonial) => (
+          <Testimonial {...testimonial} />
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section-padding">
+    <div class="container-custom">
+      <SectionHeading
+        title={copy.modules}
+        subtitle={copy.modulesIntro}
+        centered
+      />
+      <div class="max-w-3xl mx-auto space-y-6">
+        {product.curriculum.map((module, index) => (
+          <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
+            <h3 class="text-xl font-semibold p-5 border-b border-border flex items-center gap-3">
+              <span class="flex items-center justify-center min-w-8 h-8 rounded-full bg-cream/5 text-cream text-sm">
+                {index + 1}
+              </span>
+              {module.title}
+            </h3>
+            <ol class="p-5 space-y-3">
+              {module.lessons.map((lesson, lessonIndex) => (
+                <li class="flex items-start gap-3">
+                  <span
+                    class="shrink-0 w-6 h-6 rounded-full bg-bg-elevated flex items-center justify-center text-xs"
+                    aria-hidden="true"
+                  >
+                    {lessonIndex + 1}
+                  </span>
+                  <span class="text-white/80">{lesson}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Faq items={courseFaq(product)} title={copy.questions} />
+  <section class="section-padding bg-bg-surface">
+    <div class="container-custom max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">{copy.cta}</h2>
+      <p class="text-white/80 text-lg mb-8">{copy.ctaIntro}</p>
+      <CourseOffer product={product} />
+      {!product.available && (
+        <p class="text-text-secondary mt-4">{copy.closed}</p>
+      )}
+    </div>
+  </section>
 </Layout>

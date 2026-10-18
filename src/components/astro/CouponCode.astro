@@ -1,0 +1,36 @@
+---
+import { ui } from "../../data/site-copy";
+interface Props {
+  code: string;
+}
+const { code } = Astro.props;
+---
+
+<div class="coupon-code flex flex-wrap items-center gap-2 text-sm">
+  <code>{code}</code>
+  <button
+    type="button"
+    class="site-button site-button-secondary px-3 py-2 text-sm"
+    data-coupon={code}
+  >
+    {ui.copy}
+  </button>
+  <span role="status" class="text-text-secondary"></span>
+</div>
+<script>
+  import { ui } from "../../data/site-copy";
+  for (const button of document.querySelectorAll<HTMLButtonElement>(
+    "[data-coupon]",
+  )) {
+    button.addEventListener("click", async () => {
+      const status = button.parentElement?.querySelector('[role="status"]');
+      if (!status) return;
+      try {
+        await navigator.clipboard.writeText(button.dataset.coupon ?? "");
+        status.textContent = ui.copySuccess;
+      } catch {
+        status.textContent = ui.copyFailure;
+      }
+    });
+  }
+</script>

@@ -48,6 +48,8 @@ const posts = (await getCollection("blog"))
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {posts.map((post) => (
         <BlogPostCard
+          heroImage={post.data.heroImage}
+          heroImageAlt={post.data.heroImageAlt}
           title={post.data.title}
           description={post.data.description}
           slug={post.data.slug}

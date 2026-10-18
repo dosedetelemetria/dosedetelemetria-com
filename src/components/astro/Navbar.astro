@@ -1,16 +1,10 @@
 ---
+import { site } from "../../data/site.mjs";
+import { ui } from "../../data/site-copy";
 import { cn } from "../../lib/utils";
 
-// Get current pathname for active link detection
 const pathname = Astro.url.pathname;
-
-const navLinks = [
-  { name: "Início", path: "/" },
-  { name: "Produtos", path: "/products" },
-  { name: "Blog", path: "/blog/" },
-  { name: "Simulado OTCA (em inglês)", path: "https://telemetrydrops.com/otca-practice-exam/" },
-  { name: "Podcast (em inglês)", path: "https://telemetrydrops.com/podcast/" },
-];
+const navLinks = site.navigation;
 
 const isActive = (path: string) => {
   if (path === "/" && pathname === "/") return true;
@@ -25,10 +19,10 @@ const isActive = (path: string) => {
       <a href="/" class="flex items-center gap-2 z-50">
 <img width="80" height="80"
           src="/logo.svg"
-          alt="Dose de Telemetria"
+          alt={site.name}
           class="h-10 w-10"
         />
-        <span class="font-bold text-xl tracking-tight">Dose de Telemetria</span>
+        <span class="font-bold text-xl tracking-tight">{site.name}</span>
       </a>
 
       <!-- Desktop Navigation -->
@@ -36,9 +30,10 @@ const isActive = (path: string) => {
         {navLinks.map((link) => (
           <a
             href={link.path}
+            aria-current={isActive(link.path) ? "page" : undefined}
             class={cn(
-"hover-link text-sm font-medium transition-colors hover:text-telemetria-yellow",
-isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
+"hover-link text-sm font-medium transition-colors hover:text-brand-link",
+isActive(link.path) ? "text-brand-link" : "text-white/90"
             )}
           >
             {link.name}
@@ -50,7 +45,7 @@ isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
       <button
         class="lg:hidden z-50 text-white min-h-11 min-w-11 grid place-items-center"
         id="mobile-menu-button"
-        aria-label="Abrir menu"
+        aria-label={ui.menuOpen}
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
@@ -80,8 +75,8 @@ isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
         <a
           href={link.path}
           class={cn(
-"text-xl font-medium transition-colors hover:text-telemetria-yellow mobile-menu-link",
-isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
+"text-xl font-medium transition-colors hover:text-brand-link mobile-menu-link",
+isActive(link.path) ? "text-brand-link" : "text-white/90"
           )}
         >
           {link.name}
@@ -91,6 +86,7 @@ isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
   </div>
 
 <script>
+  import { ui } from "../../data/site-copy";
   // Navbar scroll effect
   function handleScroll() {
     const navbar = document.getElementById('navbar');
@@ -111,7 +107,8 @@ isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
     const closeIcon = document.getElementById('close-icon');
     const menuLinks = document.querySelectorAll('.mobile-menu-link');
 
-    if (!button || !menu || !menuIcon || !closeIcon) return;
+    if (!button || !menu || !menuIcon || !closeIcon || button.dataset.initialized) return;
+    button.dataset.initialized = "true";
 
     menu.inert = true;
     let isOpen = false;
@@ -127,13 +124,13 @@ isActive(link.path) ? "text-telemetria-yellow" : "text-white/90"
         menu!.classList.add('translate-x-0');
         menuIcon!.classList.add('hidden');
         closeIcon!.classList.remove('hidden');
-        button!.setAttribute('aria-label', 'Fechar menu');
+        button!.setAttribute('aria-label', ui.menuClose);
       } else {
         menu!.classList.add('translate-x-full');
         menu!.classList.remove('translate-x-0');
         menuIcon!.classList.remove('hidden');
         closeIcon!.classList.add('hidden');
-        button!.setAttribute('aria-label', 'Abrir menu');
+        button!.setAttribute('aria-label', ui.menuOpen);
       }
     }
 

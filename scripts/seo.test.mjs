@@ -25,7 +25,14 @@ test('built pages have unique Portuguese metadata, canonical identities and comp
     const canonical = attribute(links[0], 'href');
     assert.match(canonical, /^https:\/\/dosedetelemetria\.com\/(?:[^?#]*\/)?$/);
     assert.equal(meta(nodes, 'og:url'), canonical);
-    const title = text(nodes.find(n => n.tagName === 'title'));
+    const titleNodes = nodes.filter(n => n.tagName === 'title');
+    assert.equal(titleNodes.length, 1, file);
+    const title = text(titleNodes[0]);
+    assert.ok(title.trim().length > 0, file);
+    for (const key of ['og:title', 'twitter:title']) {
+      assert.equal(nodes.filter(n => n.tagName === 'meta' && (attribute(n, 'name') === key || attribute(n, 'property') === key)).length, 1, `${file}: ${key}`);
+      assert.equal(meta(nodes, key), title, `${file}: ${key}`);
+    }
     const description = meta(nodes, 'description');
     assert.ok(title.length <= 60, `${file}: ${title}`);
     assert.ok(description.length <= 125, `${file}: ${description}`);
@@ -187,4 +194,35 @@ test('highlighted article code retains its language and whitespace in Markdown a
     assert.doesNotMatch(content, /Nesta página|Sumário/, file);
   }
   assert.ok(blocks > 0);
+});
+
+test('blog features the newest post, three recent stories, and a complete illustrated archive', async () => {
+  const nodes = elements(parse(await readFile('dist/blog/index.html', 'utf8')));
+  const cards = nodes.filter((node) => node.tagName === 'a' && attribute(node, 'data-tags') !== undefined);
+  const featured = cards.filter((node) => attribute(node, 'class').split(' ').includes('featured'));
+  const recent = cards.filter((node) => attribute(node, 'class').split(' ').includes('card'));
+  const archive = cards.filter((node) => attribute(node, 'class').split(' ').includes('row'));
+  assert.equal(featured.length, 1);
+  assert.equal(recent.length, Math.min(3, archive.length - 1));
+  assert.equal(new Set(archive.map((node) => attribute(node, 'href'))).size, archive.length);
+  const dates = archive.map((card) => attribute(elements(card).find((node) => node.tagName === 'time'), 'datetime'));
+  assert.deepEqual(dates, [...dates].sort().reverse());
+  assert.equal(attribute(featured[0], 'href'), attribute(archive[0], 'href'));
+  assert.deepEqual(recent.map((card) => attribute(card, 'href')), archive.slice(1, 4).map((card) => attribute(card, 'href')));
+  const articleFiles = files.filter((file) => /^dist\/blog\/[^/]+\/index\.html$/.test(file) && !file.includes('/tags/'));
+  assert.equal(archive.length, articleFiles.length);
+  for (const card of cards) {
+    const image = elements(card).find((node) => node.tagName === 'img');
+    assert.ok(attribute(image, 'alt'));
+    assert.equal(attribute(image, 'width'), '1200');
+    assert.equal(attribute(image, 'height'), '800');
+    assert.equal(attribute(image, 'loading'), card === featured[0] ? 'eager' : 'lazy');
+    const imagePath = attribute(image, 'src');
+    await access(`dist${imagePath}`);
+    for (const candidate of attribute(image, 'srcset').split(', ')) await access(`dist${candidate.split(' ')[0]}`);
+    const article = elements(parse(await readFile(`dist${attribute(card, 'href')}index.html`, 'utf8')));
+    const leads = article.filter(node => node.tagName === 'img' && attribute(node, 'alt') === attribute(image, 'alt'));
+    assert.equal(leads.length, 1);
+    assert.equal(attribute(leads[0], 'loading'), 'eager');
+  }
 });

@@ -1,0 +1,10 @@
+---
+import ProductCard from "./ProductCard.astro";
+import { productData } from "../../data/product-data";
+import { ui } from "../../data/site-copy";
+---
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto items-stretch">
+  {productData.map(product => (
+    <ProductCard {...product} ctaText={ui.viewDetails} ctaLink={`/products/${product.slug}/`} />
+  ))}
+</div>

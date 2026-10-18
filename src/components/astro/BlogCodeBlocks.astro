@@ -1,7 +1,8 @@
 <script>
+  import { ui } from "../../data/site-copy";
   for (const pre of document.querySelectorAll<HTMLElement>('.blog-content pre')) {
     const code = pre.querySelector('code');
-    if (!code) continue;
+    if (!code || pre.closest('.blog-code-block')) continue;
 
     const wrapper = document.createElement('div');
     wrapper.className = 'blog-code-block not-prose';
@@ -9,11 +10,11 @@
     toolbar.className = 'blog-code-toolbar';
     const language = pre.dataset.language ?? 'code';
     const label = document.createElement('span');
-    label.textContent = language === 'text' ? 'Código' : language.toUpperCase();
+    label.textContent = language === 'text' ? ui.code : language.toUpperCase();
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = 'Copiar';
-    button.setAttribute('aria-label', `Copiar código ${language}`);
+    button.textContent = ui.copy;
+    button.setAttribute('aria-label', ui.copyCode.replace('{language}', language));
     const status = document.createElement('span');
     status.className = 'blog-code-status';
     status.setAttribute('role', 'status');
@@ -21,7 +22,7 @@
     pre.before(wrapper);
     toolbar.append(label, button);
     wrapper.append(toolbar, pre, status);
-    pre.setAttribute('aria-label', `Código ${language}`);
+    pre.setAttribute('aria-label', ui.codeLabel.replace('{language}', language));
 
     let resetTimer: ReturnType<typeof setTimeout>;
     button.addEventListener('click', async () => {
@@ -31,15 +32,15 @@
       status.textContent = '';
       try {
         await navigator.clipboard.writeText(code.textContent ?? '');
-        button.textContent = 'Copiado!';
-        status.textContent = 'Código copiado para a área de transferência.';
+        button.textContent = ui.copied;
+        status.textContent = ui.copySuccess;
         resetTimer = setTimeout(() => {
-          button.textContent = 'Copiar';
+          button.textContent = ui.copy;
           status.textContent = '';
         }, 2500);
       } catch {
-        button.textContent = 'Copiar';
-        status.textContent = 'Não foi possível copiar. Selecione o código e copie manualmente.';
+        button.textContent = ui.copy;
+        status.textContent = ui.copyFailure;
       } finally {
         button.ariaBusy = 'false';
       }
@@ -110,7 +111,7 @@
 
   .blog-code-toolbar button:focus-visible,
   .blog-content pre:focus-visible {
-    outline: 2px solid #ffc107;
+    outline: 2px solid var(--color-brand-link);
     outline-offset: -3px;
   }
 

@@ -1,0 +1,54 @@
+---
+import type { Product } from "../../data/product-data";
+import { courseCopy } from "../../data/site-copy";
+import CouponCode from "./CouponCode.astro";
+interface Props {
+  product: Product;
+}
+const { product } = Astro.props;
+---
+
+<div class="space-y-4">
+  <div class="flex flex-wrap items-baseline gap-3">
+    <span class="text-3xl font-bold">{product.price}</span>
+    {product.originalPrice && (
+      <del class="text-lg text-text-secondary">{product.originalPrice}</del>
+    )}
+  </div>
+  {product.discount && (
+    <div class="space-y-2">
+      <span class="inline-block rounded-full border border-telemetria-accent/20 bg-telemetria-accent/10 px-3 py-1 text-sm text-brand-link">
+        -{product.discount.percentage}% {product.discount.label}
+      </span>
+      {product.discount.couponCode && (
+        <CouponCode code={product.discount.couponCode} />
+      )}
+    </div>
+  )}
+  <div class="flex flex-wrap items-center gap-4">
+    {product.available ? (
+      <a
+        href={product.ctaLink}
+        target={product.ctaLink.startsWith("http") ? "_blank" : undefined}
+        rel={
+          product.ctaLink.startsWith("http") ? "noopener noreferrer" : undefined
+        }
+        class="site-button site-button-primary"
+      >
+        {product.ctaText}
+      </a>
+    ) : (
+      <>
+        <button
+          disabled
+          class="site-button bg-bg-overlay text-text-secondary cursor-not-allowed"
+        >
+          {product.ctaText}
+        </button>
+        <a href="#waitlist" class="site-button site-button-primary">
+          {courseCopy.join}
+        </a>
+      </>
+    )}
+  </div>
+</div>

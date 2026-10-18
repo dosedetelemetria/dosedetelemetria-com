@@ -33,8 +33,8 @@ markdown.addRule('codeBlocks', {
 });
 markdown.addRule('tableOfContents', {
   filter: (node) =>
-    (node.nodeName === 'NAV' && node.getAttribute('aria-label') === 'Sumário') ||
-    (node.nodeName === 'DETAILS' && node.querySelector('nav[aria-label="Sumário"]')),
+    (node.nodeName === 'NAV' && (node.hasAttribute('data-table-of-contents') || ['Table of contents', 'Sumário'].includes(node.getAttribute('aria-label')))) ||
+    (node.nodeName === 'DETAILS' && node.querySelector('nav[data-table-of-contents], nav[aria-label="Table of contents"], nav[aria-label="Sumário"]')),
   replacement: () => '',
 });
 markdown.addRule('tables', {

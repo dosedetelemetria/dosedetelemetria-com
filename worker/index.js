@@ -1,4 +1,5 @@
 import migratedPosts from '../src/data/blog-migration.json' with { type: 'json' };
+import previewImages from '../src/lib/preview-images.mjs';
 import markdownResponse from '../src/lib/markdown-response.mjs';
 
 export default {
@@ -22,10 +23,11 @@ export default {
       url.port = '';
       return Response.redirect(url.href, 301);
     }
-    return await markdownResponse(
+    const response = await markdownResponse(
       request,
       { next: () => env.ASSETS.fetch(request) },
       (assetUrl) => env.ASSETS.fetch(assetUrl),
-    ) ?? env.ASSETS.fetch(request);
+    ) ?? await env.ASSETS.fetch(request);
+    return previewImages(request, response);
   },
 };

@@ -1,0 +1,14 @@
+@theme {
+  --color-telemetria-yellow: #ffc107;
+  --color-telemetria-accent: #ffc107;
+  --color-brand-link: #ffc107;
+  --color-primary-hover: color-mix(in srgb, #ffc107, white 10%);
+}
+
+:root {
+  --primary: 45 100% 51%;
+  --primary-foreground: 240 6% 10%;
+  --accent: 45 100% 51%;
+  --accent-foreground: 240 6% 10%;
+  --ring: 45 100% 51%;
+}

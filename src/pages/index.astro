@@ -1,5 +1,8 @@
 ---
+import Faq from "../components/astro/Faq.astro";
+import { homeFaq } from "../data/faq-data";
 import Layout from '../layouts/Layout.astro';
+import ProductGrid from "../components/astro/ProductGrid.astro";
 import SectionHeading from '../components/astro/SectionHeading.astro';
 import VideoEmbed from '../components/astro/VideoEmbed.astro';
 import { seoData } from '../data/seo-data';
@@ -56,6 +59,7 @@ const testimonials = getRandomTestimonials(6);
 					<div class="animate-fade-in-right">
 						<VideoEmbed
 							videoId="pHLA2pAr7I0"
+                            priority={true}
 							title="Introdução ao OpenTelemetry"
 						/>
 					</div>
@@ -79,51 +83,7 @@ const testimonials = getRandomTestimonials(6);
 					centered={true}
 				/>
 
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
-					<div class="glass-morphism rounded-xl p-8 flex flex-col h-full">
-						<h3 class="text-2xl font-bold mb-4">Especialização em OTel</h3>
-<div class="inline-block ml-0 mb-4 px-3 py-1 bg-telemetria-yellow/10 border border-telemetria-yellow/20 text-xs rounded-full text-cream">
-							Em breve
-						</div>
-						<p class="text-white/80 mb-6">
-							Formação intensiva com turmas fechadas, mentorias ao vivo e projetos práticos. Desenvolva
-							habilidades avançadas em OpenTelemetry com acompanhamento especializado.
-						</p>
-						<div class="mt-auto">
-							<a
-								href="/products#especializacao"
-class="inline-flex items-center justify-center w-full px-4 py-2 border border-telemetria-yellow/30 text-telemetria-yellow hover:bg-telemetria-yellow hover:text-telemetria-dark hover:border-telemetria-yellow rounded-md transition-colors"
-							>
-								Saiba mais
-								<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-								</svg>
-							</a>
-						</div>
-					</div>
-
-					<div class="glass-morphism rounded-xl p-8 flex flex-col h-full">
-						<h3 class="text-2xl font-bold mb-4">Trilha OTel</h3>
-<div class="inline-block ml-0 mb-4 px-3 py-1 bg-telemetria-yellow/10 border border-telemetria-yellow/20 text-xs rounded-full text-cream">
-							Em breve
-						</div>
-						<p class="text-white/80 mb-6">
-							Curso completo disponível no seu ritmo, com aulas gravadas, exercícios práticos e acesso por um ano.
-							Do básico ao avançado em observabilidade e instrumentação.
-						</p>
-						<div class="mt-auto">
-							<a
-								href="/products#trilha"
-class="site-button site-button-primary w-full"
-							>
-								Conhecer curso
-								<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-								</svg>
-							</a>
-						</div>
-					</div>
-				</div>
+				<ProductGrid />
 			</div>
 		</section>
 
@@ -377,4 +337,5 @@ class="site-button site-button-primary w-full"
 			</div>
 		</section>
 	</div>
+  <Faq items={homeFaq} title="Perguntas sobre a Dose de Telemetria" />
 </Layout>

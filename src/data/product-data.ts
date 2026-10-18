@@ -19,6 +19,7 @@ export interface Product {
   description: string;
   fullDescription: string;
   features: ProductFeature[];
+  comparison: { format: string; duration: string; mentoring: string; projects: string; certificate: string };
   detailedFeatures: DetailedFeature[];
   curriculum: CurriculumModule[];
   price: string;
@@ -41,6 +42,13 @@ export const productData: Product[] = [
     title: "Especialização em OTel",
     description: "Formação intensiva com conversas semanais e projetos práticos",
     fullDescription: "Nossa especialização em OpenTelemetry é um programa imersivo de 8 semanas com conversas semanais, projetos práticos e feedback personalizado dos melhores especialistas do mercado.",
+    comparison: {
+          "format": "Turma com datas definidas",
+          "duration": "8 semanas",
+          "mentoring": "Conversas semanais",
+          "projects": "Feedback personalizado",
+          "certificate": "Incluído"
+    },
     features: [
       { text: "Turmas com vagas limitadas" },
       { text: "Conversas semanais com especialistas" },
@@ -250,6 +258,13 @@ export const productData: Product[] = [
     title: "Trilha OTel",
     description: "Curso completo para aprender no seu ritmo",
     fullDescription: "A Trilha OTel é um curso completo e autoguiado que permite você dominar OpenTelemetry no seu próprio ritmo. Os últimos módulos serão finalizados até o fim de abril.",
+    comparison: {
+          "format": "Autoestudo",
+          "duration": "Seu ritmo",
+          "mentoring": "Não incluída",
+          "projects": "Exercícios guiados",
+          "certificate": "Incluído"
+    },
     features: [
       { text: "Acesso por um ano às aulas" },
       { text: "Certificado de conclusão" },
@@ -449,7 +464,8 @@ export const productData: Product[] = [
     price: "R$ 2.397,00",
     ctaText: "Em breve",
     ctaLink: "https://mn.dosedetelemetria.com/share/u1ERnGs2fyDlmmdq",
-    available: false
+    available: false,
+    popular: true
   }
 ];
 
