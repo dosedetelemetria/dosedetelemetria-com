@@ -14,6 +14,13 @@ Escolha uma metáfora concreta da pergunta central do artigo, composição próp
 silhueta forte, respiro e iluminação lateral suave com sombras físicas.
 Mantenha o assunto legível em miniaturas e na região central do recorte 3:2.
 
+Para artigos traduzidos da Telemetry Drops, crie uma versão própria da ilustração
+com a ferramenta integrada de edição de imagens; não copie o arquivo inglês sem
+alterações. Preserve a metáfora, composição, enquadramento e iluminação; troque
+laranja por amarelo `#FFC107` e cobre por latão, mantendo carvão e creme.
+Salve o asset local conforme o contrato abaixo, ajuste o texto alternativo e
+compare as duas versões na abertura e em miniaturas antes de publicar.
+
 Evite letras, títulos, números, logos, marcas-d'água, controles de interface,
 gradientes decorativos, halos e detalhes minúsculos. A arte não comprova uma
 promessa técnica; mecanismos precisam de diagramas separados e texto explicativo.
