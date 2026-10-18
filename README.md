@@ -25,7 +25,8 @@ O servidor local atende em `http://localhost:4321`.
 
 ## Estrutura
 
-- `src/pages/`: páginas Astro e guia `/llms.txt`.
+- `src/pages/`: páginas Astro, blog, feed RSS e guia `/llms.txt`.
+- `src/content/blog/`: artigos em Markdown; veja [o guia do blog](docs/blog-authoring.md).
 - `src/layouts/Layout.astro`: idioma, navegação, acessibilidade e metadados.
 - `src/components/astro/SEO.astro`: URLs canônicas, imagens sociais e dados estruturados.
 - `src/data/product-data.ts`: catálogo, preços e disponibilidade dos cursos.

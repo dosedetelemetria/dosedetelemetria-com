@@ -62,5 +62,165 @@
     "headline": "Vamos encontrar\n*seu caminho.*",
     "body": "Explore nossos cursos de OpenTelemetry em português.",
     "alt": "Dose de Telemetria — Vamos encontrar seu caminho. Explore nossos cursos de OpenTelemetry em português."
+  },
+  {
+    "path": "/blog/",
+    "image": "/og/blog.png",
+    "label": "BLOG EM PORTUGUÊS",
+    "headline": "Explore a\n*observabilidade.*",
+    "body": "Artigos sobre OpenTelemetry, telemetria e monitoramento.",
+    "alt": "Dose de Telemetria — Explore a observabilidade.. Artigos sobre OpenTelemetry, telemetria e monitoramento."
+  },
+  {
+    "path": "/blog/tags/",
+    "image": "/og/blog-tags.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "Encontre seu\n*próximo tema.*",
+    "body": "Explore os artigos por assunto.",
+    "alt": "Dose de Telemetria — Encontre seu próximo tema.. Explore os artigos por assunto."
+  },
+  {
+    "path": "/blog/seu-maior-custo-de-telemetria-e-com-logs-mas-nao-precisa-ser-assim/",
+    "image": "/og/seu-maior-custo-de-telemetria-e-com-logs-mas-nao-precisa-ser-assim.png",
+    "label": "DOSE DE TELEMETRIA · BLOG",
+    "headline": "Menos logs.\n*Mais valor.*",
+    "body": "Converter eventos repetitivos em métricas para reduzir custos.",
+    "alt": "Dose de Telemetria — Menos logs. Mais valor.. Converter eventos repetitivos em métricas para reduzir custos."
+  },
+  {
+    "path": "/blog/navegando-pela-carreira-em-engenharia-de-observabilidade/",
+    "image": "/og/navegando-pela-carreira-em-engenharia-de-observabilidade.png",
+    "label": "DOSE DE TELEMETRIA · BLOG",
+    "headline": "Sua carreira em\n*observabilidade.*",
+    "body": "Fundamentos, ferramentas e aprendizado contínuo.",
+    "alt": "Dose de Telemetria — Sua carreira em observabilidade.. Fundamentos, ferramentas e aprendizado contínuo."
+  },
+  {
+    "path": "/blog/observabilidade-apm/",
+    "image": "/og/observabilidade-apm.png",
+    "label": "DOSE DE TELEMETRIA · BLOG",
+    "headline": "Observabilidade\n*é APM?*",
+    "body": "Como diferenciar APM, monitoramento e observabilidade.",
+    "alt": "Dose de Telemetria — Observabilidade é APM?. Como diferenciar APM, monitoramento e observabilidade."
+  },
+  {
+    "path": "/blog/telemetria-monitoramento-e-observabilidade/",
+    "image": "/og/telemetria-monitoramento-e-observabilidade.png",
+    "label": "DOSE DE TELEMETRIA · BLOG",
+    "headline": "Telemetria e\n*observabilidade.*",
+    "body": "Os sinais e as perguntas que ajudam a compreender sistemas.",
+    "alt": "Dose de Telemetria — Telemetria e observabilidade.. Os sinais e as perguntas que ajudam a compreender sistemas."
+  },
+  {
+    "path": "/blog/o-dilema-da-telemetria/",
+    "image": "/og/o-dilema-da-telemetria.png",
+    "label": "DOSE DE TELEMETRIA · BLOG",
+    "headline": "O dilema da\n*telemetria.*",
+    "body": "Equilibre o valor dos sinais e seu impacto nos sistemas.",
+    "alt": "Dose de Telemetria — O dilema da telemetria.. Equilibre o valor dos sinais e seu impacto nos sistemas."
+  },
+  {
+    "path": "/blog/observa-ai-dev/",
+    "image": "/og/observa-ai-dev.png",
+    "label": "DOSE DE TELEMETRIA · BLOG",
+    "headline": "Observa aí,\n*dev.*",
+    "body": "Uma experiência com IA, música e observabilidade.",
+    "alt": "Dose de Telemetria — Observa aí, dev.. Uma experiência com IA, música e observabilidade."
+  },
+  {
+    "path": "/blog/tags/metricas/",
+    "image": "/og/blog-tag-metricas.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Métricas*",
+    "body": "Métricas e seu papel na análise e no custo da telemetria.",
+    "alt": "Dose de Telemetria — Métricas. Métricas e seu papel na análise e no custo da telemetria."
+  },
+  {
+    "path": "/blog/tags/observabilidade/",
+    "image": "/og/blog-tag-observabilidade.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Observabilidade*",
+    "body": "Conceitos e práticas para compreender sistemas a partir da telemetria.",
+    "alt": "Dose de Telemetria — Observabilidade. Conceitos e práticas para compreender sistemas a partir da telemetria."
+  },
+  {
+    "path": "/blog/tags/logs/",
+    "image": "/og/blog-tag-logs.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Logs*",
+    "body": "Registros de eventos, custos e conversão de logs em métricas.",
+    "alt": "Dose de Telemetria — Logs. Registros de eventos, custos e conversão de logs em métricas."
+  },
+  {
+    "path": "/blog/tags/opentelemetry/",
+    "image": "/og/blog-tag-opentelemetry.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*OpenTelemetry*",
+    "body": "Instrumentação e coleta de telemetria com OpenTelemetry.",
+    "alt": "Dose de Telemetria — OpenTelemetry. Instrumentação e coleta de telemetria com OpenTelemetry."
+  },
+  {
+    "path": "/blog/tags/opentelemetry-collector/",
+    "image": "/og/blog-tag-opentelemetry-collector.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*OpenTelemetry Collector*",
+    "body": "Processamento de logs, métricas e rastros no Collector.",
+    "alt": "Dose de Telemetria — OpenTelemetry Collector. Processamento de logs, métricas e rastros no Collector."
+  },
+  {
+    "path": "/blog/tags/engenharia-de-observabilidade/",
+    "image": "/og/blog-tag-engenharia-de-observabilidade.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Engenharia de observabilidade*",
+    "body": "Conhecimentos, ferramentas e práticas da engenharia de observabilidade.",
+    "alt": "Dose de Telemetria — Engenharia de observabilidade. Conhecimentos, ferramentas e práticas da engenharia de observabilidade."
+  },
+  {
+    "path": "/blog/tags/carreira/",
+    "image": "/og/blog-tag-carreira.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Carreira*",
+    "body": "Aprendizado e desenvolvimento profissional em observabilidade.",
+    "alt": "Dose de Telemetria — Carreira. Aprendizado e desenvolvimento profissional em observabilidade."
+  },
+  {
+    "path": "/blog/tags/apm/",
+    "image": "/og/blog-tag-apm.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*APM*",
+    "body": "O papel do gerenciamento de desempenho de aplicações na observabilidade.",
+    "alt": "Dose de Telemetria — APM. O papel do gerenciamento de desempenho de aplicações na observabilidade."
+  },
+  {
+    "path": "/blog/tags/monitoramento/",
+    "image": "/og/blog-tag-monitoramento.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Monitoramento*",
+    "body": "Monitoramento de sistemas e sua relação com a observabilidade.",
+    "alt": "Dose de Telemetria — Monitoramento. Monitoramento de sistemas e sua relação com a observabilidade."
+  },
+  {
+    "path": "/blog/tags/telemetria/",
+    "image": "/og/blog-tag-telemetria.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Telemetria*",
+    "body": "Geração e uso de logs, métricas, rastros e outros sinais.",
+    "alt": "Dose de Telemetria — Telemetria. Geração e uso de logs, métricas, rastros e outros sinais."
+  },
+  {
+    "path": "/blog/tags/faq/",
+    "image": "/og/blog-tag-faq.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Perguntas frequentes*",
+    "body": "Respostas a dúvidas sobre telemetria e seu impacto nos sistemas.",
+    "alt": "Dose de Telemetria — Perguntas frequentes. Respostas a dúvidas sobre telemetria e seu impacto nos sistemas."
+  },
+  {
+    "path": "/blog/tags/diversao/",
+    "image": "/og/blog-tag-diversao.png",
+    "label": "TEMAS DO BLOG",
+    "headline": "*Diversão*",
+    "body": "Observabilidade com criatividade, música e humor.",
+    "alt": "Dose de Telemetria — Diversão. Observabilidade com criatividade, música e humor."
   }
 ]

@@ -98,3 +98,44 @@ test('course prices, currency and closed enrollment agree across HTML, schema an
     assert.doesNotMatch(html, /reviewRating|aggregateRating/);
   }
 });
+
+test('all six migrated posts retain their bodies, original dates, assets, headings and discovery links', async () => {
+  const posts = JSON.parse(await readFile('src/data/blog-migration.json', 'utf8'));
+  assert.equal(posts.length, 6);
+  const index = await readFile('dist/blog/index.html', 'utf8');
+  const rss = await readFile('dist/blog/rss.xml', 'utf8');
+  const items = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(match => match[1]);
+  for (const post of posts) {
+    const source = await readFile(`src/content/blog/${post.slug}.md`, 'utf8');
+    const body = source.split('---\n\n').slice(1).join('---\n\n');
+    assert.equal(createHash('sha256').update(body).digest('hex'), post.bodySha256, post.slug);
+    const path = `/blog/${post.slug}/`;
+    const html = await readFile(`dist${path}index.html`, 'utf8');
+    const nodes = elements(parse(html));
+    const article = nodes.filter(n => n.tagName === 'script' && attribute(n, 'type') === 'application/ld+json').map(n => JSON.parse(text(n))).find(s => ['TechArticle', 'BlogPosting'].includes(s['@type']));
+    assert.equal(article.datePublished, post.publishedAt);
+    assert.equal(article.dateModified, post.updatedAt);
+    assert.equal(meta(nodes, 'og:type'), 'article');
+    assert.equal(meta(nodes, 'article:published_time'), post.publishedAt);
+    assert.equal(meta(nodes, 'article:modified_time'), post.updatedAt);
+    assert.equal(article.image, meta(nodes, 'og:image'));
+    assert.ok(index.includes(`href="${path}"`));
+    assert.ok(guide.includes(`https://dosedetelemetria.com${path}`));
+    assert.equal(items.filter(item => item.includes(`<link>https://dosedetelemetria.com${path}</link>`)).length, 1);
+    assert.ok(rss.includes(new Date(post.publishedAt).toUTCString()));
+    for (const id of post.headingIds) assert.ok(nodes.some(n => attribute(n, 'id') === id), `${post.slug}: missing legacy fragment ${id}`);
+    const ids = nodes.map(n => attribute(n, 'id')).filter(Boolean);
+    assert.equal(new Set(ids).size, ids.length, `${post.slug}: duplicate IDs`);
+    for (const image of nodes.filter(n => n.tagName === 'img')) {
+      assert.ok(attribute(image, 'alt'), post.slug);
+      assert.ok(attribute(image, 'width') && attribute(image, 'height'), post.slug);
+      const src = attribute(image, 'src');
+      assert.ok(src.startsWith('/'), `${post.slug}: external image ${src}`);
+      await access(`dist${src}`);
+    }
+    assert.doesNotMatch(html, /cdn\.hashnode\.com|%\[https:\/\/www\.youtube/);
+    const md = await readFile(`dist${path}index.md`, 'utf8');
+    if (post.slug.startsWith('seu-maior')) { assert.match(md, /```/); assert.match(md, /otelcol_exporter_sent_metric_points/); }
+    for (const tag of post.tags) assert.ok((await readFile(`dist/blog/tags/${tag}/index.html`, 'utf8')).includes(`href="${path}"`));
+  }
+});

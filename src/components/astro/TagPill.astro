@@ -1,0 +1,20 @@
+---
+interface Props {
+  tag: string;
+  href?: string;
+  active?: boolean;
+}
+
+const { tag, href, active = false } = Astro.props;
+
+const baseClasses = "inline-block text-xs font-medium px-3 py-1 rounded-full transition-colors";
+const activeClasses = "bg-telemetria-yellow text-white";
+const inactiveClasses = "bg-white/5 text-telemetria-yellow hover:bg-white/10";
+const classes = `${baseClasses} ${active ? activeClasses : inactiveClasses}`;
+---
+
+{href ? (
+  <a href={href} class={classes}>{tag}</a>
+) : (
+  <span class={classes}>{tag}</span>
+)}

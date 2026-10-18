@@ -1,0 +1,47 @@
+---
+import type { Author } from "../../data/author-data";
+
+interface Props {
+  author: Author;
+}
+
+const { author } = Astro.props;
+---
+
+<div class="flex items-start gap-4 rounded-lg border border-white/10 bg-white/5 p-6">
+  <img
+    src={author.avatar}
+    alt={author.name}
+    width={64}
+    height={64}
+    class="rounded-full"
+    loading="lazy"
+  />
+  <div>
+    <a href={author.profilePath} class="font-semibold text-white hover:text-telemetria-yellow">{author.name}</a>
+    <div class="text-sm text-white/70 mb-2">{author.role}</div>
+    <p class="text-sm text-white/70 mb-3">{author.bio}</p>
+    <div class="flex gap-3">
+      {author.social.linkedin && (
+        <a
+          href={author.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm"
+        >
+          LinkedIn
+        </a>
+      )}
+      {author.social.github && (
+        <a
+          href={author.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/70 hover:text-telemetria-yellow transition-colors text-sm"
+        >
+          GitHub
+        </a>
+      )}
+    </div>
+  </div>
+</div>

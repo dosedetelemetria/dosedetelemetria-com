@@ -1,6 +1,9 @@
+import { getCollection } from 'astro:content';
 import { productData } from '../data/product-data';
 
-export function GET() {
+export async function GET() {
+  const posts = (await getCollection('blog')).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+  const articles = posts.map(post => `- [${post.data.title}](https://dosedetelemetria.com/blog/${post.data.slug}/): ${post.data.description}`).join('\n');
   const courses = productData.map(product =>
     `- [${product.title}](https://dosedetelemetria.com/products/${product.slug}/): ${product.description}. ${product.price}. ${product.available ? 'Disponível' : 'Em breve'}.`
   ).join('\n');
@@ -15,6 +18,14 @@ Consulte o catálogo para comparar cursos, conteúdo, preços e disponibilidade.
 ## Cursos
 
 ${courses}
+
+## Blog
+
+Artigos originais em português sobre telemetria e observabilidade.
+
+${articles}
+
+[Todos os artigos](https://dosedetelemetria.com/blog/) · [RSS](https://dosedetelemetria.com/blog/rss.xml)
 
 ## Informações
 

@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import Breadcrumbs from "../../../components/astro/Breadcrumbs.astro";
+import BlogPostCard from "../../../components/astro/BlogPostCard.astro";
+import { tagInfo } from "../../../data/tag-data";
+import type { ValidTag } from "../../../data/tag-data";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const displayName = tagInfo[tag as ValidTag]?.displayName ?? tag;
+const description = tagInfo[tag as ValidTag]?.description ?? "";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => p.data.tags.includes(tag))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<Layout
+  title={`${displayName} — Dose de Telemetria Blog`}
+  description={description || `Artigos sobre ${displayName}.`}
+  canonical={`/blog/tags/${tag}/`}
+>
+  <div class="container-custom py-16">
+    <Breadcrumbs
+      items={[
+        { label: "Início", href: "/" },
+        { label: "Blog", href: "/blog/" },
+        { label: "Tags", href: "/blog/tags/" },
+        { label: displayName },
+      ]}
+    />
+
+    <div class="mt-8 mb-10">
+      <h1 class="text-4xl font-bold text-white mb-2">{displayName}</h1>
+      {description && <p class="text-lg text-white/60">{description}</p>}
+      <p class="text-sm text-white/60 mt-2">{posts.length} {posts.length === 1 ? "artigo" : "artigos"}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {posts.map((post) => (
+        <BlogPostCard
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.data.slug}
+          tags={post.data.tags}
+          publishedAt={post.data.publishedAt}
+          readingTime={Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 200))}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>

@@ -50,9 +50,19 @@ renderização e hidratação do formulário não provam a entrega de notificaç
 
 A zona Cloudflare `dosedetelemetria.com` tem o ID
 `eff6f24a1b3884a9205cd57974f3346a`, na conta
-`4fabfd40ab08da2af6847bb16ad1f7d3`. Os únicos hostnames do website são
+`4fabfd40ab08da2af6847bb16ad1f7d3`. Os hostnames principais de conteúdo são
 `dosedetelemetria.com` e `www.dosedetelemetria.com`. Os registros de email e os
-subdomínios de blog, comunidade e landing pages são independentes.
+subdomínios de comunidade e landing pages são independentes.
+
+O hostname `blog.dosedetelemetria.com` usa o mesmo Worker exclusivamente para
+redirecionamentos permanentes. Artigos e temas usam o inventário em
+`src/data/blog-migration.json`; o feed antigo aponta para `/blog/rss.xml`.
+URLs desconhecidas do host antigo retornam 404. Os redirecionamentos preservam
+parâmetros e os artigos mantêm aliases dos fragmentos originais.
+
+O rollback do hostname do blog é um CNAME para `hashnode.network`, sem proxy
+Cloudflare e com TTL automático, após remover sua associação de domínio
+personalizado do Worker. A publicação em Hashnode não é apagada pela migração.
 
 A configuração de rollback para Netlify é um CNAME no domínio principal para
 `apex-loadbalancer.netlify.com` e um CNAME de www para `dosedetelemetria.com`, ambos
