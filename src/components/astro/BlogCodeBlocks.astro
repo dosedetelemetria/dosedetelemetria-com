@@ -1,0 +1,134 @@
+<script>
+  for (const pre of document.querySelectorAll<HTMLElement>('.blog-content pre')) {
+    const code = pre.querySelector('code');
+    if (!code) continue;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'blog-code-block not-prose';
+    const toolbar = document.createElement('div');
+    toolbar.className = 'blog-code-toolbar';
+    const language = pre.dataset.language ?? 'code';
+    const label = document.createElement('span');
+    label.textContent = language === 'text' ? 'Código' : language.toUpperCase();
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = 'Copiar';
+    button.setAttribute('aria-label', `Copiar código ${language}`);
+    const status = document.createElement('span');
+    status.className = 'blog-code-status';
+    status.setAttribute('role', 'status');
+
+    pre.before(wrapper);
+    toolbar.append(label, button);
+    wrapper.append(toolbar, pre, status);
+    pre.setAttribute('aria-label', `Código ${language}`);
+
+    let resetTimer: ReturnType<typeof setTimeout>;
+    button.addEventListener('click', async () => {
+      if (button.ariaBusy === 'true') return;
+      clearTimeout(resetTimer);
+      button.ariaBusy = 'true';
+      status.textContent = '';
+      try {
+        await navigator.clipboard.writeText(code.textContent ?? '');
+        button.textContent = 'Copiado!';
+        status.textContent = 'Código copiado para a área de transferência.';
+        resetTimer = setTimeout(() => {
+          button.textContent = 'Copiar';
+          status.textContent = '';
+        }, 2500);
+      } catch {
+        button.textContent = 'Copiar';
+        status.textContent = 'Não foi possível copiar. Selecione o código e copie manualmente.';
+      } finally {
+        button.ariaBusy = 'false';
+      }
+    });
+  }
+</script>
+
+<style is:global>
+  .blog-content {
+    overflow-wrap: anywhere;
+  }
+
+  .blog-content pre code {
+    display: block;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .blog-content pre.astro-code {
+    background-color: var(--color-bg-surface) !important;
+  }
+
+  .blog-content pre {
+    color-scheme: dark;
+    scrollbar-color: #52525b var(--color-bg-surface);
+  }
+
+  .blog-code-block {
+    margin-block: 1.75em;
+    overflow: hidden;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 0.75rem;
+    background: var(--color-bg-surface);
+  }
+
+  .blog-code-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35rem 0.75rem 0.35rem 1rem;
+    border-bottom: 1px solid var(--color-border-strong);
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+  }
+
+  .blog-code-toolbar button {
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    color: var(--color-foreground);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .blog-code-toolbar button:hover {
+    background: var(--color-bg-hover);
+  }
+
+  .blog-code-toolbar button[aria-busy="true"] {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  .blog-code-toolbar button:focus-visible,
+  .blog-content pre:focus-visible {
+    outline: 2px solid #ffc107;
+    outline-offset: -3px;
+  }
+
+  .blog-content .blog-code-block pre {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 1rem;
+  }
+
+  .blog-code-status {
+    display: block;
+    padding-inline: 1rem;
+    color: var(--color-foreground);
+    font-size: 0.8125rem;
+  }
+
+  .blog-code-status:not(:empty) {
+    padding-bottom: 0.75rem;
+  }
+</style>

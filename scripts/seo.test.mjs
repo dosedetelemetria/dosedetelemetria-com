@@ -1,9 +1,11 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { parse } from 'parse5';
-import { elements, attribute, htmlFiles } from './build-agent-content.mjs';
+import { buildAgentContent, elements, attribute, htmlFiles } from './build-agent-content.mjs';
 
 const files = await htmlFiles('dist');
 const cards = JSON.parse(await readFile('src/data/og-cards.json', 'utf8'));
@@ -138,4 +140,51 @@ test('all six migrated posts retain their bodies, original dates, assets, headin
     if (post.slug.startsWith('seu-maior')) { assert.match(md, /```/); assert.match(md, /otelcol_exporter_sent_metric_points/); }
     for (const tag of post.tags) assert.ok((await readFile(`dist/blog/tags/${tag}/index.html`, 'utf8')).includes(`href="${path}"`));
   }
+});
+
+test('agent export fences cannot be closed by code content and only TOC navigation is omitted', async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), 'dose-agent-export-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const code = 'template: |\n  ```yaml\n  key: "<&>"\n  ```\n';
+  const escaped = code.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+  await writeFile(join(directory, 'index.html'), `<html><head><link rel="canonical" href="https://dosedetelemetria.com/"><meta name="description" content="Fixture"></head><body><main>
+    <h1>Readable content</h1>
+    <details><summary>Sumário</summary><nav aria-label="Sumário"><a href="#code">Code</a></nav></details>
+    <aside><nav aria-label="Sumário">Duplicate TOC</nav></aside>
+    <details><summary>Why this works</summary><p>Important explanation stays.</p></details>
+    <nav aria-label="Related articles"><a href="/blog/">Read more</a></nav>
+    <pre data-language="yaml"><code>${escaped}</code></pre>
+    <pre><code>unlabelled code</code></pre>
+    <figure><img src="/diagram.webp" alt="Application sends telemetry to a Collector."><figcaption>The queue buffers pending exports.</figcaption></figure>
+  </main></body></html>`);
+  await writeFile(join(directory, 'llms.txt'), '# Guide\n');
+  await buildAgentContent(directory);
+  const content = await readFile(join(directory, 'index.md'), 'utf8');
+  assert.ok(content.includes(`\`\`\`\`yaml\n${code}\`\`\`\``));
+  assert.match(content, /```\nunlabelled code\n```/);
+  assert.match(content, /Important explanation stays/);
+  assert.match(content, /Read more\]\(https:\/\/dosedetelemetria.com\/blog\/\)/);
+  assert.match(content, /!\[Application sends telemetry to a Collector\.\]\(https:\/\/dosedetelemetria.com\/diagram.webp\)/);
+  assert.match(content, /The queue buffers pending exports/);
+  assert.doesNotMatch(content, /Sumário|Duplicate TOC/);
+});
+
+
+test('highlighted article code retains its language and whitespace in Markdown and full exports', async () => {
+  let blocks = 0;
+  for (const file of files.filter(file => file.includes('/blog/'))) {
+    const nodes = elements(parse(await readFile(file, 'utf8')));
+    const content = await readFile(file.replace(/\.html$/, '.md'), 'utf8');
+    for (const pre of nodes.filter(node => node.tagName === 'pre')) {
+      const code = pre.childNodes.find(node => node.tagName === 'code');
+      if (!code) continue;
+      const value = text(code).replace(/\n$/, '');
+      assert.ok(content.includes(`\n${value}\n`), file);
+      assert.ok(content.includes(`\`\`\`${attribute(pre, 'data-language') ?? ''}\n`), file);
+      assert.ok(full.includes(`\n${value}\n`), file);
+      blocks++;
+    }
+    assert.doesNotMatch(content, /Nesta página|Sumário/, file);
+  }
+  assert.ok(blocks > 0);
 });

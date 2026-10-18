@@ -18,12 +18,13 @@ const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
   year: "numeric",
   month: "short",
   day: "numeric",
+  timeZone: "UTC",
 });
 ---
 
 <a
   href={`/blog/${slug}/`}
-  class="group block rounded-lg border border-white/10 bg-white/2 p-6 transition-colors hover:border-telemetria-yellow/30 hover:bg-white/4"
+  class="group block rounded-xl border border-border bg-bg-surface p-6 transition-colors hover:border-telemetria-yellow/30 hover:bg-bg-elevated"
   data-tags={tags.join(",")}
 >
   <div class="flex flex-wrap gap-2 mb-3">
@@ -34,10 +35,10 @@ const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
   <h2 class="text-lg font-semibold text-white leading-snug mb-2 group-hover:text-telemetria-yellow transition-colors">
     {title}
   </h2>
-  <p class="text-sm text-white/60 leading-relaxed mb-4 line-clamp-2">
+  <p class="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-2">
     {description}
   </p>
-  <div class="text-xs text-white/60">
+  <div class="text-xs text-text-secondary">
     {dateFormatted} · {readingTime} min de leitura
   </div>
 </a>

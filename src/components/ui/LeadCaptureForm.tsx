@@ -175,7 +175,7 @@ const LeadCaptureForm = ({ productId, productName }: LeadCaptureFormProps) => {
         
         <Button 
           type="submit" 
-          className="w-full bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
+          className="w-full"
           disabled={isSubmitting || !isHydrated}
         >
           {isSubmitting ? "Enviando..." : "Entrar na lista"}

@@ -68,7 +68,7 @@ const seoInfo = getSEOData();
 				</a>
 
 				<div class="max-w-4xl">
-					<div class="animate-fade-in">
+					<div>
 						<h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
 							{product.title}
 						</h1>
@@ -121,7 +121,7 @@ const seoInfo = getSEOData();
 
 		<!-- Lead Capture Form (only for unavailable products) -->
 		{!product.available && (
-			<section class="section-padding bg-telemetria-darker waitlist-section">
+			<section id="waitlist" class="section-padding bg-telemetria-darker waitlist-section">
 				<div class="container-custom">
 					<div class="max-w-lg mx-auto text-center">
 						<h2 class="text-2xl font-bold mb-4">Entre na lista de espera</h2>
@@ -131,7 +131,7 @@ const seoInfo = getSEOData();
 						<LeadCaptureForm
 							productId={product.id}
 							productName={product.title}
-							client:load
+							client:visible
 						/>
 					</div>
 				</div>
@@ -175,7 +175,7 @@ const seoInfo = getSEOData();
 						<div class="bg-telemetria-darker/70 rounded-lg border border-white/10 overflow-hidden">
 							<div class="p-5 border-b border-white/10">
 								<h3 class="text-xl font-bold flex items-center">
-									<span class="flex items-center justify-center w-8 h-8 rounded-full bg-telemetria-yellow/20 text-telemetria-yellow mr-3 text-sm">
+									<span class="flex items-center justify-center w-8 h-8 rounded-full bg-cream/5 text-cream mr-3 text-sm">
 										{index + 1}
 									</span>
 									{module.title}
