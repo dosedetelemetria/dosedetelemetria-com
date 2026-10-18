@@ -449,7 +449,8 @@ export const productData: Product[] = [
     price: "R$ 2.397,00",
     ctaText: "Em breve",
     ctaLink: "https://mn.dosedetelemetria.com/share/u1ERnGs2fyDlmmdq",
-    available: false
+    available: false,
+    popular: true
   }
 ];
 

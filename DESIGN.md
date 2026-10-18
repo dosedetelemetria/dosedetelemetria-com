@@ -8,7 +8,7 @@ O catálogo e os artigos mantêm seus dados e conteúdo próprios.
 
 A adaptação usa Telemetry Drops `933e357` e o app
 `telemetrydrops/dropzone-app` na revisão
-`316340cc2da136e3d8b25dffc5e72f5619885667`. As fontes são
+`e829cc4be88237ea044ac832ee4edee8f925b20a`. As fontes são
 `src/styles/globals.css`, `src/styles/brands.css` e o Storybook do app com
 `locale: pt` e `brand: dose`. O catálogo não é publicado pela release do app.
 As referências renderizadas são Foundations/Design Tokens, UI/Button,

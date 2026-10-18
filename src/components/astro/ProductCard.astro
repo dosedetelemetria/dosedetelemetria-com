@@ -51,8 +51,8 @@ const isExternalLink = ctaLink.startsWith('http');
   )}
 >
   {popular && (
-    <div class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-telemetria-yellow px-3 py-1 text-xs font-semibold text-telemetria-dark">
-      {available ? "Disponível" : "Em breve"}
+    <div class="absolute -top-4 left-1/2 -translate-x-1/2 max-w-[calc(100%-2rem)] text-center rounded-lg bg-telemetria-yellow px-3 py-1 text-xs font-semibold text-telemetria-dark">
+      {title}: {available ? "Disponível" : "Em breve"}
     </div>
   )}
 
