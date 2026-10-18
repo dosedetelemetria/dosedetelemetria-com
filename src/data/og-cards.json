@@ -222,5 +222,69 @@
     "headline": "*Diversão*",
     "body": "Observabilidade com criatividade, música e humor.",
     "alt": "Dose de Telemetria — Diversão. Observabilidade com criatividade, música e humor."
+  },
+  {
+    "path": "/blog/bad-telemetry-not-volume-problem/",
+    "image": "/og/blog-bad-telemetry-not-volume-problem.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "Você não tem telemetria demais. Tem telemetria ruim.",
+    "body": "Reduza custos de observabilidade corrigindo desperdício e governança da telemetria antes de recorrer à amostragem.",
+    "alt": "Dose de Telemetria: Você não tem telemetria demais. Tem telemetria ruim."
+  },
+  {
+    "path": "/blog/best-otel-talks-kubecon-eu-2026/",
+    "image": "/og/blog-best-otel-talks-kubecon-eu-2026.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "Seis palestras de OpenTelemetry da KubeCon EU 2026",
+    "body": "Seis palestras da KubeCon EU 2026: implantações reais, profiling, ferramentas OTTL e novidades do Collector.",
+    "alt": "Dose de Telemetria: Seis palestras de OpenTelemetry da KubeCon EU 2026"
+  },
+  {
+    "path": "/blog/best-otel-talks-kubecon-india-2026/",
+    "image": "/og/blog-best-otel-talks-kubecon-india-2026.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "Três palestras de OpenTelemetry da KubeCon India 2026",
+    "body": "Três palestras sobre falhas do Prometheus, custos de conversão de telemetria e OpenTelemetry para agentes de IA.",
+    "alt": "Dose de Telemetria: Três palestras de OpenTelemetry da KubeCon India 2026"
+  },
+  {
+    "path": "/blog/collector-backend-outage/",
+    "image": "/og/blog-collector-backend-outage.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "O que acontece quando seu backend de telemetria cai?",
+    "body": "Entenda retries, filas e armazenamento persistente no Collector: o que resiste à queda do backend e ao reinício do processo.",
+    "alt": "Dose de Telemetria: O que acontece quando seu backend de telemetria cai?"
+  },
+  {
+    "path": "/blog/otel-drops-2026-10-19/",
+    "image": "/og/blog-otel-drops-2026-10-19.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "OTel Drops: Hostmetrics e rastros de modelos",
+    "body": "19 de outubro de 2026: hostmetrics versionado, rastros do Claude, atualizações de SDKs e notícias do OpenTelemetry.",
+    "alt": "Dose de Telemetria: OTel Drops: Hostmetrics e rastros de modelos"
+  },
+  {
+    "path": "/blog/otlp-is-not-otel-native/",
+    "image": "/og/blog-otlp-is-not-otel-native.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "Suportar OTLP não é suportar OpenTelemetry",
+    "body": "Receber OTLP é só o começo. Suportar OpenTelemetry também exige preservar seu modelo de dados e convenções.",
+    "alt": "Dose de Telemetria: Suportar OTLP não é suportar OpenTelemetry"
+  },
+  {
+    "path": "/blog/severity-based-log-routing/",
+    "image": "/og/blog-severity-based-log-routing.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "Roteie logs por severidade com o OpenTelemetry Collector",
+    "body": "Roteie logs por severidade no Collector: envie os críticos ao fornecedor e arquive os demais em armazenamento econômico.",
+    "alt": "Dose de Telemetria: Roteie logs por severidade com o OpenTelemetry Collector"
+  },
+  {
+    "path": "/blog/weaver-from-zero-to-hero/",
+    "image": "/og/blog-weaver-from-zero-to-hero.png",
+    "label": "BLOG · OPENTELEMETRY",
+    "headline": "Weaver do zero: um guia para começar",
+    "body": "Comece com OpenTelemetry Weaver: versione esquemas de telemetria, gere código Go e valide convenções no CI.",
+    "alt": "Dose de Telemetria: Weaver do zero: um guia para começar"
   }
 ]
