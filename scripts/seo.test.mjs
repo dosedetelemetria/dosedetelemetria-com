@@ -226,3 +226,45 @@ test('blog features the newest post, three recent stories, and a complete illust
     assert.equal(attribute(leads[0], 'loading'), 'eager');
   }
 });
+
+test('Drops translations preserve attribution, editorial dates, runnable examples and discovery', async () => {
+  const translations = JSON.parse(await readFile('src/data/drops-translations.json', 'utf8'));
+  assert.equal(translations.length, 8);
+  const index = await readFile('dist/blog/index.html', 'utf8');
+  const rss = await readFile('dist/blog/rss.xml', 'utf8');
+  for (const post of translations) {
+    const source = await readFile(`src/content/blog/${post.slug}.md`, 'utf8');
+    const code = [...source.replace(/^---\n[\s\S]*?\n---\n/, '').matchAll(/^```[^\n]*\n.*?^```/gms)].map(m => m[0]).join('\n\n');
+    assert.equal(createHash('sha256').update(code).digest('hex'), post.codeSha256, post.slug);
+    const path = `/blog/${post.slug}/`;
+    const url = `https://dosedetelemetria.com${path}`;
+    const nodes = elements(parse(await readFile(`dist${path}index.html`, 'utf8')));
+    const article = nodes.filter(n => n.tagName === 'script' && attribute(n, 'type') === 'application/ld+json').map(n => JSON.parse(text(n))).find(s => s['@type'] === 'TechArticle');
+    const name = post.author === 'carla' ? 'Carla Paixão Kröhling' : 'Juraci Paixão Kröhling';
+    const date = new Date(post.publishedAt).toISOString();
+    assert.equal(article.author.name, name);
+    assert.equal(article.datePublished, date);
+    assert.equal(article.dateModified, date);
+    assert.equal(meta(nodes, 'article:published_time'), date);
+    assert.equal(article.translationOfWork.url, post.source);
+    assert.equal(article.translationOfWork.inLanguage, 'en');
+    assert.equal(article.url, url);
+    assert.ok(nodes.some(n => n.tagName === 'a' && attribute(n, 'href') === post.source && attribute(n, 'hreflang') === 'en'));
+    assert.ok(nodes.some(n => n.tagName === 'time' && attribute(n, 'datetime') === date));
+    assert.ok(nodes.some(n => n.tagName === 'a' && text(n) === name && attribute(n, 'href') === article.author.url));
+    assert.ok(index.includes(`href="${path}"`));
+    const item = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(m => m[1]).find(item => item.includes(`<link>${url}</link>`));
+    assert.ok(item?.includes(new Date(date).toUTCString()), post.slug);
+    const md = await readFile(`dist${path}index.md`, 'utf8');
+    assert.ok(md.includes(post.source));
+    assert.ok(md.includes(name));
+    assert.ok(md.includes('Resumo'));
+    assert.ok(md.includes('Principais conclusões'));
+    assert.ok(full.includes(md));
+    assert.doesNotMatch(md, /\[\[CODE:/);
+    if (post.author === 'carla') assert.notEqual(article.author.url, 'https://dosedetelemetria.com/#instrutor');
+    for (const match of source.matchAll(/\]\((\/[^)#]*)(?:#[^)]*)?\)/g)) {
+      await access(`dist${match[1]}${match[1].endsWith('/') ? 'index.html' : ''}`);
+    }
+  }
+});
