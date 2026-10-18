@@ -12,8 +12,8 @@
     "image": "/og/products.png",
     "label": "CURSOS E PROGRAMAS",
     "headline": "Seu próximo passo\nem *OpenTelemetry.*",
-    "body": "Compare a Trilha OTel e a Especialização em OTel. Em breve.",
-    "alt": "Dose de Telemetria — Seu próximo passo em OpenTelemetry. Compare a Trilha OTel e a Especialização em OTel. Em breve."
+    "body": "Compare os cursos de OpenTelemetry,\nconteúdo, preços e matrículas.",
+    "alt": "Dose de Telemetria — Seu próximo passo em OpenTelemetry. Compare os cursos, conteúdo, preços e situação das matrículas."
   },
   {
     "path": "/products/trilha-otel/",
@@ -26,10 +26,10 @@
   {
     "path": "/products/especializacao-otel/",
     "image": "/og/especializacao-otel.png",
-    "label": "ESPECIALIZAÇÃO · EM BREVE",
+    "label": "MATRÍCULAS ENCERRADAS",
     "headline": "Aprofunde sua\n*prática em OTel.*",
-    "body": "8 semanas com conversas semanais e projetos práticos.",
-    "alt": "Dose de Telemetria — Aprofunde sua prática em OTel. 8 semanas com conversas semanais e projetos práticos."
+    "body": "8 semanas com mentoria e projetos práticos.\nEntre na lista de interesse.",
+    "alt": "Dose de Telemetria — Especialização em OTel. Matrículas encerradas; lista de interesse disponível."
   },
   {
     "path": "/privacy-policy/",

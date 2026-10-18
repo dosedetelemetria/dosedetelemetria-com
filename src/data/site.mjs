@@ -8,26 +8,10 @@ export const site = {
   "trackId": "trilha",
   "blogIntro": "OpenTelemetry e engenharia de observabilidade na prática.",
   "navigation": [
-    {
-      "name": "Início",
-      "path": "/"
-    },
-    {
-      "name": "Produtos",
-      "path": "/products/"
-    },
-    {
-      "name": "Blog",
-      "path": "/blog/"
-    },
-    {
-      "name": "Simulado OTCA (em inglês)",
-      "path": "https://telemetrydrops.com/otca-practice-exam/"
-    },
-    {
-      "name": "Podcast (em inglês)",
-      "path": "https://telemetrydrops.com/podcast/"
-    }
+    { "name": "Cursos", "path": "/products/" },
+    { "name": "Simulado OTCA (em inglês)", "path": "https://telemetrydrops.com/otca-practice-exam/" },
+    { "name": "Podcast (em inglês)", "path": "https://telemetrydrops.com/podcast/" },
+    { "name": "Blog", "path": "/blog/" }
   ],
   "footer": {
     "description": "Oferecemos produtos digitais relacionados ao OpenTelemetry (OTel) para profissionais que buscam aprimorar seus conhecimentos em monitoramento e observabilidade.",

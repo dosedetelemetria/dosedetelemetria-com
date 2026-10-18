@@ -26,7 +26,7 @@ const isActive = (path: string) => {
       </a>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden lg:flex items-center space-x-8">
+      <nav class="hidden lg:flex items-center gap-4 xl:gap-6">
         {navLinks.map((link) => (
           <a
             href={link.path}
@@ -66,16 +66,16 @@ isActive(link.path) ? "text-brand-link" : "text-white/90"
 
   <!-- Keep the menu outside the blurred header for viewport sizing in Safari. -->
   <div
-    class="fixed inset-0 z-40 bg-telemetria-darker/98 backdrop-blur-lg transition-transform duration-300 ease-in-out lg:hidden translate-x-full"
+    class="fixed inset-0 z-40 bg-telemetria-darker/98 backdrop-blur-lg overflow-y-auto transition-transform duration-300 ease-in-out lg:hidden translate-x-full"
     id="mobile-menu"
     inert
   >
-    <div class="flex flex-col h-full justify-center items-center gap-8 px-4 pt-16">
+    <div class="flex flex-col min-h-full justify-center items-center gap-3 px-4 py-24">
       {navLinks.map((link) => (
         <a
           href={link.path}
           class={cn(
-"text-xl font-medium transition-colors hover:text-brand-link mobile-menu-link",
+"inline-flex min-h-11 items-center text-xl font-medium transition-colors hover:text-brand-link mobile-menu-link",
 isActive(link.path) ? "text-brand-link" : "text-white/90"
           )}
         >

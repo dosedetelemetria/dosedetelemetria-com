@@ -90,6 +90,21 @@ test('sitemap and agent exports exactly follow indexable HTML and preserve usefu
   assert.match(await readFile('dist/products/index.md', 'utf8'), /\| Preço \| R\$ 5.997,00 \| R\$ 2.397,00 \|/);
 });
 
+test('course status and learning navigation reflect current offers', async () => {
+  for (const file of files) {
+    const nodes = elements(parse(await readFile(file, 'utf8')));
+    assert.doesNotMatch(text(nodes.find(n => n.tagName === 'body')), /treinamento para minha equipe|treinamento para equipes/);
+  }
+  for (const path of ['index.html', 'products/index.html']) {
+    const nodes = elements(parse(await readFile(`dist/${path}`, 'utf8')));
+    const specialization = nodes.find(n => attribute(n, 'id') === 'especializacao');
+    const track = nodes.find(n => attribute(n, 'id') === 'trilha');
+    assert.match(text(specialization), /Matrículas encerradas/);
+    assert.doesNotMatch(text(specialization), /Em breve/);
+    assert.match(text(track), /Em breve/);
+  }
+});
+
 test('course prices, currency and closed enrollment agree across HTML, schema and agent guide', async () => {
   for (const [slug, price, display] of [['trilha-otel','2397','R$ 2.397,00'],['especializacao-otel','5997','R$ 5.997,00']]) {
     const html = await readFile(`dist/products/${slug}/index.html`, 'utf8');
@@ -98,8 +113,10 @@ test('course prices, currency and closed enrollment agree across HTML, schema an
     assert.equal(course.offers.price, price); assert.equal(course.offers.priceCurrency, 'BRL');
     assert.equal(course.offers.availability, 'https://schema.org/OutOfStock');
     const markdown = await readFile(`dist/products/${slug}/index.md`, 'utf8');
-    assert.ok(markdown.includes(display)); assert.ok(guide.includes(display)); assert.match(markdown, /Em breve/);
-    assert.ok(nodes.some(n => n.tagName === 'button' && /Em breve/.test(text(n)) && attribute(n, 'disabled') !== undefined));
+    const status = slug === 'especializacao-otel' ? 'Matrículas encerradas' : 'Em breve';
+    assert.ok(markdown.includes(display)); assert.ok(guide.includes(display)); assert.ok(markdown.includes(status));
+    if (slug === 'especializacao-otel') assert.doesNotMatch(markdown, /Em breve/);
+    assert.ok(nodes.some(n => n.tagName === 'button' && text(n).includes(status) && attribute(n, 'disabled') !== undefined));
     assert.doesNotMatch(html, /href="https:\/\/mn\.dosedetelemetria\.com/);
     assert.match(html, /type="email"/);
     assert.ok(nodes.some(n => n.tagName === 'form' && attribute(n, 'method') === 'post'));

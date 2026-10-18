@@ -47,7 +47,7 @@ restrita e código com rolagem horizontal. Metadados mantêm contraste de leitur
 
 ## Navegação e leitura
 
-A navegação principal contém Início, Produtos, Blog e links identificados para o
+A navegação principal contém Cursos, Blog e links identificados para o
 simulado OTCA e o podcast em inglês. O menu compacto atende
 larguras abaixo de 1024px, mantém o foco dentro dos controles abertos e fecha
 com Escape ou ao entrar no layout desktop. Os links sociais permanecem nas
