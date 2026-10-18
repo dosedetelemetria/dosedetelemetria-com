@@ -8,8 +8,8 @@ interface Props {
 const { tag, href, active = false } = Astro.props;
 
 const baseClasses = "inline-block text-xs font-medium px-3 py-1 rounded-full transition-colors";
-const activeClasses = "bg-telemetria-yellow text-white";
-const inactiveClasses = "bg-white/5 text-telemetria-yellow hover:bg-white/10";
+const activeClasses = "bg-primary text-primary-foreground";
+const inactiveClasses = "bg-cream/5 text-cream border border-cream/15 hover:bg-cream/10";
 const classes = `${baseClasses} ${active ? activeClasses : inactiveClasses}`;
 ---
 

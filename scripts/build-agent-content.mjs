@@ -21,6 +21,22 @@ export async function htmlFiles(directory) {
 
 const markdown = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
 markdown.remove(['script', 'style', 'svg', 'iframe']);
+markdown.addRule('codeBlocks', {
+  filter: (node) => node.nodeName === 'PRE' && node.firstElementChild?.nodeName === 'CODE',
+  replacement(_content, node) {
+    const code = node.firstElementChild.textContent.replace(/\n$/, '');
+    const language = node.getAttribute('data-language') ?? '';
+    const longestFence = Math.max(0, ...(code.match(/`+/g) ?? []).map((run) => run.length));
+    const fence = '`'.repeat(Math.max(3, longestFence + 1));
+    return `\n\n${fence}${language}\n${code}\n${fence}\n\n`;
+  },
+});
+markdown.addRule('tableOfContents', {
+  filter: (node) =>
+    (node.nodeName === 'NAV' && node.getAttribute('aria-label') === 'Sumário') ||
+    (node.nodeName === 'DETAILS' && node.querySelector('nav[aria-label="Sumário"]')),
+  replacement: () => '',
+});
 markdown.addRule('tables', {
   filter: 'table',
   replacement(_content, node) {
