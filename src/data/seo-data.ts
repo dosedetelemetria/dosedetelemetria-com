@@ -1,11 +1,12 @@
 export const seoData = {
   home: {
-    title: "Cursos de OpenTelemetry | Educação Especializada em OTel",
-    description: "Domine OpenTelemetry com cursos ministrados por especialistas. Aprenda observabilidade, rastreamento distribuído e instrumentação de telemetria com contribuidores do projeto OpenTelemetry. Certifique-se hoje!",
+    title: "Cursos de OpenTelemetry em português",
+    description: "Aprenda OpenTelemetry com cursos em português, projetos práticos e orientação de contribuidores do projeto.",
     keywords: "treinamento OpenTelemetry, curso OTel, treinamento observabilidade, curso rastreamento distribuído, instrumentação telemetria, certificação OpenTelemetry",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": "https://dosedetelemetria.com/#organization",
 "name": "Dose de Telemetria",
       "url": "https://dosedetelemetria.com",
       "logo": "https://dosedetelemetria.com/logo.svg",
@@ -17,8 +18,8 @@ export const seoData = {
     }
   },
   products: {
-    title: "Cursos e Programas de Especialização em OpenTelemetry",
-    description: "Escolha entre cursos OpenTelemetry no seu próprio ritmo ou programas intensivos de especialização. Aprenda com contribuidores do projeto através de projetos práticos e certificação.",
+    title: "Cursos e especialização em OpenTelemetry",
+    description: "Compare a Trilha OTel e a Especialização em OTel: cursos em português com projetos práticos. Em breve.",
     keywords: "curso OpenTelemetry, especialização OTel, certificação observabilidade, programa treinamento OpenTelemetry",
     jsonLd: {
       "@context": "https://schema.org",
@@ -28,8 +29,8 @@ export const seoData = {
     }
   },
   otelTrack: {
-    title: "Curso Completo de OpenTelemetry - Aprendizado no Seu Ritmo | R$ 2.397",
-    description: "Domine OpenTelemetry no seu próprio ritmo com nosso curso abrangente. Mais de 50 aulas cobrindo API, SDK, Collector e muito mais. Certifique-se em observabilidade e telemetria.",
+    title: "Trilha OTel: curso de OpenTelemetry",
+    description: "Aprenda OpenTelemetry no seu ritmo: API, SDK, Collector e projetos práticos. Curso em português. Em breve.",
     keywords: "curso OpenTelemetry, trilha OTel, aprendizado próprio ritmo, curso observabilidade, treinamento telemetria, certificação OpenTelemetry",
     jsonLd: {
       "@context": "https://schema.org",
@@ -54,8 +55,8 @@ export const seoData = {
     }
   },
   otelSpecialization: {
-    title: "Treinamento Premium OpenTelemetry - Programa Intensivo de 8 Semanas",
-    description: "Especialização elite em OpenTelemetry com mentorias semanais, projetos práticos e feedback personalizado. Inscrição limitada com instrutores especialistas.",
+    title: "Especialização em OpenTelemetry",
+    description: "Programa intensivo de 8 semanas com conversas semanais, projetos práticos e feedback personalizado. Em breve.",
     keywords: "especialização OpenTelemetry, treinamento intensivo OTel, mentoria observabilidade, treinamento especialista OpenTelemetry",
     jsonLd: {
       "@context": "https://schema.org",

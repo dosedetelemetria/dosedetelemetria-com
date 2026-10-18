@@ -8,7 +8,7 @@ import { getRandomTestimonials } from '../data/testimonial-data';
 const testimonials = getRandomTestimonials(6);
 ---
 
-<Layout 
+<Layout
 	title={seoData.home.title}
 	description={seoData.home.description}
 	keywords={seoData.home.keywords}
@@ -22,7 +22,7 @@ const testimonials = getRandomTestimonials(6);
 				<div class="absolute inset-0 bg-telemetria-dark">
 					<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.1),transparent_70%)]"></div>
 				</div>
-<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
+<div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
 			</div>
 
 			<div class="container-custom relative z-10 pt-16 md:pt-20">
@@ -30,20 +30,20 @@ const testimonials = getRandomTestimonials(6);
 					<!-- Text Content - Left Side -->
 					<div class="animate-fade-in">
 						<div class="inline-block mb-4">
-							<img 
-								src="/logo.svg" 
-								alt="Dose de Telemetria Logo" 
+							<img width="80" height="80"
+								src="/logo.svg"
+								alt="Dose de Telemetria Logo"
 								class="h-20 w-20 animate-pulse-subtle"
 							/>
 						</div>
 						<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-							Domine o <span class="bg-gradient-to-r from-telemetria-yellow via-yellow-300 to-yellow-100 bg-clip-text text-transparent">OpenTelemetry</span> com Treinamento Especializado
+							Domine o <span class="bg-linear-to-r from-telemetria-yellow via-yellow-300 to-yellow-100 bg-clip-text text-transparent">OpenTelemetry</span> com Treinamento Especializado
 						</h1>
 						<p class="text-xl text-white/80 mb-8">
-							Aprenda com contribuidores do projeto através de cursos práticos, obtenha certificação e avance sua carreira em observabilidade moderna e rastreamento distribuído.
+							Aprenda com contribuidores do projeto através de cursos práticos, receba um certificado de conclusão e avance sua carreira em observabilidade moderna e rastreamento distribuído.
 						</p>
 						<div class="flex flex-col sm:flex-row gap-4">
-							<a 
+							<a
 								href="/products"
 								class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
 							>
@@ -51,19 +51,19 @@ const testimonials = getRandomTestimonials(6);
 							</a>
 						</div>
 					</div>
-					
+
 					<!-- Video - Right Side -->
 					<div class="animate-fade-in-right">
-						<VideoEmbed 
-							videoId="pHLA2pAr7I0" 
-							title="Introdução ao OpenTelemetry" 
+						<VideoEmbed
+							videoId="pHLA2pAr7I0"
+							title="Introdução ao OpenTelemetry"
 						/>
 					</div>
 				</div>
 			</div>
 
 			<div class="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
-				<a href="#products" class="text-white/50 hover:text-white transition-colors">
+				<a aria-label="Ver cursos" href="#products" class="text-white/50 hover:text-white transition-colors">
 					<svg class="h-6 w-6 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
 					</svg>
@@ -86,37 +86,37 @@ const testimonials = getRandomTestimonials(6);
 							Em breve
 						</div>
 						<p class="text-white/80 mb-6">
-							Formação intensiva com turmas fechadas, mentorias ao vivo e projetos práticos. Desenvolva 
+							Formação intensiva com turmas fechadas, mentorias ao vivo e projetos práticos. Desenvolva
 							habilidades avançadas em OpenTelemetry com acompanhamento especializado.
 						</p>
 						<div class="mt-auto">
-							<a 
+							<a
 								href="/products#especializacao"
 class="inline-flex items-center justify-center w-full px-4 py-2 border border-telemetria-yellow/30 text-telemetria-yellow hover:bg-telemetria-yellow hover:text-telemetria-dark hover:border-telemetria-yellow rounded-md transition-colors"
 							>
-								Saiba mais 
+								Saiba mais
 								<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
 								</svg>
 							</a>
 						</div>
 					</div>
-					
+
 					<div class="glass-morphism rounded-xl p-8 flex flex-col h-full">
 						<h3 class="text-2xl font-bold mb-4">Trilha OTel</h3>
 <div class="inline-block ml-0 mb-4 px-3 py-1 bg-telemetria-yellow/10 border border-telemetria-yellow/20 text-xs rounded-full text-telemetria-yellow">
 							Em breve
 						</div>
 						<p class="text-white/80 mb-6">
-							Curso completo disponível no seu ritmo, com aulas gravadas, exercícios práticos e acesso vitalício. 
+							Curso completo disponível no seu ritmo, com aulas gravadas, exercícios práticos e acesso por um ano.
 							Do básico ao avançado em observabilidade e instrumentação.
 						</p>
 						<div class="mt-auto">
-							<a 
+							<a
 								href="/products#trilha"
 class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90 rounded-md transition-colors"
 							>
-								Conhecer curso 
+								Conhecer curso
 								<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
 								</svg>
@@ -135,7 +135,7 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 					subtitle="Tudo o que você precisa saber sobre nosso programa completo de treinamento em OpenTelemetry"
 					centered={true}
 				/>
-				
+
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
 					<!-- What is this -->
 					<div class="glass-morphism rounded-xl p-6 flex flex-col">
@@ -149,7 +149,7 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 							Treinamento completo em OpenTelemetry combinando teoria e prática. Aprenda instrumentação, rastreamento distribuído, métricas e melhores práticas de observabilidade com contribuidores do projeto.
 						</p>
 					</div>
-					
+
 					<!-- Who's it for -->
 					<div class="glass-morphism rounded-xl p-6 flex flex-col">
 						<div class="flex items-center justify-center w-12 h-12 rounded-lg bg-telemetria-yellow/10 border border-telemetria-yellow/20 mb-4">
@@ -162,7 +162,7 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 							Engenheiros de Software experientes, SREs, profissionais DevOps e qualquer pessoa que aspira se tornar um Engenheiro de Observabilidade. Perfeito para equipes implementando ou melhorando sua stack de observabilidade.
 						</p>
 					</div>
-					
+
 					<!-- Why now -->
 					<div class="glass-morphism rounded-xl p-6 flex flex-col">
 						<div class="flex items-center justify-center w-12 h-12 rounded-lg bg-telemetria-yellow/10 border border-telemetria-yellow/20 mb-4">
@@ -175,7 +175,7 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 							O OpenTelemetry está se tornando o padrão da indústria para observabilidade. Organizações estão migrando de soluções proprietárias, criando alta demanda por expertise em OTel. Esteja à frente da curva.
 						</p>
 					</div>
-					
+
 					<!-- What's next -->
 					<div class="glass-morphism rounded-xl p-6 flex flex-col">
 						<div class="flex items-center justify-center w-12 h-12 rounded-lg bg-telemetria-yellow/10 border border-telemetria-yellow/20 mb-4">
@@ -200,37 +200,37 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 					subtitle="Seu instrutor traz expertise incomparável e experiência do mundo real"
 					centered={true}
 				/>
-				
+
 				<div class="max-w-5xl mx-auto mt-12">
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 						<!-- Instructor Photo and Quick Info -->
 						<div class="lg:col-span-1">
 							<div class="glass-morphism rounded-xl p-6 text-center">
 								<div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-2 border-telemetria-yellow/30">
-									<img 
-										src="https://github.com/jpkrohling.png" 
-										alt="Juraci Paixão Kröhling" 
+									<img width="160" height="160" loading="lazy"
+										src="https://github.com/jpkrohling.png"
+										alt="Juraci Paixão Kröhling"
 										class="w-full h-full object-cover"
 									/>
 								</div>
 								<h3 class="text-2xl font-bold mb-2">Juraci Paixão Kröhling</h3>
 								<p class="text-telemetria-yellow text-sm font-medium mb-4">Membro do Comitê de Governança do OpenTelemetry</p>
-								
+
 								<div class="space-y-3 text-left">
 									<div class="flex items-center gap-2 text-sm text-white/70">
-										<svg class="w-4 h-4 text-telemetria-yellow flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<svg class="w-4 h-4 text-telemetria-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 										</svg>
 										<span>Embaixador CNCF</span>
 									</div>
 									<div class="flex items-center gap-2 text-sm text-white/70">
-										<svg class="w-4 h-4 text-telemetria-yellow flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<svg class="w-4 h-4 text-telemetria-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 										</svg>
 										<span>Contribuidor OTel</span>
 									</div>
 									<div class="flex items-center gap-2 text-sm text-white/70">
-										<svg class="w-4 h-4 text-telemetria-yellow flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<svg class="w-4 h-4 text-telemetria-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 										</svg>
 										<span>Co-fundador do OllyGarden</span>
@@ -238,11 +238,11 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- Instructor Bio and Achievements -->
 						<div class="lg:col-span-2 space-y-6">
 							<div class="glass-morphism rounded-xl p-6">
-								<h4 class="text-xl font-bold mb-4 text-telemetria-yellow">Sobre Seu Instrutor</h4>
+								<h3 class="text-xl font-bold mb-4 text-telemetria-yellow">Sobre Seu Instrutor</h3>
 								<div class="space-y-4 text-white/80">
 									<p>
 										Juraci é um engenheiro de software brasileiro com vasta experiência em sistemas de telemetria e forte compromisso com software open-source. Morando na Alemanha desde 2011, sua carreira inclui contribuições significativas para empresas renomadas por suas iniciativas open-source, como Red Hat e Grafana Labs.
@@ -252,15 +252,15 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 									</p>
 								</div>
 							</div>
-							
+
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<div class="glass-morphism rounded-xl p-6">
-									<h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+									<h3 class="text-lg font-bold mb-3 flex items-center gap-2">
 										<svg class="w-5 h-5 text-telemetria-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
 										</svg>
 										Contribuições Técnicas
-									</h4>
+									</h3>
 									<ul class="space-y-2 text-sm text-white/70">
 										<li>• Autor do OpenTelemetry Collector Builder (ocb)</li>
 										<li>• Criador do OpenTelemetry Operator</li>
@@ -269,14 +269,14 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 										<li>• Maintainer emérito do projeto Jaeger</li>
 									</ul>
 								</div>
-								
+
 								<div class="glass-morphism rounded-xl p-6">
-									<h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+									<h3 class="text-lg font-bold mb-3 flex items-center gap-2">
 										<svg class="w-5 h-5 text-telemetria-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
 										</svg>
 										Experiência como Palestrante
-									</h4>
+									</h3>
 									<ul class="space-y-2 text-sm text-white/70">
 										<li>• KubeCon EU & NA</li>
 										<li>• Open Source Summit</li>
@@ -286,7 +286,7 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 									</ul>
 								</div>
 							</div>
-							
+
 							<div class="bg-telemetria-yellow/10 border border-telemetria-yellow/20 rounded-xl p-6">
 								<p class="text-center text-white/90 italic">
 									"Com profunda expertise em observabilidade e experiência prática como contribuidor principal do OpenTelemetry, Juraci traz insights do mundo real e conhecimento prático diretamente da equipe de desenvolvimento central do projeto."
@@ -306,14 +306,14 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 					subtitle="Aprenda com profissionais que transformaram sua expertise em observabilidade"
 					centered={true}
 				/>
-				
+
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
 					{testimonials.map((testimonial) => (
 						<div class="glass-morphism rounded-xl p-6 flex gap-4 h-full">
-							<div class="flex-shrink-0">
+							<div class="shrink-0">
 								{testimonial.avatarUrl ? (
-									<img 
-										src={testimonial.avatarUrl} 
+									<img width="160" height="160" loading="lazy"
+										src={testimonial.avatarUrl}
 										alt={testimonial.author}
 										class="w-20 h-20 rounded-full object-cover border-2 border-telemetria-yellow/30"
 									/>
@@ -323,15 +323,15 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 									</div>
 								)}
 							</div>
-							
+
 							<div class="flex-1 flex flex-col">
 								<div class="mb-3">
-									<h4 class="font-semibold text-white">{testimonial.author}</h4>
+									<h3 class="font-semibold text-white">{testimonial.author}</h3>
 									<p class="text-sm text-white/60">
 										{testimonial.role}{testimonial.company && ` na ${testimonial.company}`}
 									</p>
 								</div>
-								
+
 								<blockquote class="text-white/80 text-sm italic flex-1">
 									"{testimonial.quote}"
 								</blockquote>
@@ -351,21 +351,21 @@ class="inline-flex items-center justify-center w-full px-4 py-2 bg-telemetria-ye
 					centered={true}
 				/>
 				<div class="flex flex-col sm:flex-row gap-4 justify-center">
-					<a 
-						href="https://www.youtube.com/@DoseDeTelemetria" 
-						target="_blank" 
+					<a
+						href="https://www.youtube.com/@DoseDeTelemetria"
+						target="_blank"
 						rel="noopener noreferrer"
-						class="inline-flex items-center justify-center px-6 py-3 bg-[#FF0000] hover:bg-[#FF0000]/90 text-white rounded-md transition-colors"
+						class="inline-flex items-center justify-center px-6 py-3 bg-[#CC0000] hover:bg-[#CC0000]/90 text-white rounded-md transition-colors"
 					>
 						<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
 							<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
 						</svg>
 						Inscrever-se no YouTube
 					</a>
-					<a 
-						href="https://www.linkedin.com/company/dosetelemetria" 
-						target="_blank" 
-						rel="noopener noreferrer" 
+					<a
+						href="https://www.linkedin.com/company/dosetelemetria"
+						target="_blank"
+						rel="noopener noreferrer"
 						class="inline-flex items-center justify-center px-6 py-3 bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white rounded-md transition-colors"
 					>
 						<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

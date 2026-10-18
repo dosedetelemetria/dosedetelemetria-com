@@ -1,0 +1,66 @@
+[
+  {
+    "path": "/",
+    "image": "/og/home.png",
+    "label": "CURSOS EM PORTUGUÊS",
+    "headline": "Domine *OpenTelemetry.*",
+    "body": "Projetos práticos e orientação de contribuidores do projeto.",
+    "alt": "Dose de Telemetria — Domine OpenTelemetry. Projetos práticos e orientação de contribuidores do projeto."
+  },
+  {
+    "path": "/products/",
+    "image": "/og/products.png",
+    "label": "CURSOS E PROGRAMAS",
+    "headline": "Seu próximo passo\nem *OpenTelemetry.*",
+    "body": "Compare a Trilha OTel e a Especialização em OTel. Em breve.",
+    "alt": "Dose de Telemetria — Seu próximo passo em OpenTelemetry. Compare a Trilha OTel e a Especialização em OTel. Em breve."
+  },
+  {
+    "path": "/products/trilha-otel/",
+    "image": "/og/trilha-otel.png",
+    "label": "TRILHA OTEL · EM BREVE",
+    "headline": "Aprenda OTel\n*no seu ritmo.*",
+    "body": "API, SDK e Collector em um curso prático em português.",
+    "alt": "Dose de Telemetria — Aprenda OTel no seu ritmo. API, SDK e Collector em um curso prático em português."
+  },
+  {
+    "path": "/products/especializacao-otel/",
+    "image": "/og/especializacao-otel.png",
+    "label": "ESPECIALIZAÇÃO · EM BREVE",
+    "headline": "Aprofunde sua\n*prática em OTel.*",
+    "body": "8 semanas com conversas semanais e projetos práticos.",
+    "alt": "Dose de Telemetria — Aprofunde sua prática em OTel. 8 semanas com conversas semanais e projetos práticos."
+  },
+  {
+    "path": "/privacy-policy/",
+    "image": "/og/privacy-policy.png",
+    "label": "PRIVACIDADE",
+    "headline": "Seus dados,\n*com transparência.*",
+    "body": "Conheça nossa política de privacidade.",
+    "alt": "Dose de Telemetria — Seus dados, com transparência. Conheça nossa política de privacidade."
+  },
+  {
+    "path": "/terms-of-use/",
+    "image": "/og/terms-of-use.png",
+    "label": "TERMOS DE USO",
+    "headline": "Condições claras\n*para aprender.*",
+    "body": "Termos dos cursos e serviços da Dose de Telemetria.",
+    "alt": "Dose de Telemetria — Condições claras para aprender. Termos dos cursos e serviços da Dose de Telemetria."
+  },
+  {
+    "path": "/imprint/",
+    "image": "/og/imprint.png",
+    "label": "INFORMAÇÕES LEGAIS",
+    "headline": "Conheça a\n*Dose de Telemetria.*",
+    "body": "Informações legais e de contato da empresa.",
+    "alt": "Dose de Telemetria — Conheça a Dose de Telemetria. Informações legais e de contato da empresa."
+  },
+  {
+    "path": "/404/",
+    "image": "/og/404.png",
+    "label": "PÁGINA NÃO ENCONTRADA",
+    "headline": "Vamos encontrar\n*seu caminho.*",
+    "body": "Explore nossos cursos de OpenTelemetry em português.",
+    "alt": "Dose de Telemetria — Vamos encontrar seu caminho. Explore nossos cursos de OpenTelemetry em português."
+  }
+]

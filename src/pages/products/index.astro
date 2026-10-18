@@ -11,7 +11,7 @@ import { seoData } from '../../data/seo-data';
 const testimonials = getRandomTestimonials(2);
 ---
 
-<Layout 
+<Layout
 	title={seoData.products.title}
 	description={seoData.products.description}
 	keywords={seoData.products.keywords}
@@ -25,14 +25,14 @@ const testimonials = getRandomTestimonials(2);
 				<div class="absolute inset-0 bg-telemetria-dark">
 					<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.1),transparent_70%)]"></div>
 				</div>
-				<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
+				<div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-telemetria-yellow/30 to-transparent"></div>
 			</div>
 
 			<div class="container-custom relative z-10 py-20">
 				<div class="max-w-4xl mx-auto text-center">
 					<div class="animate-fade-in">
 <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-							Nossos <span class="bg-gradient-to-r from-telemetria-yellow via-yellow-400 to-yellow-300 bg-clip-text text-transparent">Produtos</span>
+							Nossos <span class="bg-linear-to-r from-telemetria-yellow via-yellow-400 to-yellow-300 bg-clip-text text-transparent">Produtos</span>
 						</h1>
 						<p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
 							Cursos e especializações de alta qualidade em OpenTelemetry (OTel) para impulsionar sua carreira em observabilidade
@@ -172,7 +172,7 @@ const testimonials = getRandomTestimonials(2);
 					<p class="text-white/80 mb-8">
 						Entre em contato conosco e ficaremos felizes em ajudar você a escolher o produto mais adequado para o seu momento e objetivos.
 					</p>
-					<a 
+					<a
 						href="mailto:contato@dosedetelemetria.com"
 						class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors bg-telemetria-yellow text-telemetria-dark hover:bg-telemetria-yellow/90"
 					>
