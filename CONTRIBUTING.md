@@ -19,6 +19,8 @@ locais não relacionadas e use Bun para dependências e scripts.
 - O sitemap e as versões Markdown são gerados do HTML em `bun run build`.
   Não edite `dist/`. Confira links, tabelas e o conteúdo de `/llms-full.txt`.
 
+Para artigos, siga também [o guia do blog](docs/blog-authoring.md).
+
 ## Imagens sociais
 
 Cada página HTML, inclusive a 404, precisa de uma entrada em `src/data/og-cards.json`

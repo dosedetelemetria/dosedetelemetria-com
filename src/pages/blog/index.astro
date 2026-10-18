@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogPostCard from '../../components/astro/BlogPostCard.astro';
+import { tagInfo, type ValidTag } from '../../data/tag-data';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const tags = [...new Set(posts.flatMap(post => post.data.tags))] as ValidTag[];
+---
+
+<Layout title="Blog de OpenTelemetry e observabilidade" description="Artigos em português sobre OpenTelemetry, telemetria, monitoramento e engenharia de observabilidade." canonical="/blog/">
+  <div class="container-custom py-16">
+    <header class="mb-10">
+      <h1 class="text-4xl font-bold mb-3">Blog</h1>
+      <p class="text-lg text-white/80">OpenTelemetry e engenharia de observabilidade na prática.</p>
+      <a href="/blog/rss.xml" class="inline-block mt-4 text-telemetria-yellow hover:underline">Acompanhe pelo RSS</a>
+    </header>
+    <nav aria-label="Temas do blog" class="flex flex-wrap gap-2 mb-10">
+      {tags.map(tag => <a href={`/blog/tags/${tag}/`} class="rounded-full border border-white/20 px-3 py-2 text-sm text-telemetria-yellow hover:bg-white/10">{tagInfo[tag].displayName}</a>)}
+      <a href="/blog/tags/" class="px-3 py-2 text-sm text-white/80 hover:underline">Todos os temas</a>
+    </nav>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {posts.map(post => <BlogPostCard title={post.data.title} description={post.data.description} slug={post.data.slug} tags={post.data.tags} publishedAt={post.data.publishedAt} readingTime={Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 200))} />)}
+    </div>
+  </div>
+</Layout>

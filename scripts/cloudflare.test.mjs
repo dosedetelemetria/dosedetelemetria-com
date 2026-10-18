@@ -32,3 +32,24 @@ test('Worker canonicalizes www and preserves path and query', async () => {
   assert.equal(response.status, 301);
   assert.equal(response.headers.get('location'), 'https://dosedetelemetria.com/products/?campaign=test');
 });
+
+test('legacy blog routes preserve article, feed and topic destinations with permanent redirects', async () => {
+  const cases = [
+    ['/', '/blog/'], ['/archive/', '/blog/'], ['/recommendations', '/blog/'], ['/members', '/blog/'],
+    ['/rss.xml', '/blog/rss.xml'], ['/sitemap.xml', '/sitemap.xml'], ['/robots.txt', '/robots.txt'],
+    ['/o-dilema-da-telemetria', '/blog/o-dilema-da-telemetria/'],
+    ['/o-dilema-da-telemetria/', '/blog/o-dilema-da-telemetria/'],
+    ['/o-dilema-da-telemetria.md', '/blog/o-dilema-da-telemetria/index.md'],
+    ['/tag/telemetria/', '/blog/tags/telemetria/'],
+  ];
+  for (const [from, to] of cases) {
+    const response = await worker.fetch(new Request(`https://blog.dosedetelemetria.com${from}?source=legacy`));
+    assert.equal(response.status, 301, from);
+    assert.equal(response.headers.get('location'), `https://dosedetelemetria.com${to}?source=legacy`);
+  }
+  for (const path of ['/missing', '/tag/missing', '//evil.example', '/%zz']) {
+    const response = await worker.fetch(new Request(`https://blog.dosedetelemetria.com${path}`));
+    assert.equal(response.status, 404, path);
+    assert.equal(response.headers.get('x-robots-tag'), 'noindex');
+  }
+});

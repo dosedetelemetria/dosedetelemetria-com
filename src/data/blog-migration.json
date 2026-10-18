@@ -1,0 +1,109 @@
+[
+  {
+    "slug": "seu-maior-custo-de-telemetria-e-com-logs-mas-nao-precisa-ser-assim",
+    "source": "https://blog.dosedetelemetria.com/seu-maior-custo-de-telemetria-e-com-logs-mas-nao-precisa-ser-assim",
+    "publishedAt": "2024-01-21T23:00:50.634Z",
+    "updatedAt": "2024-01-21T23:00:50.634Z",
+    "bodySha256": "4488de991ffbdc5338b4d46d42ade8b95105f49c8502ede05215eb23c209b20d",
+    "headingIds": [
+      "heading-como-fazer-a-conversao",
+      "heading-conclusao"
+    ],
+    "tags": [
+      "metricas",
+      "observabilidade",
+      "logs",
+      "opentelemetry",
+      "opentelemetry-collector"
+    ]
+  },
+  {
+    "slug": "navegando-pela-carreira-em-engenharia-de-observabilidade",
+    "source": "https://blog.dosedetelemetria.com/navegando-pela-carreira-em-engenharia-de-observabilidade",
+    "publishedAt": "2024-01-14T23:00:09.284Z",
+    "updatedAt": "2024-01-15T14:30:56.034Z",
+    "bodySha256": "7ff13bd55f55a1e5ae70a72edf69e294ae178812f45b215e03c6d2e0910e7d20",
+    "headingIds": [
+      "heading-fundamentos-de-observabilidade",
+      "heading-ferramentas-e-tecnologias-chave",
+      "heading-abordagem-analitica-e-resolucao-de-problemas",
+      "heading-aprendizado-continuo-e-adaptacao",
+      "heading-impacto-cultural-e-educacao-transversal",
+      "heading-leitura-recomendada",
+      "heading-video-original"
+    ],
+    "tags": [
+      "engenharia-de-observabilidade",
+      "carreira"
+    ]
+  },
+  {
+    "slug": "observabilidade-apm",
+    "source": "https://blog.dosedetelemetria.com/observabilidade-apm",
+    "publishedAt": "2024-01-28T23:00:37.018Z",
+    "updatedAt": "2024-01-28T23:00:37.018Z",
+    "bodySha256": "46993482108b1d48d4335750ac290f552db2ff6d8446c0b53ef4fdcd6159bcdd",
+    "headingIds": [
+      "heading-o-papel-do-apm-nessa-discussao"
+    ],
+    "tags": [
+      "apm",
+      "observabilidade",
+      "monitoramento"
+    ]
+  },
+  {
+    "slug": "telemetria-monitoramento-e-observabilidade",
+    "source": "https://blog.dosedetelemetria.com/telemetria-monitoramento-e-observabilidade",
+    "publishedAt": "2024-01-04T21:39:41.487Z",
+    "updatedAt": "2024-01-04T21:39:41.487Z",
+    "bodySha256": "c6867c64cb13f6c47e8755cb91259e9c270fd71c011c253455314de70004c0dc",
+    "headingIds": [
+      "heading-os-tipos-principais-de-dados-de-telemetria",
+      "heading-outros-sinais",
+      "heading-monitoramento-vs-observabilidade",
+      "heading-monitoramento",
+      "heading-observabilidade",
+      "heading-conclusao",
+      "heading-video-original"
+    ],
+    "tags": [
+      "telemetria",
+      "monitoramento",
+      "observabilidade"
+    ]
+  },
+  {
+    "slug": "o-dilema-da-telemetria",
+    "source": "https://blog.dosedetelemetria.com/o-dilema-da-telemetria",
+    "publishedAt": "2024-01-04T21:13:18.214Z",
+    "updatedAt": "2024-01-05T09:24:19.305Z",
+    "bodySha256": "f6ba48216831b2e02668cacb3f0d45f326413687c4496f2a68e0a8493f5c9870",
+    "headingIds": [
+      "heading-metricas",
+      "heading-rastros",
+      "heading-logs",
+      "heading-cuidado-com-o-desperdicio",
+      "heading-conclusao",
+      "heading-video-original"
+    ],
+    "tags": [
+      "observabilidade",
+      "faq",
+      "telemetria"
+    ]
+  },
+  {
+    "slug": "observa-ai-dev",
+    "source": "https://blog.dosedetelemetria.com/observa-ai-dev",
+    "publishedAt": "2024-01-04T21:05:53.241Z",
+    "updatedAt": "2024-01-05T09:24:12.103Z",
+    "bodySha256": "843f6d2bd2f9a2fdbab2f61e1a991518f96aaa91c83aa559177d869be9bac2da",
+    "headingIds": [
+      "heading-observa-ai-dev"
+    ],
+    "tags": [
+      "diversao"
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+---
+import TagPill from "./TagPill.astro";
+import { tagInfo } from "../../data/tag-data";
+import type { ValidTag } from "../../data/tag-data";
+
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  tags: string[];
+  publishedAt: Date;
+  readingTime: number;
+}
+
+const { title, description, slug, tags, publishedAt, readingTime } = Astro.props;
+
+const dateFormatted = publishedAt.toLocaleDateString("pt-BR", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<a
+  href={`/blog/${slug}/`}
+  class="group block rounded-lg border border-white/10 bg-white/2 p-6 transition-colors hover:border-telemetria-yellow/30 hover:bg-white/4"
+  data-tags={tags.join(",")}
+>
+  <div class="flex flex-wrap gap-2 mb-3">
+    {tags.map((tag: string) => (
+      <TagPill tag={tagInfo[tag as ValidTag]?.displayName ?? tag} />
+    ))}
+  </div>
+  <h2 class="text-lg font-semibold text-white leading-snug mb-2 group-hover:text-telemetria-yellow transition-colors">
+    {title}
+  </h2>
+  <p class="text-sm text-white/60 leading-relaxed mb-4 line-clamp-2">
+    {description}
+  </p>
+  <div class="text-xs text-white/60">
+    {dateFormatted} · {readingTime} min de leitura
+  </div>
+</a>

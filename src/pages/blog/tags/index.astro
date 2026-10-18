@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import Breadcrumbs from "../../../components/astro/Breadcrumbs.astro";
+import { tagInfo } from "../../../data/tag-data";
+import type { ValidTag } from "../../../data/tag-data";
+
+const posts = await getCollection("blog");
+
+// Count posts per tag
+const tagCounts = new Map<string, number>();
+posts.forEach((post) => {
+  post.data.tags.forEach((tag: string) => {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  });
+});
+
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<Layout
+  title="Temas do blog | Dose de Telemetria"
+  description="Explore artigos sobre OpenTelemetry e observabilidade por tema."
+  canonical="/blog/tags/"
+>
+  <div class="container-custom py-16">
+    <Breadcrumbs
+      items={[
+        { label: "Início", href: "/" },
+        { label: "Blog", href: "/blog/" },
+        { label: "Tags" },
+      ]}
+    />
+
+    <h1 class="text-4xl font-bold text-white mt-8 mb-10">Tags</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {sortedTags.map(([tag, count]) => (
+        <a
+          href={`/blog/tags/${tag}/`}
+          class="group rounded-lg border border-white/10 bg-white/2 p-5 hover:border-telemetria-yellow/30 transition-colors"
+        >
+          <h2 class="text-lg font-semibold text-white group-hover:text-telemetria-yellow transition-colors">
+            {tagInfo[tag as ValidTag]?.displayName ?? tag}
+          </h2>
+          <div class="text-sm text-white/70 mt-1">
+            {count} {count === 1 ? "artigo" : "artigos"}
+          </div>
+          <div class="text-xs text-white/60 mt-2">
+            {tagInfo[tag as ValidTag]?.description ?? ""}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

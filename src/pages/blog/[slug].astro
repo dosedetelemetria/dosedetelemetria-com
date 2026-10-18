@@ -1,0 +1,71 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/astro/Breadcrumbs.astro';
+import TagPill from '../../components/astro/TagPill.astro';
+import TableOfContents from '../../components/astro/TableOfContents.astro';
+import AuthorBio from '../../components/astro/AuthorBio.astro';
+import { author } from '../../data/author-data';
+import { tagInfo } from '../../data/tag-data';
+import { ogCardForPath } from '../../lib/og-cards';
+
+export async function getStaticPaths() {
+  return (await getCollection('blog')).map(post => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
+const path = `/blog/${post.data.slug}/`;
+const url = new URL(path, Astro.site!).href;
+const formatDate = (date: Date) => date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+const article = {
+  '@context': 'https://schema.org',
+  '@type': post.data.slug === 'observa-ai-dev' ? 'BlogPosting' : 'TechArticle',
+  '@id': `${url}#article`,
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishedAt.toISOString(),
+  dateModified: (post.data.updatedAt ?? post.data.publishedAt).toISOString(),
+  inLanguage: 'pt-BR',
+  url,
+  mainEntityOfPage: { '@id': `${url}#webpage` },
+  image: new URL(ogCardForPath(path).image, Astro.site!).href,
+  author: { '@type': 'Person', '@id': 'https://dosedetelemetria.com/#instrutor', name: author.name, url: 'https://dosedetelemetria.com/#instrutor', sameAs: [author.social.linkedin, author.social.github] },
+  publisher: { '@id': 'https://dosedetelemetria.com/#organization' },
+  keywords: post.data.tags,
+};
+---
+
+<Layout title={post.data.seoTitle ?? post.data.title} description={post.data.description} canonical={path} ogType="article" jsonLd={article} articleMeta={{ publishedTime: post.data.publishedAt.toISOString(), modifiedTime: (post.data.updatedAt ?? post.data.publishedAt).toISOString(), tags: post.data.tags }}>
+  <div class="container-custom py-12">
+    <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Blog', href: '/blog/' }, { label: post.data.title }]} />
+    <div class="mt-8 flex gap-12 lg:gap-16">
+      <article class="min-w-0 flex-1 max-w-3xl">
+        <header class="mb-8">
+          <div class="flex flex-wrap gap-2 mb-4">
+            {post.data.tags.map(tag => <TagPill tag={tagInfo[tag].displayName} href={`/blog/tags/${tag}/`} />)}
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">{post.data.title}</h1>
+          <p class="text-sm text-white/70 mb-6">
+            Por <a href={author.profilePath} class="text-telemetria-yellow underline underline-offset-4">{author.name}</a>
+            {' · '}<time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+            {' · '}{remarkPluginFrontmatter?.minutesRead ?? 1} min de leitura
+          </p>
+          {post.data.updatedAt && <p class="text-sm text-white/70 mb-6">Atualizado em <time datetime={post.data.updatedAt.toISOString()}>{formatDate(post.data.updatedAt)}</time></p>}
+          <Image src={post.data.heroImage} alt={post.data.heroImageAlt} width={1200} widths={[480, 768, 1200]} sizes="(min-width: 1024px) 768px, 100vw" format="webp" loading="eager" fetchpriority="high" class="w-full h-auto rounded-xl mb-8" />
+          {post.data.historicalNote && <aside aria-label="Contexto do artigo" class="border-l-4 border-telemetria-yellow bg-white/5 p-4 mb-8 text-sm text-white/80">{post.data.historicalNote}</aside>}
+          {headings.length > 0 && <details class="lg:hidden border border-white/20 rounded-lg p-4"><summary class="cursor-pointer text-white/80">Sumário</summary><div class="mt-3"><TableOfContents headings={headings} /></div></details>}
+        </header>
+        <div class="prose prose-invert max-w-none prose-headings:scroll-mt-24 prose-headings:text-white prose-p:text-white/80 prose-li:text-white/80 prose-a:text-telemetria-yellow prose-strong:text-white prose-pre:overflow-x-auto prose-pre:border prose-pre:border-white/10 prose-img:h-auto prose-img:rounded-lg break-words">
+          <Content />
+        </div>
+        <div class="border-t border-white/10 pt-8 mt-12">
+          <AuthorBio author={author} />
+          <a href="/blog/" class="inline-block mt-6 text-telemetria-yellow hover:underline">← Todos os artigos</a>
+        </div>
+      </article>
+      {headings.length > 0 && <aside class="hidden lg:block w-64 shrink-0"><div class="sticky top-24"><TableOfContents headings={headings} /></div></aside>}
+    </div>
+  </div>
+</Layout>

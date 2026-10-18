@@ -16,6 +16,7 @@ export interface Props {
   ogType?: 'website' | 'article';
   twitterCard?: 'summary' | 'summary_large_image';
   jsonLd?: object;
+  articleMeta?: { publishedTime: string; modifiedTime: string; tags: string[] };
 }
 
 const {
@@ -28,7 +29,8 @@ const {
   noindex,
   ogType,
   twitterCard,
-  jsonLd
+  jsonLd,
+  articleMeta
 } = Astro.props;
 ---
 
@@ -51,6 +53,7 @@ const {
       ogType={ogType}
       twitterCard={twitterCard}
       jsonLd={jsonLd}
+      articleMeta={articleMeta}
     />
   </head>
   <body class="bg-telemetria-darker text-white antialiased">

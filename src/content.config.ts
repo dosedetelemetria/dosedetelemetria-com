@@ -1,0 +1,23 @@
+import { defineCollection } from 'astro:content';
+import { z } from 'zod';
+import { glob } from 'astro/loaders';
+import { VALID_TAGS } from './data/tag-data';
+
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    seoTitle: z.string().max(60).optional(),
+    slug: z.string(),
+    description: z.string().max(125),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
+    author: z.literal('juraci'),
+    tags: z.array(z.enum(VALID_TAGS)).min(1),
+    heroImage: image(),
+    heroImageAlt: z.string(),
+    historicalNote: z.string().optional(),
+  }),
+});
+
+export const collections = { blog };
