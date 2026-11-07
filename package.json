@@ -15,7 +15,7 @@
     "compare:site": "node scripts/compare-sites.mjs"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.4",
+    "@astrojs/react": "^7.0.0",
     "@astrojs/rss": "^4.0.18",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-label": "^2.1.8",
