@@ -248,6 +248,14 @@
     "alt": "Dose de Telemetria: Três palestras de OpenTelemetry da KubeCon India 2026"
   },
   {
+    "path": "/blog/como-escrever-proposta-palestra-kubecon/",
+    "image": "/og/blog-como-escrever-proposta-palestra-kubecon.png",
+    "label": "BLOG · KUBECON",
+    "headline": "Propostas de palestra para a *KubeCon*",
+    "body": "O que um revisor procura no resumo da sua palestra.",
+    "alt": "Cartão do blog da Dose de Telemetria com o título Propostas de palestra para a KubeCon."
+  },
+  {
     "path": "/blog/collector-backend-outage/",
     "image": "/og/blog-collector-backend-outage.png",
     "label": "BLOG · OPENTELEMETRY",
