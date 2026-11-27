@@ -1,6 +1,7 @@
 ---
 import CouponCode from "./CouponCode.astro";
 import { cn } from "../../lib/utils";
+import { ui } from "../../data/site-copy";
 
 interface ProductFeature {
   text: string;
@@ -79,7 +80,7 @@ const isExternalLink = ctaLink.startsWith('http');
         <div class="flex items-baseline gap-2">
           <div class="text-3xl font-bold">{price}</div>
           {originalPrice && (
-            <div class="text-lg text-text-secondary line-through">{originalPrice}</div>
+            <div class="text-lg text-text-secondary"><span class="sr-only">{ui.regularPrice} </span><del>{originalPrice}</del></div>
           )}
         </div>
       </div>

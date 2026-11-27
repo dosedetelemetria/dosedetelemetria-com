@@ -14,6 +14,7 @@ const guide = await readFile('dist/llms.txt', 'utf8');
 const full = await readFile('dist/llms-full.txt', 'utf8');
 const meta = (nodes, key) => attribute(nodes.find(n => n.tagName === 'meta' && (attribute(n, 'name') === key || attribute(n, 'property') === key)), 'content');
 const text = node => node?.value ?? (node?.childNodes ?? []).map(text).join('');
+const courseSchemaIn = nodes => nodes.filter(n => n.tagName === 'script' && attribute(n, 'type') === 'application/ld+json').map(n => JSON.parse(text(n))).find(s => s['@type'] === 'Course');
 
 test('built pages have unique Portuguese metadata, canonical identities and complete social cards', async () => {
   const titles = new Set(), descriptions = new Set(), paths = [], images = new Set();
@@ -87,7 +88,7 @@ test('sitemap and agent exports exactly follow indexable HTML and preserve usefu
   assert.deepEqual(urls.sort(), expected.sort()); assert.equal(new Set(urls).size, urls.length);
   assert.ok(!urls.some(u => u.includes('/404/')));
   for (const match of guide.matchAll(/\]\(https:\/\/dosedetelemetria.com(.*?)\)/g)) await access(`dist${match[1]}${match[1].endsWith('/') ? 'index.html' : ''}`);
-  assert.match(await readFile('dist/products/index.md', 'utf8'), /\| Preço \| R\$ 5.997,00 \| R\$ 2.397,00 \|/);
+  assert.match(await readFile('dist/products/index.md', 'utf8'), /\| Preço \| R\$ 5.997,00 \| R\$ 1.558,05 com o cupom TRILHAESPECIAL \(preço normal R\$ 2.397,00\) \|/);
 });
 
 test('course status and learning navigation reflect current offers', async () => {
@@ -101,28 +102,53 @@ test('course status and learning navigation reflect current offers', async () =>
     const track = nodes.find(n => attribute(n, 'id') === 'trilha');
     assert.match(text(specialization), /Matrículas encerradas/);
     assert.doesNotMatch(text(specialization), /Em breve/);
-    assert.match(text(track), /Em breve/);
+    assert.match(text(track), /Matrículas abertas/);
+    assert.doesNotMatch(text(track), /Em breve/);
   }
 });
 
-test('course prices, currency and closed enrollment agree across HTML, schema and agent guide', async () => {
+test('course prices, currency and enrollment status agree across HTML, schema and agent guide', async () => {
   for (const [slug, price, display] of [['trilha-otel','2397','R$ 2.397,00'],['especializacao-otel','5997','R$ 5.997,00']]) {
     const html = await readFile(`dist/products/${slug}/index.html`, 'utf8');
     const nodes = elements(parse(html));
-    const course = nodes.filter(n => n.tagName === 'script' && attribute(n, 'type') === 'application/ld+json').map(n => JSON.parse(text(n))).find(s => s['@type'] === 'Course');
+    const course = courseSchemaIn(nodes);
     assert.equal(course.offers.price, price); assert.equal(course.offers.priceCurrency, 'BRL');
-    assert.equal(course.offers.availability, 'https://schema.org/OutOfStock');
     const markdown = await readFile(`dist/products/${slug}/index.md`, 'utf8');
-    const status = slug === 'especializacao-otel' ? 'Matrículas encerradas' : 'Em breve';
-    assert.ok(markdown.includes(display)); assert.ok(guide.includes(display)); assert.ok(markdown.includes(status));
-    if (slug === 'especializacao-otel') assert.doesNotMatch(markdown, /Em breve/);
-    assert.ok(nodes.some(n => n.tagName === 'button' && text(n).includes(status) && attribute(n, 'disabled') !== undefined));
+    assert.ok(markdown.includes(display)); assert.ok(guide.includes(display));
     assert.doesNotMatch(html, /href="https:\/\/mn\.dosedetelemetria\.com/);
-    assert.match(html, /type="email"/);
-    assert.ok(nodes.some(n => n.tagName === 'form' && attribute(n, 'method') === 'post'));
-    assert.ok(nodes.some(n => n.tagName === 'button' && /Entrar na lista/.test(text(n)) && attribute(n, 'disabled') !== undefined));
     assert.doesNotMatch(html, /reviewRating|aggregateRating/);
   }
+});
+
+test('the specialization keeps closed enrollment with a waitlist', async () => {
+  const html = await readFile('dist/products/especializacao-otel/index.html', 'utf8');
+  const nodes = elements(parse(html));
+  const course = courseSchemaIn(nodes);
+  assert.equal(course.offers.availability, 'https://schema.org/OutOfStock');
+  const markdown = await readFile('dist/products/especializacao-otel/index.md', 'utf8');
+  assert.ok(markdown.includes('Matrículas encerradas')); assert.doesNotMatch(markdown, /Em breve/);
+  assert.ok(nodes.some(n => n.tagName === 'button' && text(n).includes('Matrículas encerradas') && attribute(n, 'disabled') !== undefined));
+  assert.match(html, /type="email"/);
+  assert.ok(nodes.some(n => n.tagName === 'form' && attribute(n, 'method') === 'post'));
+  assert.ok(nodes.some(n => n.tagName === 'button' && /Entrar na lista/.test(text(n)) && attribute(n, 'disabled') !== undefined));
+});
+
+test('the track is on sale with the TRILHAESPECIAL coupon across HTML, schema, FAQ and agent guide', async () => {
+  const checkout = 'https://app.telemetrydrops.com/courses/trilha-otel-pt-br';
+  const summary = 'R$ 1.558,05 com o cupom TRILHAESPECIAL (preço normal R$ 2.397,00)';
+  const html = await readFile('dist/products/trilha-otel/index.html', 'utf8');
+  const nodes = elements(parse(html));
+  const course = courseSchemaIn(nodes);
+  assert.equal(course.offers.availability, 'https://schema.org/InStock');
+  assert.ok(nodes.some(n => n.tagName === 'a' && attribute(n, 'href') === checkout && /Matricule-se/.test(text(n))));
+  assert.ok(nodes.some(n => n.tagName === 'del' && text(n).includes('R$ 2.397,00')));
+  assert.ok(nodes.some(n => n.tagName === 'code' && text(n) === 'TRILHAESPECIAL'));
+  assert.match(text(nodes.find(n => n.tagName === 'body')), /-35% com cupom/);
+  assert.doesNotMatch(html, /id="waitlist"|Entrar na lista/);
+  const markdown = await readFile('dist/products/trilha-otel/index.md', 'utf8');
+  assert.ok(markdown.includes(checkout)); assert.ok(markdown.includes('TRILHAESPECIAL'));
+  assert.ok(markdown.includes(`Trilha OTel está disponível por ${summary}`));
+  assert.ok(guide.includes(`${summary}. Matrículas abertas.`));
 });
 
 test('all six migrated posts retain their bodies, original dates, assets, headings and discovery links', async () => {

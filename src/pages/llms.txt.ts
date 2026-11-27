@@ -1,11 +1,11 @@
 import { getCollection } from 'astro:content';
-import { productData } from '../data/product-data';
+import { priceSummary, productData } from '../data/product-data';
 
 export async function GET() {
   const posts = (await getCollection('blog')).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
   const articles = posts.map(post => `- [${post.data.title}](https://dosedetelemetria.com/blog/${post.data.slug}/): ${post.data.description}`).join('\n');
   const courses = productData.map(product =>
-    `- [${product.title}](https://dosedetelemetria.com/products/${product.slug}/): ${product.description}. ${product.price}. ${product.availabilityLabel}.`
+    `- [${product.title}](https://dosedetelemetria.com/products/${product.slug}/): ${product.description}. ${priceSummary(product)}. ${product.availabilityLabel}.`
   ).join('\n');
   const body = `# Dose de Telemetria
 

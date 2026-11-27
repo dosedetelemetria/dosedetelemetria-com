@@ -4,7 +4,7 @@ import SectionHeading from "../../components/astro/SectionHeading.astro";
 import ProductGrid from "../../components/astro/ProductGrid.astro";
 import Testimonial from "../../components/astro/Testimonial.astro";
 import Faq from "../../components/astro/Faq.astro";
-import { productData } from "../../data/product-data";
+import { priceSummary, productData } from "../../data/product-data";
 import { getRandomTestimonials } from "../../data/testimonial-data";
 import { productsFaq } from "../../data/faq-data";
 import { seoData } from "../../data/seo-data";
@@ -70,7 +70,7 @@ const comparisonKeys = Object.keys(
               </th>
               {productData.map((product) => (
                 <td class="py-4 px-6 text-center font-semibold">
-                  {product.price}
+                  {priceSummary(product)}
                 </td>
               ))}
             </tr>

@@ -6,7 +6,7 @@ export const ui = {
   "toc": "Sumário",
   "onThisPage": "Nesta página",
   "available": "Disponível",
-  "comingSoon": "Em breve",
+  "regularPrice": "Preço normal:",
   "code": "Código",
   "copy": "Copiar",
   "copied": "Copiado!",
