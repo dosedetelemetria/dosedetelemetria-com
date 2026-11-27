@@ -24,13 +24,18 @@ test('catalog links, availability and comparison headings remain accessible', as
   for (const link of courseLinks) {
     const course = await nodesAt(`${attribute(link, 'href').slice(1)}index.html`);
     const form = course.find(n => n.tagName === 'form');
-    assert.equal(attribute(form, 'method'), 'post');
-    const controls = elements(form);
-    assert.ok(controls.some(n => n.tagName === 'button' && attribute(n, 'disabled') !== undefined));
-    for (const input of controls.filter(n => ['input', 'textarea'].includes(n.tagName))) {
-      assert.ok(controls.some(n => n.tagName === 'label' && attribute(n, 'for') === attribute(input, 'id')));
+    const open = course.some(n => n.tagName === 'a' && attribute(n, 'href')?.startsWith('https://app.telemetrydrops.com/courses/'));
+    if (open) {
+      assert.equal(form, undefined);
+    } else {
+      assert.equal(attribute(form, 'method'), 'post');
+      const controls = elements(form);
+      assert.ok(controls.some(n => n.tagName === 'button' && attribute(n, 'disabled') !== undefined));
+      for (const input of controls.filter(n => ['input', 'textarea'].includes(n.tagName))) {
+        assert.ok(controls.some(n => n.tagName === 'label' && attribute(n, 'for') === attribute(input, 'id')));
+      }
+      assert.ok(course.some(n => n.tagName === 'a' && attribute(n, 'href') === '#waitlist'));
     }
-    assert.ok(course.some(n => n.tagName === 'a' && attribute(n, 'href') === '#waitlist'));
     const ids = course.map(n => attribute(n, 'id')).filter(Boolean);
     assert.equal(new Set(ids).size, ids.length);
   }

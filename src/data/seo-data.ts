@@ -7,7 +7,7 @@ export function courseSchema(product: Product) {
     name: product.title, description: product.fullDescription, inLanguage: 'pt-BR', url,
     provider: { '@type': 'Organization', '@id': 'https://dosedetelemetria.com/#organization', name: 'Dose de Telemetria', url: 'https://dosedetelemetria.com/' },
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', duration: product.id === 'trilha' ? 'P365D' : 'P8W' },
-    offers: { '@type': 'Offer', url, price: String(Number(product.price.replace(/[^\d,]/g, '').replace(',', '.'))), priceCurrency: 'BRL', availability: product.available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' },
+    offers: { '@type': 'Offer', url, price: String(Number((product.originalPrice ?? product.price).replace(/[^\d,]/g, '').replace(',', '.'))), priceCurrency: 'BRL', availability: product.available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' },
   };
 }
 
@@ -49,7 +49,7 @@ export const seoData = {
   },
   otelTrack: {
     title: "Trilha OTel: curso de OpenTelemetry",
-    description: "Aprenda OpenTelemetry no seu ritmo: API, SDK, Collector e projetos práticos. Curso em português. Em breve.",
+    description: "Aprenda OpenTelemetry no seu ritmo: API, SDK, Collector e projetos práticos. Curso em português. Matrículas abertas.",
     keywords: "curso OpenTelemetry, trilha OTel, aprendizado próprio ritmo, curso observabilidade, treinamento telemetria, certificação OpenTelemetry"
   },
   otelSpecialization: {

@@ -463,14 +463,23 @@ export const productData: Product[] = [
         ]
       }
     ],
-    price: "R$ 2.397,00",
-    ctaText: "Em breve",
-    ctaLink: "https://mn.dosedetelemetria.com/share/u1ERnGs2fyDlmmdq",
-    available: false,
-    availabilityLabel: "Em breve",
+    price: "R$ 1.558,05",
+    originalPrice: "R$ 2.397,00",
+    discount: { percentage: 35, label: "com cupom", couponCode: "TRILHAESPECIAL" },
+    ctaText: "Matricule-se",
+    ctaLink: "https://app.telemetrydrops.com/courses/trilha-otel-pt-br",
+    available: true,
+    availabilityLabel: "Matrículas abertas",
     popular: true
   }
 ];
+
+/** Preço para textos corridos: indica o cupom e o preço normal quando há desconto. */
+export function priceSummary(product: Product): string {
+  const { price, originalPrice, discount } = product;
+  if (!discount?.couponCode || !originalPrice) return price;
+  return `${price} com o cupom ${discount.couponCode} (preço normal ${originalPrice})`;
+}
 
 // For linking testimonials to specific products
 export const productTestimonialMapping = {

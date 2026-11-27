@@ -1,6 +1,6 @@
 ---
 import type { Product } from "../../data/product-data";
-import { courseCopy } from "../../data/site-copy";
+import { courseCopy, ui } from "../../data/site-copy";
 import CouponCode from "./CouponCode.astro";
 interface Props {
   product: Product;
@@ -12,7 +12,7 @@ const { product } = Astro.props;
   <div class="flex flex-wrap items-baseline gap-3">
     <span class="text-3xl font-bold">{product.price}</span>
     {product.originalPrice && (
-      <del class="text-lg text-text-secondary">{product.originalPrice}</del>
+      <span class="text-lg text-text-secondary"><span class="sr-only">{ui.regularPrice} </span><del>{product.originalPrice}</del></span>
     )}
   </div>
   {product.discount && (
