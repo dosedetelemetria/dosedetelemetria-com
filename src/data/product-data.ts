@@ -465,7 +465,7 @@ export const productData: Product[] = [
     ],
     price: "R$ 1.558,05",
     originalPrice: "R$ 2.397,00",
-    discount: { percentage: 35, label: "com cupom", couponCode: "TRILHAESPECIAL" },
+    discount: { percentage: 35, label: "com cupom", couponCode: "TRILHAESPECAIL" },
     ctaText: "Matricule-se",
     ctaLink: "https://app.telemetrydrops.com/courses/trilha-otel-pt-br",
     available: true,
