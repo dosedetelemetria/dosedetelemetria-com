@@ -88,7 +88,7 @@ test('sitemap and agent exports exactly follow indexable HTML and preserve usefu
   assert.deepEqual(urls.sort(), expected.sort()); assert.equal(new Set(urls).size, urls.length);
   assert.ok(!urls.some(u => u.includes('/404/')));
   for (const match of guide.matchAll(/\]\(https:\/\/dosedetelemetria.com(.*?)\)/g)) await access(`dist${match[1]}${match[1].endsWith('/') ? 'index.html' : ''}`);
-  assert.match(await readFile('dist/products/index.md', 'utf8'), /\| Preço \| R\$ 5.997,00 \| R\$ 1.558,05 com o cupom TRILHAESPECIAL \(preço normal R\$ 2.397,00\) \|/);
+  assert.match(await readFile('dist/products/index.md', 'utf8'), /\| Preço \| R\$ 5.997,00 \| R\$ 1.558,05 com o cupom TRILHAESPECAIL \(preço normal R\$ 2.397,00\) \|/);
 });
 
 test('course status and learning navigation reflect current offers', async () => {
@@ -133,20 +133,20 @@ test('the specialization keeps closed enrollment with a waitlist', async () => {
   assert.ok(nodes.some(n => n.tagName === 'button' && /Entrar na lista/.test(text(n)) && attribute(n, 'disabled') !== undefined));
 });
 
-test('the track is on sale with the TRILHAESPECIAL coupon across HTML, schema, FAQ and agent guide', async () => {
+test('the track is on sale with the TRILHAESPECAIL coupon across HTML, schema, FAQ and agent guide', async () => {
   const checkout = 'https://app.telemetrydrops.com/courses/trilha-otel-pt-br';
-  const summary = 'R$ 1.558,05 com o cupom TRILHAESPECIAL (preço normal R$ 2.397,00)';
+  const summary = 'R$ 1.558,05 com o cupom TRILHAESPECAIL (preço normal R$ 2.397,00)';
   const html = await readFile('dist/products/trilha-otel/index.html', 'utf8');
   const nodes = elements(parse(html));
   const course = courseSchemaIn(nodes);
   assert.equal(course.offers.availability, 'https://schema.org/InStock');
   assert.ok(nodes.some(n => n.tagName === 'a' && attribute(n, 'href') === checkout && /Matricule-se/.test(text(n))));
   assert.ok(nodes.some(n => n.tagName === 'del' && text(n).includes('R$ 2.397,00')));
-  assert.ok(nodes.some(n => n.tagName === 'code' && text(n) === 'TRILHAESPECIAL'));
+  assert.ok(nodes.some(n => n.tagName === 'code' && text(n) === 'TRILHAESPECAIL'));
   assert.match(text(nodes.find(n => n.tagName === 'body')), /-35% com cupom/);
   assert.doesNotMatch(html, /id="waitlist"|Entrar na lista/);
   const markdown = await readFile('dist/products/trilha-otel/index.md', 'utf8');
-  assert.ok(markdown.includes(checkout)); assert.ok(markdown.includes('TRILHAESPECIAL'));
+  assert.ok(markdown.includes(checkout)); assert.ok(markdown.includes('TRILHAESPECAIL'));
   assert.ok(markdown.includes(`Trilha OTel está disponível por ${summary}`));
   assert.ok(guide.includes(`${summary}. Matrículas abertas.`));
 });
